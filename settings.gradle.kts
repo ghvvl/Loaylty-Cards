@@ -1,3 +1,5 @@
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
     repositories {
         google()
@@ -15,4 +17,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "LoyaltyCards"
 include(":app")
+include(":features:api:widget")
+include(":features:impl:widget")
  

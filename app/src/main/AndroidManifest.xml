@@ -16,6 +16,7 @@
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.LoyaltyCards"
             android:windowSoftInputMode="adjustResize"
             tools:ignore="DiscouragedApi,LockedOrientationActivity">
 
@@ -26,20 +27,6 @@
             </intent-filter>
 
         </activity>
-
-        <receiver
-            android:name="com.vvl.loyalty_cards.MainReceiver"
-            android:exported="false">
-
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/widget_info" />
-
-        </receiver>
 
     </application>
 
