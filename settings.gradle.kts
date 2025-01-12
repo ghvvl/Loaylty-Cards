@@ -17,6 +17,11 @@ dependencyResolutionManagement {
 
 rootProject.name = "LoyaltyCards"
 include(":app")
+include(":features:api:root")
+include(":features:impl:root")
+include(":features:api:loyaltyCardsList")
+include(":features:api:loyaltyCardDetails")
+include(":features:api:addLoyaltyCard")
 include(":features:api:widget")
 include(":features:impl:widget")
  

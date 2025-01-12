@@ -1,0 +1,3 @@
+package com.vvl.loyalty_cards.api.add_loyalty_card.component
+
+interface AddLoyaltyCardComponent

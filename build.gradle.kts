@@ -16,6 +16,7 @@ buildscript {
     dependencies {
         classpath(libs.plugins.android.gradle.get().toString())
         classpath(libs.plugins.kotlin.gradle.get().toString())
+        classpath(libs.plugins.kotlin.serialization.gradle.get().toString())
         classpath(libs.plugins.compose.gradle.get().toString())
     }
 }

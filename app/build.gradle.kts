@@ -29,10 +29,10 @@ android {
 }
 
 dependencies {
+    implementation(projects.features.impl.root)
     implementation(projects.features.impl.widget)
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity)
     implementation(libs.material.compose)
+    implementation(libs.decompose)
 }

@@ -6,8 +6,6 @@ android-targetSdk = "35"
 
 agp = "8.8.0"
 kotlin = "2.1.0"
-core = "1.15.0"
-appcompat = "1.7.0"
 activity = "1.9.3"
 material = "1.3.1"
 glance = "1.1.1"
@@ -16,9 +14,9 @@ barcode = "17.3.0"
 
 zxing = "3.4.1"
 
+decompose = "3.2.2"
+
 [libraries]
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-activity = { module = "androidx.activity:activity-compose", version.ref = "activity" }
 
 material-compose = { group = "androidx.compose.material3", name = "material3", version.ref = "material" }
@@ -30,15 +28,20 @@ barcode-scanning = { module = "com.google.mlkit:barcode-scanning", version.ref =
 
 zxing = { module = "com.google.zxing:core", version.ref = "zxing" }
 
+decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
+decompose-compose = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decompose" }
+
 [plugins]
 android-gradle = { id = "com.android.tools.build:gradle", version.ref = "agp" }
 kotlin-gradle = { id = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-serialization-gradle = { id = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 compose-gradle = { id = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
 
 android-application = { id = "com.android.application" }
 android-library = { id = "com.android.library" }
 kotlin-android = { id = "org.jetbrains.kotlin.android" }
-kotlinJvm = { id = "org.jetbrains.kotlin.jvm" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization" }
 javaLibrary = { id = "java-library" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose" }
 
