@@ -29,6 +29,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.data.storage.impl.loyaltyCards)
+
     implementation(projects.features.impl.root)
     implementation(projects.features.impl.loyaltyCardsList)
     implementation(projects.features.impl.loyaltyCardDetails)
@@ -38,4 +40,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.material.compose)
     implementation(libs.decompose)
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin)
+    implementation(libs.koin.android)
 }

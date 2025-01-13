@@ -1,7 +1,9 @@
 package com.vvl.loyalty_cards.impl.widget
 
 import android.content.Context
-import android.graphics.Bitmap
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.unit.Dp
 import androidx.glance.ColorFilter
 import androidx.glance.GlanceId
@@ -18,8 +20,11 @@ import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.size
+import com.vvl.loyalty_cards.api.loyalty_cards.storage.LoyaltyCardsStorage
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
 
-internal class LoyaltyCardsWidget : GlanceAppWidget() {
+internal class LoyaltyCardsWidget : GlanceAppWidget(), KoinComponent {
 
     override val sizeMode: SizeMode = SizeMode.Exact
 
@@ -49,11 +54,16 @@ internal class LoyaltyCardsWidget : GlanceAppWidget() {
                 }
 
                 Box(
-                    modifier = GlanceModifier.fillMaxSize()
+                    modifier = GlanceModifier
+                        .fillMaxSize()
                         .background(GlanceTheme.colors.widgetBackground),
                     contentAlignment = Alignment.Center
                 ) {
-                    val (back, front) = "150806000780787".encodeToBitmaps(
+                    val storage: LoyaltyCardsStorage = remember { get() }
+                    val cards by storage.loyaltyCards.collectAsState(emptySet())
+
+                    val code = cards.randomOrNull() ?: return@Box
+                    val (back, front) = code.encodeToBitmaps(
                         500,
                         250
                     )
@@ -74,10 +84,5 @@ internal class LoyaltyCardsWidget : GlanceAppWidget() {
                 }
             }
         }
-    }
-
-    private data class BitmapImageProvider2(val bitmap: Bitmap) : ImageProvider {
-        override fun toString() =
-            "BitmapImageProvider(bitmap=Bitmap(${bitmap.width}px x ${bitmap.height}px))"
     }
 }

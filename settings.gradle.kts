@@ -27,4 +27,5 @@ include(":features:api:addLoyaltyCard")
 include(":features:impl:addLoyaltyCard")
 include(":features:api:widget")
 include(":features:impl:widget")
- 
+include(":data:storage:api:loyaltyCards")
+include(":data:storage:impl:loyaltyCards")

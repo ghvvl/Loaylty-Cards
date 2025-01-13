@@ -10,6 +10,7 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.ui.platform.LocalContext
 import com.arkivanov.decompose.defaultComponentContext
+import com.vvl.loyalty_cards.api.loyalty_cards.storage.LoyaltyCardsStorage
 import com.vvl.loyalty_cards.impl.add_loyalty_card.component.AddLoyaltyCardComponentImpl
 import com.vvl.loyalty_cards.impl.add_loyalty_card.view.AddLoyaltyCardView
 import com.vvl.loyalty_cards.impl.loyalty_card_details.component.LoyaltyCardDetailsComponentImpl
@@ -18,8 +19,11 @@ import com.vvl.loyalty_cards.impl.loyalty_cards_list.component.LoyaltyCardsListC
 import com.vvl.loyalty_cards.impl.loyalty_cards_list.view.LoyaltyCardsListView
 import com.vvl.loyalty_cards.impl.root.component.RootComponentImpl
 import com.vvl.loyalty_cards.impl.root.view.RootView
+import org.koin.android.ext.android.inject
 
 internal class MainActivity : ComponentActivity() {
+
+    private val storage: LoyaltyCardsStorage by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -43,6 +47,8 @@ internal class MainActivity : ComponentActivity() {
             addLoyaltyCardComponent = { context, navigator ->
                 AddLoyaltyCardComponentImpl(
                     context,
+                    this,
+                    storage,
                     navigator
                 )
             }
