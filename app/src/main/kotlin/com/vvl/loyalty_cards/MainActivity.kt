@@ -28,9 +28,24 @@ internal class MainActivity : ComponentActivity() {
 
         val rootComponent = RootComponentImpl(
             componentContext = defaultComponentContext(),
-            loyaltyCardsListComponent = { LoyaltyCardsListComponentImpl(it) },
-            loyaltyCardDetailsComponent = { LoyaltyCardDetailsComponentImpl(it) },
-            addLoyaltyCardComponent = { AddLoyaltyCardComponentImpl(it) }
+            loyaltyCardsListComponent = { context, navigator ->
+                LoyaltyCardsListComponentImpl(
+                    context,
+                    navigator
+                )
+            },
+            loyaltyCardDetailsComponent = { context, navigator ->
+                LoyaltyCardDetailsComponentImpl(
+                    context,
+                    //navigator
+                )
+            },
+            addLoyaltyCardComponent = { context, navigator ->
+                AddLoyaltyCardComponentImpl(
+                    context,
+                    navigator
+                )
+            }
         )
 
         setContent {

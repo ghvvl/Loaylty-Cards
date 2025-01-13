@@ -13,6 +13,7 @@
         <activity
             android:name="com.vvl.loyalty_cards.MainActivity"
             android:configChanges="locale|layoutDirection"
+            android:enableOnBackInvokedCallback="true"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

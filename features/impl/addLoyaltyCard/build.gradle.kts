@@ -5,6 +5,7 @@ plugins {
 
 dependencies {
     api(projects.features.api.addLoyaltyCard)
+    implementation(projects.features.api.root)
 
     implementation(libs.material.compose)
     implementation(libs.decompose)
