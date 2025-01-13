@@ -30,6 +30,9 @@ android {
 
 dependencies {
     implementation(projects.features.impl.root)
+    implementation(projects.features.impl.loyaltyCardsList)
+    implementation(projects.features.impl.loyaltyCardDetails)
+    implementation(projects.features.impl.addLoyaltyCard)
     implementation(projects.features.impl.widget)
 
     implementation(libs.androidx.activity)
