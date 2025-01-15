@@ -1,21 +1,25 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
 }
 
-dependencies {
-    implementation(projects.data.storage.api.loyaltyCards)
+kotlin {
+    jvm()
 
-    api(projects.features.api.loyaltyCardsList)
-    implementation(projects.features.api.root)
+    sourceSets {
+        commonMain.dependencies {
+            implementation(compose.components.resources)
 
-    implementation(libs.material.compose)
-    implementation(libs.decompose)
-    implementation(libs.decompose.compose)
-    implementation(libs.essenty.coroutines)
-}
+            implementation(projects.data.storage.api.loyaltyCards)
 
-android {
-    namespace = "com.vvl.loyalty_cards.feature.impl.loyalty_cards_list"
+            api(projects.features.api.loyaltyCardsList)
+            implementation(projects.features.api.root)
+
+            implementation(libs.material.compose)
+            implementation(libs.decompose)
+            implementation(libs.decompose.compose)
+            implementation(libs.essenty.coroutines)
+        }
+    }
 }

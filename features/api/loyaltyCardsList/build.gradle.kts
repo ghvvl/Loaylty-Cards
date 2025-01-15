@@ -1,8 +1,14 @@
 plugins {
-    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.multiplatform)
 }
 
-dependencies {
-    implementation(libs.decompose)
-    implementation(libs.coroutines)
+kotlin {
+    jvm()
+
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.decompose)
+            implementation(libs.coroutines)
+        }
+    }
 }

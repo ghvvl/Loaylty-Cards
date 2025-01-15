@@ -1,11 +1,17 @@
 plugins {
-    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.multiplatform)
 }
 
-dependencies {
-    api(projects.features.api.loyaltyCardsList)
-    api(projects.features.api.loyaltyCardDetails)
-    api(projects.features.api.addLoyaltyCard)
+kotlin {
+    jvm()
 
-    implementation(libs.decompose)
+    sourceSets {
+        commonMain.dependencies {
+            api(projects.features.api.loyaltyCardsList)
+            api(projects.features.api.loyaltyCardDetails)
+            api(projects.features.api.addLoyaltyCard)
+
+            implementation(libs.decompose)
+        }
+    }
 }
