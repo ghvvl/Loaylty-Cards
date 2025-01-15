@@ -1,13 +1,20 @@
 plugins {
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
 }
 
-dependencies {
-    api(projects.features.api.root)
+kotlin {
+    jvm()
 
-    implementation(libs.material.compose)
-    implementation(libs.decompose)
-    implementation(libs.decompose.compose)
+    sourceSets {
+        commonMain.dependencies {
+            api(projects.features.api.root)
+
+            implementation(compose.material3)
+            implementation(libs.decompose)
+            implementation(libs.decompose.compose)
+        }
+    }
 }

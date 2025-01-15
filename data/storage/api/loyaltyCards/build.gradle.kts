@@ -1,7 +1,13 @@
 plugins {
-    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.multiplatform)
 }
 
-dependencies {
-    implementation(libs.coroutines)
+kotlin {
+    jvm()
+
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.coroutines)
+        }
+    }
 }

@@ -1,9 +1,43 @@
 import com.android.build.gradle.ProguardFiles.ProguardFile
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+}
+
+kotlin {
+    androidTarget()
+
+    jvm("desktop")
+
+    sourceSets {
+        val desktopMain by getting
+
+        androidMain.dependencies {
+            implementation(projects.features.impl.widget)
+
+            implementation(libs.androidx.activity)
+            implementation(libs.koin.android)
+        }
+        commonMain.dependencies {
+            implementation(projects.data.storage.impl.loyaltyCards)
+            implementation(projects.features.impl.root)
+            implementation(projects.features.impl.loyaltyCardsList)
+            implementation(projects.features.impl.loyaltyCardDetails)
+            implementation(projects.features.impl.addLoyaltyCard)
+
+            implementation(compose.material3)
+            implementation(libs.decompose)
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin)
+        }
+        desktopMain.dependencies {
+            implementation(compose.desktop.currentOs)
+        }
+    }
 }
 
 android {
@@ -28,19 +62,14 @@ android {
     }
 }
 
-dependencies {
-    implementation(projects.data.storage.impl.loyaltyCards)
+compose.desktop {
+    application {
+        mainClass = "com.vvl.loyalty_cards.MainKt"
 
-    implementation(projects.features.impl.root)
-    implementation(projects.features.impl.loyaltyCardsList)
-    implementation(projects.features.impl.loyaltyCardDetails)
-    implementation(projects.features.impl.addLoyaltyCard)
-    implementation(projects.features.impl.widget)
-
-    implementation(libs.androidx.activity)
-    implementation(libs.material.compose)
-    implementation(libs.decompose)
-    implementation(platform(libs.koin.bom))
-    implementation(libs.koin)
-    implementation(libs.koin.android)
+        nativeDistributions {
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            packageName = "com.vvl.loyalty_cards"
+            packageVersion = "1.0.0"
+        }
+    }
 }

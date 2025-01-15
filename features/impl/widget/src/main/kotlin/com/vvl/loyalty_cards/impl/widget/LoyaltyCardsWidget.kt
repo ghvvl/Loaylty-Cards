@@ -21,10 +21,10 @@ import androidx.glance.layout.Box
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.size
 import com.vvl.loyalty_cards.api.loyalty_cards.storage.LoyaltyCardsStorage
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.get
+//import org.koin.core.component.KoinComponent
+//import org.koin.core.component.get
 
-internal class LoyaltyCardsWidget : GlanceAppWidget(), KoinComponent {
+internal class LoyaltyCardsWidget : GlanceAppWidget()/*, KoinComponent */{
 
     override val sizeMode: SizeMode = SizeMode.Exact
 
@@ -59,7 +59,7 @@ internal class LoyaltyCardsWidget : GlanceAppWidget(), KoinComponent {
                         .background(GlanceTheme.colors.widgetBackground),
                     contentAlignment = Alignment.Center
                 ) {
-                    val storage: LoyaltyCardsStorage = remember { get() }
+                    val storage: LoyaltyCardsStorage = remember { TODO() }
                     val cards by storage.loyaltyCards.collectAsState(emptySet())
 
                     val code = cards.firstOrNull() ?: return@Box

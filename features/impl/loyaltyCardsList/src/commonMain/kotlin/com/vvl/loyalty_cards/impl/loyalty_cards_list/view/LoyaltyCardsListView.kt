@@ -28,12 +28,14 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.vvl.loyalty_cards.api.loyalty_cards_list.component.LoyaltyCardsListComponent
-import com.vvl.loyalty_cards.feature.impl.loyalty_cards_list.R
 import com.vvl.loyalty_cards.impl.loyalty_cards_list.view.internal.LoyaltyCardItem
+import loyaltycards.features.impl.loyaltycardslist.generated.resources.Res
+import loyaltycards.features.impl.loyaltycardslist.generated.resources.add_loyalty_card
+import loyaltycards.features.impl.loyaltycardslist.generated.resources.loyalty_cards_title
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -64,7 +66,7 @@ fun LoyaltyCardsListView(component: LoyaltyCardsListComponent) {
             TopAppBar(
                 title = {
                     Text(
-                        text = stringResource(R.string.loyalty_cards_title),
+                        text = stringResource(Res.string.loyalty_cards_title),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -81,7 +83,7 @@ fun LoyaltyCardsListView(component: LoyaltyCardsListComponent) {
                 ExtendedFloatingActionButton(
                     onClick = component::onAddLoyaltyCardClicked,
                     icon = { Icon(Icons.Filled.Add, "add icon") },
-                    text = { Text(stringResource(R.string.add_loyalty_card)) },
+                    text = { Text(stringResource(Res.string.add_loyalty_card)) },
                 )
             }
         },

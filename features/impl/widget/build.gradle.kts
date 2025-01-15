@@ -1,12 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.compose.compiler)
 }
 
 dependencies {
     implementation(projects.data.storage.impl.loyaltyCards)
-    api(projects.features.api.widget)
 
     implementation(libs.glance.appwidget)
     implementation(libs.glance.material3)
