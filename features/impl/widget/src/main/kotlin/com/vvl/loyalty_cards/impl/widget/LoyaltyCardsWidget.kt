@@ -62,7 +62,7 @@ internal class LoyaltyCardsWidget : GlanceAppWidget(), KoinComponent {
                     val storage: LoyaltyCardsStorage = remember { get() }
                     val cards by storage.loyaltyCards.collectAsState(emptySet())
 
-                    val code = cards.randomOrNull() ?: return@Box
+                    val code = cards.firstOrNull() ?: return@Box
                     val (back, front) = code.encodeToBitmaps(
                         500,
                         250

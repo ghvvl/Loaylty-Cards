@@ -9,8 +9,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.ui.platform.LocalContext
+import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.defaultComponentContext
-import com.vvl.loyalty_cards.api.loyalty_cards.storage.LoyaltyCardsStorage
+import com.vvl.loyalty_cards.api.add_loyalty_card.component.AddLoyaltyCardComponent
+import com.vvl.loyalty_cards.api.loyalty_card_details.component.LoyaltyCardDetailsComponent
+import com.vvl.loyalty_cards.api.loyalty_cards_list.component.LoyaltyCardsListComponent
+import com.vvl.loyalty_cards.api.root.navigator.RootNavigator
 import com.vvl.loyalty_cards.impl.add_loyalty_card.component.AddLoyaltyCardComponentImpl
 import com.vvl.loyalty_cards.impl.add_loyalty_card.view.AddLoyaltyCardView
 import com.vvl.loyalty_cards.impl.loyalty_card_details.component.LoyaltyCardDetailsComponentImpl
@@ -19,11 +23,34 @@ import com.vvl.loyalty_cards.impl.loyalty_cards_list.component.LoyaltyCardsListC
 import com.vvl.loyalty_cards.impl.loyalty_cards_list.view.LoyaltyCardsListView
 import com.vvl.loyalty_cards.impl.root.component.RootComponentImpl
 import com.vvl.loyalty_cards.impl.root.view.RootView
-import org.koin.android.ext.android.inject
+import org.koin.android.ext.android.get
 
 internal class MainActivity : ComponentActivity() {
 
-    private val storage: LoyaltyCardsStorage by inject()
+    private fun getLoyaltyCardsListComponent(
+        context: ComponentContext,
+        navigator: RootNavigator
+    ): LoyaltyCardsListComponent =
+        LoyaltyCardsListComponentImpl(
+            componentContext = context,
+            loyaltyCardsStorage = get(),
+            rootNavigator = navigator
+        )
+
+    private fun getLoyaltyCardDetailsComponent(
+        context: ComponentContext,
+        navigator: RootNavigator
+    ): LoyaltyCardDetailsComponent =
+        LoyaltyCardDetailsComponentImpl(componentContext = context)
+
+    private fun getAddLoyaltyCardComponent(
+        context: ComponentContext,
+        navigator: RootNavigator
+    ): AddLoyaltyCardComponent =
+        AddLoyaltyCardComponentImpl(
+            componentContext = context,
+            rootNavigator = navigator
+        )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -32,26 +59,9 @@ internal class MainActivity : ComponentActivity() {
 
         val rootComponent = RootComponentImpl(
             componentContext = defaultComponentContext(),
-            loyaltyCardsListComponent = { context, navigator ->
-                LoyaltyCardsListComponentImpl(
-                    context,
-                    navigator
-                )
-            },
-            loyaltyCardDetailsComponent = { context, navigator ->
-                LoyaltyCardDetailsComponentImpl(
-                    context,
-                    //navigator
-                )
-            },
-            addLoyaltyCardComponent = { context, navigator ->
-                AddLoyaltyCardComponentImpl(
-                    context,
-                    this,
-                    storage,
-                    navigator
-                )
-            }
+            loyaltyCardsListComponent = ::getLoyaltyCardsListComponent,
+            loyaltyCardDetailsComponent = ::getLoyaltyCardDetailsComponent,
+            addLoyaltyCardComponent = ::getAddLoyaltyCardComponent
         )
 
         setContent {

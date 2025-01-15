@@ -25,6 +25,6 @@ class LoyaltyCardsStorageImpl(private val context: Context) : LoyaltyCardsStorag
     }
 
     override suspend fun removeLoyaltyCard(cardId: String) {
-        context.dataStore.edit { it.getCurrentValue() - cardId }
+        context.dataStore.edit { it[key] = it.getCurrentValue() - cardId }
     }
 }
