@@ -67,8 +67,8 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "ru.vvl.zangetsu"
-            packageVersion = "1.0.0"
+            packageName = "com.vvl.loyalty_cards"
+            packageVersion = "0.0.1"
         }
     }
 }
