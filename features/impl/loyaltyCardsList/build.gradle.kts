@@ -16,7 +16,7 @@ kotlin {
             api(projects.features.api.loyaltyCardsList)
             implementation(projects.features.api.root)
 
-            implementation(libs.material.compose)
+            implementation(compose.material3)
             implementation(libs.decompose)
             implementation(libs.decompose.compose)
             implementation(libs.essenty.coroutines)

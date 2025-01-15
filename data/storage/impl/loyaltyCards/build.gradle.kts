@@ -6,6 +6,8 @@ plugins {
 kotlin {
     androidTarget()
 
+    jvm()
+
     sourceSets {
         commonMain.dependencies {
             api(projects.data.storage.api.loyaltyCards)

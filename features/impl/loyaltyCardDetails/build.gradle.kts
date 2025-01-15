@@ -11,7 +11,7 @@ kotlin {
         commonMain.dependencies {
             api(projects.features.api.loyaltyCardDetails)
 
-            implementation(libs.material.compose)
+            implementation(compose.material3)
             implementation(libs.decompose)
             implementation(libs.decompose.compose)
         }

@@ -12,7 +12,7 @@ kotlin {
             api(projects.features.api.addLoyaltyCard)
             implementation(projects.features.api.root)
 
-            implementation(libs.material.compose)
+            implementation(compose.material3)
             implementation(libs.decompose)
             implementation(libs.decompose.compose)
         }

@@ -17,18 +17,19 @@ kotlin {
         val desktopMain by getting
 
         androidMain.dependencies {
-            implementation(libs.koin.android)
             implementation(projects.features.impl.widget)
-            implementation(projects.data.storage.impl.loyaltyCards)
+
+            implementation(libs.androidx.activity)
+            implementation(libs.koin.android)
         }
         commonMain.dependencies {
+            implementation(projects.data.storage.impl.loyaltyCards)
             implementation(projects.features.impl.root)
             implementation(projects.features.impl.loyaltyCardsList)
             implementation(projects.features.impl.loyaltyCardDetails)
             implementation(projects.features.impl.addLoyaltyCard)
 
-            implementation(libs.androidx.activity)
-            implementation(libs.material.compose)
+            implementation(compose.material3)
             implementation(libs.decompose)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin)
@@ -63,12 +64,12 @@ android {
 
 compose.desktop {
     application {
-        mainClass = "MainKt"
+        mainClass = "com.vvl.loyalty_cards.MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "com.vvl.loyalty_cards"
-            packageVersion = "0.0.1"
+            packageVersion = "1.0.0"
         }
     }
 }
