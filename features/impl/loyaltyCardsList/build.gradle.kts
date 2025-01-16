@@ -21,5 +21,9 @@ kotlin {
             implementation(libs.decompose.compose)
             implementation(libs.essenty.coroutines)
         }
+
+        jvmMain.dependencies {
+            implementation(libs.coroutines.jvm)
+        }
     }
 }

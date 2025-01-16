@@ -11,11 +11,9 @@ plugins {
 kotlin {
     androidTarget()
 
-    jvm("desktop")
+    jvm()
 
     sourceSets {
-        val desktopMain by getting
-
         androidMain.dependencies {
             implementation(projects.features.impl.widget)
 
@@ -33,8 +31,9 @@ kotlin {
             implementation(libs.decompose)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin)
+            implementation(libs.datastore.preferences)
         }
-        desktopMain.dependencies {
+        jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
         }
     }

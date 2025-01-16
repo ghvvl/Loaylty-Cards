@@ -13,6 +13,8 @@ kotlin {
             api(projects.data.storage.api.loyaltyCards)
 
             implementation(libs.datastore.preferences)
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin)
         }
     }
 }
