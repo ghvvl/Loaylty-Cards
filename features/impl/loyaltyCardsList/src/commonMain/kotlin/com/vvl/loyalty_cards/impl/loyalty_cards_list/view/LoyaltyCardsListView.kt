@@ -89,12 +89,12 @@ fun LoyaltyCardsListView(component: LoyaltyCardsListComponent) {
         },
         floatingActionButtonPosition = FabPosition.Center
     ) { paddingValues ->
-        val loyaltyCards by component.loyaltyCards.collectAsState(emptySet())
+        val loyaltyCards by component.loyaltyCards.collectAsState(emptyList())
         LazyColumn(
             contentPadding = paddingValues,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(loyaltyCards.toList(), key = { it }) {
+            items(loyaltyCards, key = { it }) {
                 LoyaltyCardItem(
                     it,
                     component::onLoyaltyCardSwiped,

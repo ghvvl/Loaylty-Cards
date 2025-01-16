@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface LoyaltyCardsListComponent {
 
-    val loyaltyCards: Flow<Set<String>>
+    val loyaltyCards: Flow<List<String>>
 
     fun onLoyaltyCardSwiped(cardId: String)
 
