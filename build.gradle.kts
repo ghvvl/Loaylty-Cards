@@ -2,6 +2,7 @@ import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.LibraryExtension
 import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.LibraryPlugin
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
 plugins {
     alias(libs.plugins.android.application) apply false
@@ -10,6 +11,7 @@ plugins {
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.versions)
 }
 
 subprojects {
@@ -66,5 +68,17 @@ subprojects {
 
             buildFeatures.buildConfig = false
         }
+    }
+
+    tasks.withType<DependencyUpdatesTask> {
+        fun isNonStable(version: String): Boolean {
+            val stableKeyword =
+                listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
+            val regex = "^[0-9,.v-]+(-r)?$".toRegex()
+            val isStable = stableKeyword || regex.matches(version)
+            return isStable.not()
+        }
+
+        rejectVersionIf { isNonStable(candidate.version) && !isNonStable(currentVersion) }
     }
 }

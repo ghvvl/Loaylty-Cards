@@ -13,18 +13,20 @@ compose = "1.7.3"
 
 barcode = "17.3.0"
 
-zxing = "3.5.2"
+zxing = "3.5.3"
 
 decompose = "3.2.2"
 essenty = "2.4.0"
 
 coroutines = "1.10.1"
 
-koin = "4.1.0-Beta4"
+koin = "4.1.0-Beta5"
 
 datastore = "1.1.2"
 
 serialization = "1.8.0"
+
+versions = "0.51.0"
 
 [libraries]
 androidx-activity = { module = "androidx.activity:activity-compose", version.ref = "activity" }
@@ -61,3 +63,4 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }
