@@ -9,6 +9,10 @@ kotlin {
 
     jvm()
 
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
     sourceSets {
         commonMain.dependencies {
             api(projects.data.storage.api.loyaltyCards)
@@ -16,7 +20,7 @@ kotlin {
             implementation(libs.datastore)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin)
-            implementation(libs.serialization)
+            implementation(libs.serialization.okio)
         }
     }
 }

@@ -13,6 +13,20 @@ kotlin {
 
     jvm()
 
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "App"
+            export(libs.decompose)
+            export(libs.essenty)
+            export(libs.essenty.backHandler)
+            export(libs.essenty.stateKeeper)
+        }
+    }
+
     sourceSets {
         androidMain.dependencies {
             implementation(projects.features.impl.widget)
@@ -35,6 +49,12 @@ kotlin {
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
+        }
+        iosMain.dependencies {
+            api(libs.decompose)
+            api(libs.essenty)
+            api(libs.essenty.backHandler)
+            api(libs.essenty.stateKeeper)
         }
     }
 }
