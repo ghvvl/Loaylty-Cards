@@ -6,11 +6,13 @@ import androidx.datastore.core.okio.OkioSerializer
 import androidx.datastore.core.okio.OkioStorage
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.encodeToStream
+import kotlinx.serialization.json.okio.decodeFromBufferedSource
+import kotlinx.serialization.json.okio.encodeToBufferedSink
 import okio.BufferedSink
 import okio.BufferedSource
 import okio.FileSystem
 import okio.Path.Companion.toPath
+import okio.SYSTEM
 
 @OptIn(ExperimentalSerializationApi::class)
 internal fun createDataStore(producePath: () -> String): DataStore<List<String>> =
@@ -22,13 +24,13 @@ internal fun createDataStore(producePath: () -> String): DataStore<List<String>>
 
                 override suspend fun readFrom(source: BufferedSource): List<String> =
                     try {
-                        Json.decodeFromString(source.inputStream().readBytes().decodeToString())
+                        Json.decodeFromBufferedSource<List<String>>(source)
                     } catch (e: Exception) {
                         emptyList()
                     }
 
                 override suspend fun writeTo(t: List<String>, sink: BufferedSink) {
-                    Json.encodeToStream(t, sink.outputStream())
+                    Json.encodeToBufferedSink(t, sink)
                 }
             }
         ) {

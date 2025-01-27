@@ -11,9 +11,9 @@ versions = "0.51.0"
 
 activity = "1.10.0"
 glance = "1.1.1"
-barcode = "17.3.0"
 decompose = "3.2.2"
-essenty = "2.4.0"
+essenty = "2.5.0-beta01"
+
 coroutines = "1.10.1"
 koin = "4.1.0-Beta5"
 datastore = "1.1.2"
@@ -33,6 +33,8 @@ decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decom
 decompose-compose = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decompose" }
 essenty = { module = "com.arkivanov.essenty:lifecycle", version.ref = "essenty" }
 essenty-coroutines = { module = "com.arkivanov.essenty:lifecycle-coroutines", version.ref = "essenty" }
+essenty-stateKeeper = { module = "com.arkivanov.essenty:state-keeper", version.ref = "essenty" }
+essenty-backHandler = { module = "com.arkivanov.essenty:back-handler", version.ref = "essenty" }
 
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-jvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
@@ -45,6 +47,7 @@ koin-compose = { module = "io.insert-koin:koin-compose" }
 datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
 
 serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+serialization-okio = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json-okio", version.ref = "serialization" }
 
 qrkit = { module = "network.chaintech:qr-kit", version.ref = "qrkit" }
 

@@ -3,4 +3,5 @@
 /.idea/*
 local.properties
 **/build
+.kotlin
 .DS_Store
