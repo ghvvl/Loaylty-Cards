@@ -2,7 +2,7 @@ package com.vvl.loyalty_cards
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBackIosNew
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.ComposeUIViewController
 import com.arkivanov.decompose.ComponentContext
@@ -28,14 +28,14 @@ class RootViewController(componentContext: ComponentContext) : KoinComponent {
             configure = { enforceStrictPlistSanityCheck = false },
             content = {
                 PredictiveBackGestureOverlay(
+                    modifier = Modifier.fillMaxSize(),
                     backDispatcher = backDispatcher,
                     backIcon = { progress, _ ->
                         PredictiveBackGestureIcon(
-                            imageVector = Icons.Default.ArrowBackIosNew,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             progress = progress,
                         )
-                    },
-                    modifier = Modifier.fillMaxSize(),
+                    }
                 ) {
                     AppTheme {
                         RootView(
