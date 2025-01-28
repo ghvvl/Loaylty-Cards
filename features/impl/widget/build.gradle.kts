@@ -9,10 +9,10 @@ dependencies {
 
     implementation(libs.glance.appwidget)
     implementation(libs.glance.material3)
-    implementation(libs.zxing)
     implementation(platform(libs.koin.bom))
     implementation(libs.koin)
     implementation(libs.koin.compose)
+    implementation(libs.qrose)
 }
 
 android {

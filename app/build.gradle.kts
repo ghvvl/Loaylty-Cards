@@ -46,7 +46,6 @@ kotlin {
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin)
             implementation(libs.datastore)
-            implementation(libs.qrkit)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)

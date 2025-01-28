@@ -15,9 +15,6 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
-        androidMain.dependencies {
-
-        }
         commonMain.dependencies {
             api(projects.features.api.addLoyaltyCard)
             implementation(projects.features.api.root)

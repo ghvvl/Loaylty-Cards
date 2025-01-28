@@ -3,6 +3,7 @@ package com.vvl.loyalty_cards.impl.widget
 import android.content.Context
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.unit.Dp
 import androidx.glance.ColorFilter
 import androidx.glance.GlanceId
@@ -20,6 +21,9 @@ import androidx.glance.layout.Box
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.size
 import com.vvl.loyalty_cards.api.loyalty_cards.storage.LoyaltyCardsStorage
+import io.github.alexzhirkevich.qrose.oned.BarcodePainter
+import io.github.alexzhirkevich.qrose.oned.BarcodeType
+import io.github.alexzhirkevich.qrose.toImageBitmap
 import org.koin.compose.koinInject
 
 internal class LoyaltyCardsWidget : GlanceAppWidget() {
@@ -61,24 +65,16 @@ internal class LoyaltyCardsWidget : GlanceAppWidget() {
                     val cards by storage.loyaltyCards.collectAsState(emptyList())
 
                     val code = cards.firstOrNull() ?: return@Box
-                    val (back, front) = code.encodeToBitmaps(
-                        500,
-                        250
+                    Image(
+                        modifier = GlanceModifier.size(width = iw, height = ih),
+                        provider = ImageProvider(
+                            BarcodePainter(code, BarcodeType.Code128)
+                                .toImageBitmap(500, 250)
+                                .asAndroidBitmap()
+                        ),
+                        contentDescription = "back",
+                        colorFilter = ColorFilter.tint(GlanceTheme.colors.primary)
                     )
-                    Box(modifier = GlanceModifier.size(width = iw, height = ih)) {
-                        Image(
-                            modifier = GlanceModifier.fillMaxSize(),
-                            provider = ImageProvider(back),
-                            contentDescription = "back",
-                            colorFilter = ColorFilter.tint(GlanceTheme.colors.widgetBackground)
-                        )
-                        Image(
-                            modifier = GlanceModifier.fillMaxSize(),
-                            provider = ImageProvider(front),
-                            contentDescription = "front",
-                            colorFilter = ColorFilter.tint(GlanceTheme.colors.primary)
-                        )
-                    }
                 }
             }
         }

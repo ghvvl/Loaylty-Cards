@@ -6,7 +6,7 @@ android-targetSdk = "35"
 
 agp = "8.8.0"
 compose = "1.7.3"
-kotlin = "2.1.0"
+kotlin = "2.1.10"
 versions = "0.51.0"
 
 activity = "1.10.0"
@@ -18,16 +18,13 @@ coroutines = "1.10.1"
 koin = "4.1.0-Beta5"
 datastore = "1.1.2"
 serialization = "1.8.0"
-qrkit = "3.0.6"
-zxing = "3.5.3"
+qrose = "1.0.1"
 
 [libraries]
 androidx-activity = { module = "androidx.activity:activity-compose", version.ref = "activity" }
 
 glance-appwidget = { module = "androidx.glance:glance-appwidget", version.ref = "glance" }
 glance-material3 = { module = "androidx.glance:glance-material3", version.ref = "glance" }
-
-zxing = { module = "com.google.zxing:core", version.ref = "zxing" }
 
 decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
 decompose-compose = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decompose" }
@@ -49,7 +46,7 @@ datastore = { module = "androidx.datastore:datastore", version.ref = "datastore"
 serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 serialization-okio = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json-okio", version.ref = "serialization" }
 
-qrkit = { module = "network.chaintech:qr-kit", version.ref = "qrkit" }
+qrose = { module = "io.github.alexzhirkevich:qrose-oned", version.ref = "qrose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
