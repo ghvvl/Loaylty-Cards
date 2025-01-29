@@ -46,7 +46,8 @@ datastore = { module = "androidx.datastore:datastore", version.ref = "datastore"
 serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 serialization-okio = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json-okio", version.ref = "serialization" }
 
-qrose = { module = "io.github.alexzhirkevich:qrose-oned", version.ref = "qrose" }
+qrose = { module = "io.github.alexzhirkevich:qrose", version.ref = "qrose" }
+qrose-barcode = { module = "io.github.alexzhirkevich:qrose-oned", version.ref = "qrose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

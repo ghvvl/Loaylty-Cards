@@ -64,11 +64,11 @@ internal class LoyaltyCardsWidget : GlanceAppWidget() {
                     val storage: LoyaltyCardsStorage = koinInject()
                     val cards by storage.loyaltyCards.collectAsState(emptyList())
 
-                    val code = cards.firstOrNull() ?: return@Box
+                    val card = cards.firstOrNull() ?: return@Box
                     Image(
                         modifier = GlanceModifier.size(width = iw, height = ih),
                         provider = ImageProvider(
-                            BarcodePainter(code, BarcodeType.Code128)
+                            BarcodePainter(card.data, card.codeType.toBarCodeType())
                                 .toImageBitmap(500, 250)
                                 .asAndroidBitmap()
                         ),

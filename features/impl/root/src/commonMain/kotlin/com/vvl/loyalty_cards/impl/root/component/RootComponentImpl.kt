@@ -13,6 +13,7 @@ import com.vvl.loyalty_cards.api.loyalty_card_details.component.LoyaltyCardDetai
 import com.vvl.loyalty_cards.api.loyalty_cards_list.component.LoyaltyCardsListComponent
 import com.vvl.loyalty_cards.api.root.component.RootComponent
 import com.vvl.loyalty_cards.api.root.navigator.RootNavigator
+import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import kotlinx.serialization.Serializable
 
 class RootComponentImpl(
@@ -29,7 +30,7 @@ class RootComponentImpl(
             navigation.popToFirst()
         }
 
-        override fun openLoyaltyCardDetails(cardId: String) {
+        override fun openLoyaltyCardDetails(card: LoyaltyCard) {
             navigation.pushNew(RootConfig.LoyaltyCardDetails)
         }
 

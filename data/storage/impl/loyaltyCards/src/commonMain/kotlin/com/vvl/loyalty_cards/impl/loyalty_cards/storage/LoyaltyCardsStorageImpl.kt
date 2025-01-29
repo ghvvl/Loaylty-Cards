@@ -2,17 +2,24 @@ package com.vvl.loyalty_cards.impl.loyalty_cards.storage
 
 import androidx.datastore.core.DataStore
 import com.vvl.loyalty_cards.api.loyalty_cards.storage.LoyaltyCardsStorage
+import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import kotlinx.coroutines.flow.Flow
 
-class LoyaltyCardsStorageImpl(private val dataStore: DataStore<List<String>>) : LoyaltyCardsStorage {
+class LoyaltyCardsStorageImpl(
+    private val dataStore: DataStore<List<LoyaltyCard>>
+) : LoyaltyCardsStorage {
 
-    override val loyaltyCards: Flow<List<String>> = dataStore.data
+    override val loyaltyCards: Flow<List<LoyaltyCard>> = dataStore.data
 
-    override suspend fun addLoyaltyCard(cardId: String) {
-        dataStore.updateData { it + cardId }
+    override suspend fun addLoyaltyCard(card: LoyaltyCard) {
+        dataStore.updateData { it + card }
     }
 
-    override suspend fun removeLoyaltyCard(cardId: String) {
-        dataStore.updateData { it - cardId }
+    override suspend fun updateLoyaltyCard(card: LoyaltyCard) {
+        dataStore.updateData { it.filterNot { it.data == card.data } + card }
+    }
+
+    override suspend fun removeLoyaltyCard(card: LoyaltyCard) {
+        dataStore.updateData { it - card }
     }
 }

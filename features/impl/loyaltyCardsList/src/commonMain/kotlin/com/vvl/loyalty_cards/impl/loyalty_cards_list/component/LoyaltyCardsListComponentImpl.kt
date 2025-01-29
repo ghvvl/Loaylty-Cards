@@ -5,6 +5,7 @@ import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import com.vvl.loyalty_cards.api.loyalty_cards.storage.LoyaltyCardsStorage
 import com.vvl.loyalty_cards.api.loyalty_cards_list.component.LoyaltyCardsListComponent
 import com.vvl.loyalty_cards.api.root.navigator.RootNavigator
+import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import kotlinx.coroutines.launch
 
 class LoyaltyCardsListComponentImpl(
@@ -15,14 +16,14 @@ class LoyaltyCardsListComponentImpl(
 
     override val loyaltyCards = loyaltyCardsStorage.loyaltyCards
 
-    override fun onLoyaltyCardSwiped(cardId: String) {
+    override fun onLoyaltyCardSwiped(card: LoyaltyCard) {
         coroutineScope().launch {
-            loyaltyCardsStorage.removeLoyaltyCard(cardId)
+            loyaltyCardsStorage.removeLoyaltyCard(card)
         }
     }
 
-    override fun onLoyaltyCardClicked(cardId: String) {
-        rootNavigator.openLoyaltyCardDetails(cardId)
+    override fun onLoyaltyCardClicked(card: LoyaltyCard) {
+        rootNavigator.openLoyaltyCardDetails(card)
     }
 
     override fun onAddLoyaltyCardClicked() {
