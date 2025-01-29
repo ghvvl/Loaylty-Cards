@@ -4,17 +4,17 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 enum class LoyaltyCardCodeType {
-    QR,
-    Codabar,
-    Code39,
-    Code93,
-    Code128,
-    EAN8,
-    EAN13,
+    QR_CODE,
+    CODABAR,
+    CODE_39,
+    CODE_93,
+    CODE_128,
+    EAN_8,
+    EAN_13,
     ITF,
-    UPCA,
-    UPCE
+    UPC_A,
+    UPC_E,
+    DATA_MATRIX,
+    PDF_417,
+    AZTEC
 }
-//Barcode.FORMAT_DATA_MATRIX
-//Barcode.FORMAT_PDF417
-//Barcode.FORMAT_AZTEC

@@ -5,7 +5,9 @@ import com.vvl.loyalty_cards.common.model.LoyaltyCard
 interface RootNavigator {
     fun openLoyaltyCardsList()
 
-    fun openLoyaltyCardDetails(card: LoyaltyCard)
+    fun openLoyaltyCardDetails(card: LoyaltyCard, replaceCurrent: Boolean = false)
 
     fun openAddLoyaltyCard()
+
+    fun onBackClicked()
 }

@@ -4,4 +4,6 @@ import androidx.compose.runtime.Composable
 import com.vvl.loyalty_cards.api.add_loyalty_card.component.AddLoyaltyCardComponent
 
 @Composable
-expect fun AddLoyaltyCardView(component: AddLoyaltyCardComponent)
+actual fun AddLoyaltyCardView(component: AddLoyaltyCardComponent){
+
+}

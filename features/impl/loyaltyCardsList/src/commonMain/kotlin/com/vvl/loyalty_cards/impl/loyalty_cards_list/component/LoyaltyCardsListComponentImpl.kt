@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 class LoyaltyCardsListComponentImpl(
     componentContext: ComponentContext,
     private val rootNavigator: RootNavigator,
-    private val loyaltyCardsStorage: LoyaltyCardsStorage,
+    private val loyaltyCardsStorage: LoyaltyCardsStorage
 ) : LoyaltyCardsListComponent, ComponentContext by componentContext {
 
     override val loyaltyCards = loyaltyCardsStorage.loyaltyCards

@@ -15,13 +15,21 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
+        androidMain.dependencies {
+            implementation(libs.camera.lifecycle)
+            implementation(libs.camera.view)
+            implementation(libs.camera.camera2)
+            implementation(libs.barcode.scanning)
+        }
         commonMain.dependencies {
+            implementation(projects.data.storage.api.loyaltyCards)
             api(projects.features.api.addLoyaltyCard)
             implementation(projects.features.api.root)
 
             implementation(compose.material3)
             implementation(libs.decompose)
             implementation(libs.decompose.compose)
+            implementation(libs.essenty.coroutines)
         }
     }
 }

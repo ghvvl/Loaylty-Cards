@@ -11,9 +11,7 @@ class LoyaltyCardsStorageImpl(
 
     override val loyaltyCards: Flow<List<LoyaltyCard>> = dataStore.data
 
-    override suspend fun addLoyaltyCard(card: LoyaltyCard) {
-        dataStore.updateData { it + card }
-    }
+    override suspend fun addLoyaltyCard(card: LoyaltyCard) = updateLoyaltyCard(card)
 
     override suspend fun updateLoyaltyCard(card: LoyaltyCard) {
         dataStore.updateData { it.filterNot { it.data == card.data } + card }

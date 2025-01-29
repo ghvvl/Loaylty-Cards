@@ -19,6 +19,8 @@ koin = "4.1.0-Beta5"
 datastore = "1.1.2"
 serialization = "1.8.0"
 qrose = "1.0.1"
+camera = "1.4.1"
+mlkit = "17.3.0"
 
 [libraries]
 androidx-activity = { module = "androidx.activity:activity-compose", version.ref = "activity" }
@@ -48,6 +50,11 @@ serialization-okio = { module = "org.jetbrains.kotlinx:kotlinx-serialization-jso
 
 qrose = { module = "io.github.alexzhirkevich:qrose", version.ref = "qrose" }
 qrose-barcode = { module = "io.github.alexzhirkevich:qrose-oned", version.ref = "qrose" }
+
+camera-view = { module = "androidx.camera:camera-view", version.ref = "camera" }
+camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "camera" }
+camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "camera" }
+barcode-scanning = { module = "com.google.mlkit:barcode-scanning", version.ref = "mlkit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
