@@ -1,0 +1,4 @@
+<resources>
+    <string name="camera_permission_missing">To add loyalty card\nplease provide camera permission</string>
+    <string name="open_settings">Open settings</string>
+</resources>

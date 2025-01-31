@@ -32,7 +32,6 @@ internal class BarcodeAnalyzer(
                 if (barcodes.isNotEmpty()) {
                     with(barcodes.first()) {
                         onCodeReceived(rawValue.orEmpty(), format.mapToLoyaltyCardCodeType())
-
                     }
                 }
             }
@@ -40,7 +39,7 @@ internal class BarcodeAnalyzer(
     }
 }
 
-private fun Int.mapToLoyaltyCardCodeType(): LoyaltyCardCodeType = when (this) {
+internal fun Int.mapToLoyaltyCardCodeType(): LoyaltyCardCodeType = when (this) {
     Barcode.FORMAT_CODE_128 -> LoyaltyCardCodeType.CODE_128
     Barcode.FORMAT_CODE_39 -> LoyaltyCardCodeType.CODE_39
     Barcode.FORMAT_CODE_93 -> LoyaltyCardCodeType.CODE_93

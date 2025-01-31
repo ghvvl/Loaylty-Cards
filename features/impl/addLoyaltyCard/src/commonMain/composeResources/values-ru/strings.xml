@@ -1,0 +1,4 @@
+<resources>
+    <string name="camera_permission_missing">Чтобы добавить скидочную карту\nпредоставьте доступ к камере</string>
+    <string name="open_settings">Перейти в настройки</string>
+</resources>

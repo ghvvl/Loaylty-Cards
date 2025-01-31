@@ -7,6 +7,7 @@ android-targetSdk = "35"
 agp = "8.8.0"
 compose = "1.7.3"
 kotlin = "2.1.10"
+permissions = "0.18.1"
 versions = "0.51.0"
 
 activity = "1.10.0"
@@ -21,6 +22,7 @@ serialization = "1.8.0"
 qrose = "1.0.1"
 camera = "1.4.1"
 mlkit = "17.3.0"
+gms = "16.1.0"
 
 [libraries]
 androidx-activity = { module = "androidx.activity:activity-compose", version.ref = "activity" }
@@ -55,6 +57,9 @@ camera-view = { module = "androidx.camera:camera-view", version.ref = "camera" }
 camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "camera" }
 camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "camera" }
 barcode-scanning = { module = "com.google.mlkit:barcode-scanning", version.ref = "mlkit" }
+google-barcode-scanning = { module = "com.google.android.gms:play-services-code-scanner", version.ref = "gms" }
+
+permissions = { module = "dev.icerock.moko:permissions-compose", version.ref = "permissions" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

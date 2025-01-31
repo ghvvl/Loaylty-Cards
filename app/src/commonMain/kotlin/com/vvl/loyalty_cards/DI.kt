@@ -1,11 +1,9 @@
 package com.vvl.loyalty_cards
 
-import com.vvl.loyalty_cards.api.add_loyalty_card.component.AddLoyaltyCardComponent
 import com.vvl.loyalty_cards.api.loyalty_card_details.component.LoyaltyCardDetailsComponent
 import com.vvl.loyalty_cards.api.loyalty_cards.storage.LoyaltyCardsStorage
 import com.vvl.loyalty_cards.api.loyalty_cards_list.component.LoyaltyCardsListComponent
 import com.vvl.loyalty_cards.api.root.component.RootComponent
-import com.vvl.loyalty_cards.impl.add_loyalty_card.component.AddLoyaltyCardComponentImpl
 import com.vvl.loyalty_cards.impl.loyalty_card_details.component.LoyaltyCardDetailsComponentImpl
 import com.vvl.loyalty_cards.impl.loyalty_cards.storage.LoyaltyCardsStorageImpl
 import com.vvl.loyalty_cards.impl.loyalty_cards_list.component.LoyaltyCardsListComponentImpl
@@ -26,7 +24,6 @@ internal val appModule = module {
         )
     } bind RootComponent::class
     factoryOf(::LoyaltyCardsListComponentImpl) bind LoyaltyCardsListComponent::class
-    factoryOf(::AddLoyaltyCardComponentImpl) bind AddLoyaltyCardComponent::class
     factoryOf(::LoyaltyCardDetailsComponentImpl) bind LoyaltyCardDetailsComponent::class
     singleOf(::LoyaltyCardsStorageImpl) bind LoyaltyCardsStorage::class
 }

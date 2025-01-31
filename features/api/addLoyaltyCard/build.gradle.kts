@@ -14,6 +14,7 @@ kotlin {
             api(projects.common)
 
             implementation(libs.decompose)
+            implementation(libs.coroutines)
         }
     }
 }

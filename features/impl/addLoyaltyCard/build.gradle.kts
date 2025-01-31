@@ -20,8 +20,11 @@ kotlin {
             implementation(libs.camera.view)
             implementation(libs.camera.camera2)
             implementation(libs.barcode.scanning)
+            implementation(libs.google.barcode.scanning)
         }
         commonMain.dependencies {
+            implementation(compose.components.resources)
+
             implementation(projects.data.storage.api.loyaltyCards)
             api(projects.features.api.addLoyaltyCard)
             implementation(projects.features.api.root)
@@ -30,6 +33,9 @@ kotlin {
             implementation(libs.decompose)
             implementation(libs.decompose.compose)
             implementation(libs.essenty.coroutines)
+            implementation(libs.permissions)
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin)
         }
     }
 }
