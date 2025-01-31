@@ -30,7 +30,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         lifecycle: ApplicationLifecycle(),
         stateKeeper: stateKeeper,
         instanceKeeper: nil,
-        backHandler: BackDispatcherKt.BackDispatcher()
+        backHandler: backDispatcher
     )
 
     func application(_ application: UIApplication, shouldSaveSecureApplicationState coder: NSCoder) -> Bool {
