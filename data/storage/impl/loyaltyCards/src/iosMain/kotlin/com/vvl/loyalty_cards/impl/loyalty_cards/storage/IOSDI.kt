@@ -1,6 +1,7 @@
 package com.vvl.loyalty_cards.impl.loyalty_cards.storage
 
 import androidx.datastore.core.DataStore
+import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
@@ -8,7 +9,7 @@ import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
 
 @OptIn(ExperimentalForeignApi::class)
-actual fun getDataStore(): DataStore<List<String>> = createDataStore(
+actual fun getDataStore(): DataStore<List<LoyaltyCard>> = createDataStore(
     producePath = {
             val documentDirectory: NSURL? = NSFileManager.defaultManager.URLForDirectory(
             directory = NSDocumentDirectory,

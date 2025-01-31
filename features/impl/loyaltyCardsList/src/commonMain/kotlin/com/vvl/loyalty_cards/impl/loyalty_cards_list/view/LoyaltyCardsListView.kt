@@ -94,7 +94,7 @@ fun LoyaltyCardsListView(component: LoyaltyCardsListComponent) {
             contentPadding = paddingValues,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(loyaltyCards, key = { it }) {
+            items(loyaltyCards, key = { it.data }) {
                 LoyaltyCardItem(
                     it,
                     component::onLoyaltyCardSwiped,

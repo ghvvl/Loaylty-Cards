@@ -3,6 +3,7 @@ package com.vvl.loyalty_cards.impl.loyalty_cards_list.view.internal
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,17 +20,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.vvl.loyalty_cards.common.model.LoyaltyCard
 
 @Composable
 internal fun LazyItemScope.LoyaltyCardItem(
-    cardId: String,
-    onSwipe: (String) -> Unit,
-    onClick: (String) -> Unit
+    card: LoyaltyCard,
+    onSwipe: (LoyaltyCard) -> Unit,
+    onClick: (LoyaltyCard) -> Unit
 ) {
     val dismissState = rememberSwipeToDismissBoxState(
         confirmValueChange = {
             if (it == SwipeToDismissBoxValue.EndToStart) {
-                onSwipe(cardId)
+                onSwipe(card)
             }
             true
         }
@@ -56,10 +58,13 @@ internal fun LazyItemScope.LoyaltyCardItem(
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(27f / 17f),
-            onClick = { onClick(cardId) }
+            onClick = { onClick(card) }
         ) {
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(cardId)
+                Row {
+                    Text(card.data)
+                    Text(card.codeType.toString())
+                }
             }
         }
     }

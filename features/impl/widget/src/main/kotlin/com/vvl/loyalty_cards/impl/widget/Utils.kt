@@ -1,42 +1,18 @@
 package com.vvl.loyalty_cards.impl.widget
 
-import android.graphics.Bitmap
-import android.graphics.Color
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.MultiFormatWriter
-import com.google.zxing.common.BitMatrix
+import com.vvl.loyalty_cards.common.model.LoyaltyCardCodeType
+import io.github.alexzhirkevich.qrose.oned.BarcodeType
 
-fun String.encodeToBitmaps(
-    width: Int,
-    height: Int
-): Pair<Bitmap, Bitmap> =
-    MultiFormatWriter()
-        .encode(this, BarcodeFormat.CODE_128, width, height)
-        .toBitmaps()
-
-private fun BitMatrix.toBitmaps(): Pair<Bitmap, Bitmap> {
-    val backPixels = IntArray(width * height)
-    val frontPixels = IntArray(width * height)
-
-    repeat(height) { y ->
-        val offset = y * width
-        repeat(width) { x ->
-            if (get(x, y)) {
-                backPixels[offset + x] = Color.WHITE
-            } else {
-                frontPixels[offset + x] = Color.WHITE
-            }
-        }
-    }
-
-    val back = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888).apply {
-        setPixels(backPixels, 0, width, 0, 0, width, height)
-    }
-    val front = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888).apply {
-        setPixels(frontPixels, 0, width, 0, 0, width, height)
-    }
-    return Pair(back, front)
-
+internal fun LoyaltyCardCodeType.toBarCodeType(): BarcodeType = when (this) {
+    LoyaltyCardCodeType.QR_CODE -> throw IllegalArgumentException("QR is not barcode!")
+    LoyaltyCardCodeType.CODABAR -> BarcodeType.Codabar
+    LoyaltyCardCodeType.CODE_39 -> BarcodeType.Code39
+    LoyaltyCardCodeType.CODE_93 -> BarcodeType.Code93
+    LoyaltyCardCodeType.CODE_128 -> BarcodeType.Code128
+    LoyaltyCardCodeType.EAN_8 -> BarcodeType.EAN8
+    LoyaltyCardCodeType.EAN_13 -> BarcodeType.EAN13
+    LoyaltyCardCodeType.ITF -> BarcodeType.ITF
+    LoyaltyCardCodeType.UPC_A -> BarcodeType.UPCA
+    LoyaltyCardCodeType.UPC_E -> BarcodeType.UPCE
+    else -> throw IllegalArgumentException("$this is not supported!")
 }
-
-

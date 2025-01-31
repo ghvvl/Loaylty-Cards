@@ -3,6 +3,8 @@ import com.android.build.api.dsl.LibraryExtension
 import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.LibraryPlugin
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     alias(libs.plugins.android.application) apply false
@@ -68,6 +70,10 @@ subprojects {
 
             buildFeatures.buildConfig = false
         }
+    }
+
+    tasks.withType<KotlinCompile> {
+        compilerOptions.apiVersion.set(KotlinVersion.KOTLIN_2_1)
     }
 
     tasks.withType<DependencyUpdatesTask> {

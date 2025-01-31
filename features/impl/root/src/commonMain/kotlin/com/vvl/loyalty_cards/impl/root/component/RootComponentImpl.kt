@@ -6,6 +6,7 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.popToFirst
+import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.decompose.router.stack.pushNew
 import com.arkivanov.decompose.value.Value
 import com.vvl.loyalty_cards.api.add_loyalty_card.component.AddLoyaltyCardComponent
@@ -13,6 +14,7 @@ import com.vvl.loyalty_cards.api.loyalty_card_details.component.LoyaltyCardDetai
 import com.vvl.loyalty_cards.api.loyalty_cards_list.component.LoyaltyCardsListComponent
 import com.vvl.loyalty_cards.api.root.component.RootComponent
 import com.vvl.loyalty_cards.api.root.navigator.RootNavigator
+import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import kotlinx.serialization.Serializable
 
 class RootComponentImpl(
@@ -29,14 +31,21 @@ class RootComponentImpl(
             navigation.popToFirst()
         }
 
-        override fun openLoyaltyCardDetails(cardId: String) {
-            navigation.pushNew(RootConfig.LoyaltyCardDetails)
+        override fun openLoyaltyCardDetails(card: LoyaltyCard, replaceCurrent: Boolean) {
+            if (replaceCurrent) {
+                navigation.replaceCurrent(RootConfig.LoyaltyCardDetails)
+            } else {
+                navigation.pushNew(RootConfig.LoyaltyCardDetails)
+            }
         }
 
         override fun openAddLoyaltyCard() {
             navigation.pushNew(RootConfig.AddLoyaltyCard)
         }
 
+        override fun onBackClicked() {
+            navigation.pop()
+        }
     }
 
     override val childStack: Value<ChildStack<*, RootComponent.RootChild>> = childStack(

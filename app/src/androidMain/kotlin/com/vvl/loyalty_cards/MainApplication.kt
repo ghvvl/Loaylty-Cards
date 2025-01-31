@@ -1,6 +1,7 @@
 package com.vvl.loyalty_cards
 
 import android.app.Application
+import com.vvl.loyalty_cards.impl.add_loyalty_card.di.androidAddLoyaltyCardModule
 import com.vvl.loyalty_cards.impl.loyalty_cards.storage.loyaltyCardsModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -15,7 +16,13 @@ internal class MainApplication : Application() {
         startKoin {
             logger(KoinPlatformTools.defaultLogger(Level.INFO))
             androidContext(this@MainApplication)
-            modules(listOf(appModule, loyaltyCardsModule))
+            modules(
+                listOf(
+                    appModule,
+                    loyaltyCardsModule,
+                    androidAddLoyaltyCardModule
+                )
+            )
         }
     }
 }

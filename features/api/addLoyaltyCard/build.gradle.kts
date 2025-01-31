@@ -11,7 +11,10 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(projects.common)
+
             implementation(libs.decompose)
+            implementation(libs.coroutines)
         }
     }
 }
