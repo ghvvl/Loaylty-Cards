@@ -21,6 +21,7 @@ internal class BarcodeAnalyzer(
     private val scanner = BarcodeScanning.getClient(options)
 
     @OptIn(ExperimentalGetImage::class)
+    @Suppress("UnsafeCallOnNullableType")
     override fun analyze(imageProxy: ImageProxy) {
         scanner
             .process(
@@ -39,6 +40,7 @@ internal class BarcodeAnalyzer(
     }
 }
 
+@Suppress("CyclomaticComplexMethod")
 internal fun Int.mapToLoyaltyCardCodeType(): LoyaltyCardCodeType = when (this) {
     Barcode.FORMAT_CODE_128 -> LoyaltyCardCodeType.CODE_128
     Barcode.FORMAT_CODE_39 -> LoyaltyCardCodeType.CODE_39

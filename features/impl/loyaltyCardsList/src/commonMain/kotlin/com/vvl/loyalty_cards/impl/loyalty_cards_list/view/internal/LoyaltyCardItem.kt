@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
 
+@Suppress("MagicNumber")
 @Composable
 internal fun LazyItemScope.LoyaltyCardItem(
     card: LoyaltyCard,

@@ -19,7 +19,7 @@ fun save(coder: NSCoder, state: SerializableContainer) {
     )
 }
 
-@Suppress("unused") // Used in Swift
+@Suppress("unused", "TooGenericExceptionCaught", "SwallowedException") // Used in Swift
 @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
 fun restore(coder: NSCoder): SerializableContainer? =
     (coder.decodeTopLevelObjectOfClass(

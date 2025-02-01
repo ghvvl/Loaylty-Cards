@@ -39,6 +39,7 @@ internal class LoyaltyCardsWidget : GlanceAppWidget() {
         throwable.printStackTrace()
     }
 
+    @Suppress("MagicNumber")
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
             GlanceTheme {

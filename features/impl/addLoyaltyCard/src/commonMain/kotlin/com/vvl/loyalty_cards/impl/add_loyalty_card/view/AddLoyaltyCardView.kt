@@ -26,6 +26,7 @@ import loyaltycards.features.impl.addloyaltycard.generated.resources.open_settin
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
+@Suppress("TooGenericExceptionCaught", "SwallowedException")
 fun AddLoyaltyCardView(component: AddLoyaltyCardComponent) {
     if (component.useExternalBarcodeScanner.collectAsState().value) {
         Box(

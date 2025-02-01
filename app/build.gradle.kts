@@ -11,7 +11,8 @@ plugins {
 kotlin {
     androidTarget()
 
-    jvm()
+    //We need this kludge because of moko-permissions that doesn't support jvm target
+    //jvm()
 
     listOf(
         iosX64(),

@@ -3,10 +3,13 @@ package com.vvl.loyalty_cards.impl.loyalty_cards.storage
 import androidx.datastore.core.DataStore
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import kotlinx.cinterop.ExperimentalForeignApi
+import okio.FileSystem
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
+
+actual val fileSystem = FileSystem.SYSTEM
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun getDataStore(): DataStore<List<LoyaltyCard>> = createDataStore(
@@ -18,6 +21,6 @@ actual fun getDataStore(): DataStore<List<LoyaltyCard>> = createDataStore(
             create = false,
             error = null,
         )
-        requireNotNull(documentDirectory).path + "/$dataStoreFileName"
+        requireNotNull(documentDirectory).path + "/$DATA_STORE_FILE_NAME"
     }
 )

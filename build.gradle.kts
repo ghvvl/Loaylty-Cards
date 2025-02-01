@@ -3,6 +3,7 @@ import com.android.build.api.dsl.LibraryExtension
 import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.LibraryPlugin
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -14,6 +15,7 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.versions)
+    alias(libs.plugins.detekt)
 }
 
 subprojects {
@@ -76,6 +78,11 @@ subprojects {
         compilerOptions.apiVersion.set(KotlinVersion.KOTLIN_2_1)
     }
 
+    apply {
+        plugin(rootProject.libs.plugins.detekt.get().pluginId)
+        plugin(rootProject.libs.plugins.versions.get().pluginId)
+    }
+
     tasks.withType<DependencyUpdatesTask> {
         fun isNonStable(version: String): Boolean {
             val stableKeyword =
@@ -86,5 +93,18 @@ subprojects {
         }
 
         rejectVersionIf { isNonStable(candidate.version) && !isNonStable(currentVersion) }
+    }
+
+    dependencies {
+        //   add("detektPlugins", rootProject.libs.detekt.formatting)
+    }
+
+    tasks.withType<Detekt> {
+        exclude { it.file.relativeTo(projectDir).startsWith("build") }
+    }
+    tasks.register("detektAll") {
+        allprojects {
+            this@register.dependsOn(tasks.withType<Detekt>())
+        }
     }
 }

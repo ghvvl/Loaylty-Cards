@@ -54,6 +54,7 @@ class BarcodeAnalyzer(
     private lateinit var previewLayer: AVCaptureVideoPreviewLayer
     private val captureSession: AVCaptureSession by lazy { AVCaptureSession() }
 
+    @Suppress("ReturnCount")
     @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
     fun prepare(layer: CALayer) {
         val device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) ?: return
