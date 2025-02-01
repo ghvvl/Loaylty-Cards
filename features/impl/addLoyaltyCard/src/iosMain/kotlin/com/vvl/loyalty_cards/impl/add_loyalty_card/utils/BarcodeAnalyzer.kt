@@ -82,11 +82,12 @@ class BarcodeAnalyzer(
             return
         }
 
-        previewLayer = AVCaptureVideoPreviewLayer(session = captureSession).also {
-            it.frame = layer.bounds
-            it.videoGravity = AVLayerVideoGravityResizeAspectFill
+        previewLayer = AVCaptureVideoPreviewLayer(session = captureSession)
+        previewLayer.apply {
+            frame = layer.bounds
+            videoGravity = AVLayerVideoGravityResizeAspectFill
             setCurrentOrientation(newOrientation = UIDevice.currentDevice.orientation)
-            layer.addSublayer(it)
+            layer.addSublayer(this)
         }
 
         scope.launch(Dispatchers.Default) {
