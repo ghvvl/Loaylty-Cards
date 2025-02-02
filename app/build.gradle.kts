@@ -32,6 +32,7 @@ kotlin {
         androidMain.dependencies {
             implementation(projects.features.impl.widget)
 
+            implementation(libs.androidx.splash)
             implementation(libs.androidx.activity)
             implementation(libs.koin.android)
         }

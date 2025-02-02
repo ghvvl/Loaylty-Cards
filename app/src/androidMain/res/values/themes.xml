@@ -1,5 +1,7 @@
 <resources>
 
-    <style name="Theme.LoyaltyCards" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.LoyaltyCards.Splash" parent="Theme.SplashScreen" >
+        <item name="postSplashScreenTheme">@style/android:Theme.Material.Light.NoActionBar</item>
+    </style>
 
 </resources>

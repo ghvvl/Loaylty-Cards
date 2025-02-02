@@ -9,16 +9,16 @@
         android:fullBackupContent="@xml/backup_rules"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LoyaltyCards">
+        android:theme="@style/Theme.LoyaltyCards.Splash">
 
         <activity
             android:name="com.vvl.loyalty_cards.MainActivity"
-            android:configChanges="locale|layoutDirection"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|mnc|colorMode|density|fontScale|fontWeightAdjustment|keyboard|layoutDirection|locale|mcc|navigation|smallestScreenSize|touchscreen|uiMode"
             android:enableOnBackInvokedCallback="true"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.LoyaltyCards"
+            android:theme="@style/Theme.LoyaltyCards.Splash"
             android:windowSoftInputMode="adjustResize"
             tools:ignore="DiscouragedApi,LockedOrientationActivity">
 

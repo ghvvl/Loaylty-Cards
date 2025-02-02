@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.arkivanov.decompose.defaultComponentContext
 import com.vvl.loyalty_cards.api.root.component.RootComponent
 import com.vvl.loyalty_cards.impl.add_loyalty_card.view.AddLoyaltyCardView
@@ -16,6 +17,7 @@ import org.koin.core.parameter.parametersOf
 internal class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         enableEdgeToEdge()
 
         super.onCreate(savedInstanceState)
