@@ -5,9 +5,8 @@ android-minSdk = "31"
 android-targetSdk = "35"
 
 agp = "8.8.0"
-compose = "1.7.3"
+compose = "1.8.0-alpha02"
 kotlin = "2.1.10"
-permissions = "0.18.1"
 versions = "0.52.0"
 detekt = "1.23.7"
 
@@ -25,6 +24,7 @@ qrose = "1.0.1"
 camera = "1.4.1"
 mlkit = "17.3.0"
 gms = "16.1.0"
+permissions = "0.18.1"
 
 [libraries]
 androidx-activity = { module = "androidx.activity:activity-compose", version.ref = "activity" }
