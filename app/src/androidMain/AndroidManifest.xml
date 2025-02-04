@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:name="com.vvl.loyalty_cards.MainApplication"
+        android:name="com.vvl.loyalty_cards.app.base.MainApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -12,7 +12,7 @@
         android:theme="@style/Theme.LoyaltyCards.Splash">
 
         <activity
-            android:name="com.vvl.loyalty_cards.MainActivity"
+            android:name="com.vvl.loyalty_cards.app.base.MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|mnc|colorMode|density|fontScale|fontWeightAdjustment|keyboard|layoutDirection|locale|mcc|navigation|smallestScreenSize|touchscreen|uiMode"
             android:enableOnBackInvokedCallback="true"
             android:exported="true"

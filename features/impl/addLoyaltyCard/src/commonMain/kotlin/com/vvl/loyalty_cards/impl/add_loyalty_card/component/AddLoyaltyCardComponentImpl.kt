@@ -3,7 +3,7 @@ package com.vvl.loyalty_cards.impl.add_loyalty_card.component
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import com.vvl.loyalty_cards.api.add_loyalty_card.component.AddLoyaltyCardComponent
-import com.vvl.loyalty_cards.api.loyalty_cards.storage.LoyaltyCardsStorage
+import com.vvl.loyalty_cards.data.storage.api.loyalty_cards.storage.LoyaltyCardsStorage
 import com.vvl.loyalty_cards.api.root.navigator.RootNavigator
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.common.model.LoyaltyCardCodeType
