@@ -8,7 +8,7 @@ import com.vvl.loyalty_cards.features.api.loyalty_cards_list.component.LoyaltyCa
 import com.vvl.loyalty_cards.features.api.root.navigator.RootNavigator
 import kotlinx.coroutines.launch
 
-class LoyaltyCardsListComponentImpl(
+internal class LoyaltyCardsListComponentImpl(
     componentContext: ComponentContext,
     private val rootNavigator: RootNavigator,
     private val loyaltyCardsStorage: LoyaltyCardsStorage

@@ -18,6 +18,8 @@ kotlin {
             implementation(compose.material3)
             implementation(libs.decompose)
             implementation(libs.decompose.compose)
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin)
         }
     }
 }

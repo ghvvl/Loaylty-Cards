@@ -13,7 +13,7 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-    
+
     sourceSets {
         commonMain.dependencies {
             implementation(compose.components.resources)
@@ -28,6 +28,8 @@ kotlin {
             implementation(libs.decompose.compose)
             implementation(libs.essenty.coroutines)
             implementation(libs.coroutines)
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin)
         }
 
         jvmMain.dependencies {

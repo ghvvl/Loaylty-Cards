@@ -39,6 +39,7 @@ class RootViewController(componentContext: ComponentContext) : KoinComponent {
                     }
                 ) {
                     AppTheme {
+                        //TODO: think about DI
                         RootView(
                             component = rootComponent,
                             loyaltyCardsListView = { LoyaltyCardsListView(it) },

@@ -17,7 +17,7 @@ import com.vvl.loyalty_cards.features.api.root.component.RootComponent
 import com.vvl.loyalty_cards.features.api.root.navigator.RootNavigator
 import kotlinx.serialization.Serializable
 
-class RootComponentImpl(
+internal class RootComponentImpl(
     componentContext: ComponentContext,
     val loyaltyCardsListComponent: (ComponentContext, RootNavigator) -> LoyaltyCardsListComponent,
     val loyaltyCardDetailsComponent: (ComponentContext, RootNavigator) -> LoyaltyCardDetailsComponent,
