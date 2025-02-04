@@ -5,7 +5,7 @@ import com.vvl.loyalty_cards.features.impl.loyalty_card_details.component.Loyalt
 import com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.di.loyaltyCardsModule
 import com.vvl.loyalty_cards.features.api.loyalty_cards_list.component.LoyaltyCardsListComponent
 import com.vvl.loyalty_cards.features.api.root.component.RootComponent
-import com.vvl.loyalty_cards.impl.loyalty_cards_list.component.LoyaltyCardsListComponentImpl
+import com.com.vvl.loyalty_cards.features.impl.loyalty_cards_list.component.LoyaltyCardsListComponentImpl
 import com.com.vvl.loyalty_cards.features.impl.root.component.RootComponentImpl
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.parameter.parametersOf

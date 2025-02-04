@@ -1,4 +1,4 @@
-package com.vvl.loyalty_cards.impl.loyalty_cards_list.view
+package com.com.vvl.loyalty_cards.features.impl.loyalty_cards_list.view
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
@@ -31,7 +31,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.vvl.loyalty_cards.features.api.loyalty_cards_list.component.LoyaltyCardsListComponent
-import com.vvl.loyalty_cards.impl.loyalty_cards_list.view.internal.LoyaltyCardItem
+import com.com.vvl.loyalty_cards.features.impl.loyalty_cards_list.view.internal.LoyaltyCardItem
 import loyaltycards.features.impl.loyaltycardslist.generated.resources.Res
 import loyaltycards.features.impl.loyaltycardslist.generated.resources.add_loyalty_card
 import loyaltycards.features.impl.loyaltycardslist.generated.resources.loyalty_cards_title

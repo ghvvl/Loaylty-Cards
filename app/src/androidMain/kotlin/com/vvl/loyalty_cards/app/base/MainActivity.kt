@@ -10,7 +10,7 @@ import com.vvl.loyalty_cards.app.theme.AppTheme
 import com.vvl.loyalty_cards.features.api.root.component.RootComponent
 import com.vvl.loyalty_cards.features.impl.add_loyalty_card.view.AddLoyaltyCardView
 import com.vvl.loyalty_cards.features.impl.loyalty_card_details.view.LoyaltyCardDetailsView
-import com.vvl.loyalty_cards.impl.loyalty_cards_list.view.LoyaltyCardsListView
+import com.com.vvl.loyalty_cards.features.impl.loyalty_cards_list.view.LoyaltyCardsListView
 import com.com.vvl.loyalty_cards.features.impl.root.view.RootView
 import org.koin.android.ext.android.get
 import org.koin.core.parameter.parametersOf

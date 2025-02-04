@@ -1,4 +1,4 @@
-package com.vvl.loyalty_cards.impl.loyalty_cards_list.component
+package com.com.vvl.loyalty_cards.features.impl.loyalty_cards_list.component
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope

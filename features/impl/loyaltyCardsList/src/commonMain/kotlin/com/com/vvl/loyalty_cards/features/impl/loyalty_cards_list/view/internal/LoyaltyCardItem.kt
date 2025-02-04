@@ -1,4 +1,4 @@
-package com.vvl.loyalty_cards.impl.loyalty_cards_list.view.internal
+package com.com.vvl.loyalty_cards.features.impl.loyalty_cards_list.view.internal
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
