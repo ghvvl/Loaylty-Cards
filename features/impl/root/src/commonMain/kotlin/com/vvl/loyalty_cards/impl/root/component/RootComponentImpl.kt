@@ -9,7 +9,7 @@ import com.arkivanov.decompose.router.stack.popToFirst
 import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.decompose.router.stack.pushNew
 import com.arkivanov.decompose.value.Value
-import com.vvl.loyalty_cards.api.add_loyalty_card.component.AddLoyaltyCardComponent
+import com.vvl.loyalty_cards.features.api.add_loyalty_card.component.AddLoyaltyCardComponent
 import com.vvl.loyalty_cards.api.loyalty_card_details.component.LoyaltyCardDetailsComponent
 import com.vvl.loyalty_cards.api.loyalty_cards_list.component.LoyaltyCardsListComponent
 import com.vvl.loyalty_cards.api.root.component.RootComponent
