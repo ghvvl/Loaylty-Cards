@@ -6,7 +6,6 @@ import com.vvl.loyalty_cards.features.impl.add_loyalty_card.component.AndroidAdd
 import org.koin.dsl.module
 
 val androidAddLoyaltyCardModule = module {
-    includes(addLoyaltyCardModule)
     factory<AddLoyaltyCardComponent> {
         AndroidAddLoyaltyCardComponentImpl(
             get(),

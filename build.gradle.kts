@@ -95,10 +95,6 @@ subprojects {
         rejectVersionIf { isNonStable(candidate.version) && !isNonStable(currentVersion) }
     }
 
-    dependencies {
-        //   add("detektPlugins", rootProject.libs.detekt.formatting)
-    }
-
     tasks.withType<Detekt> {
         exclude { it.file.relativeTo(projectDir).startsWith("build") }
     }

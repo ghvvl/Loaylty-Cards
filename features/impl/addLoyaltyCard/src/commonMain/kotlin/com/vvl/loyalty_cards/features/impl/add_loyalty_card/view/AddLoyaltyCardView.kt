@@ -1,9 +1,10 @@
 package com.vvl.loyalty_cards.features.impl.add_loyalty_card.view
 
-
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
@@ -15,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import com.vvl.loyalty_cards.features.api.add_loyalty_card.component.AddLoyaltyCardComponent
 import dev.icerock.moko.permissions.Permission
 import dev.icerock.moko.permissions.PermissionsController
@@ -69,6 +71,7 @@ fun AddLoyaltyCardView(component: AddLoyaltyCardComponent) {
                             text = stringResource(Res.string.camera_permission_missing),
                             textAlign = TextAlign.Center
                         )
+                        Spacer(Modifier.height(16.dp))
                         Button({ controller.openAppSettings() }) {
                             Text(stringResource(Res.string.open_settings))
                         }

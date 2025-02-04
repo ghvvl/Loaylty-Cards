@@ -12,6 +12,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import com.arkivanov.essenty.lifecycle.doOnResume
 
 internal class AddLoyaltyCardComponentImpl(
     componentContext: ComponentContext,
@@ -28,7 +29,7 @@ internal class AddLoyaltyCardComponentImpl(
     override val wasPermissionGranted = MutableStateFlow(false)
 
     init {
-        _requestPermission.trySend(Unit)
+        lifecycle.doOnResume { _requestPermission.trySend(Unit) }
     }
 
     override fun onPermissionResultReceived(isGranted: Boolean) {
