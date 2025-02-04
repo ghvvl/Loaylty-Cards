@@ -1,4 +1,4 @@
-package com.vvl.loyalty_cards.impl.widget.utils
+package com.vvl.loyalty_cards.features.impl.widget.utils
 
 import com.vvl.loyalty_cards.common.model.LoyaltyCardCodeType
 import io.github.alexzhirkevich.qrose.oned.BarcodeType

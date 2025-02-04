@@ -1,4 +1,4 @@
-package com.vvl.loyalty_cards.impl.widget.widget
+package com.vvl.loyalty_cards.features.impl.widget.widget
 
 import android.content.Context
 import androidx.compose.runtime.collectAsState
@@ -21,7 +21,7 @@ import androidx.glance.layout.Box
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.size
 import com.vvl.loyalty_cards.data.storage.api.loyalty_cards.storage.LoyaltyCardsStorage
-import com.vvl.loyalty_cards.impl.widget.utils.toBarCodeType
+import com.vvl.loyalty_cards.features.impl.widget.utils.toBarCodeType
 import io.github.alexzhirkevich.qrose.oned.BarcodePainter
 import io.github.alexzhirkevich.qrose.toImageBitmap
 import org.koin.compose.koinInject
