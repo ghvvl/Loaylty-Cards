@@ -10,11 +10,11 @@ import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.decompose.router.stack.pushNew
 import com.arkivanov.decompose.value.Value
 import com.vvl.loyalty_cards.features.api.add_loyalty_card.component.AddLoyaltyCardComponent
-import com.vvl.loyalty_cards.api.loyalty_card_details.component.LoyaltyCardDetailsComponent
-import com.vvl.loyalty_cards.api.loyalty_cards_list.component.LoyaltyCardsListComponent
-import com.vvl.loyalty_cards.api.root.component.RootComponent
-import com.vvl.loyalty_cards.api.root.navigator.RootNavigator
+import com.vvl.loyalty_cards.features.api.loyalty_card_details.component.LoyaltyCardDetailsComponent
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
+import com.vvl.loyalty_cards.features.api.loyalty_cards_list.component.LoyaltyCardsListComponent
+import com.vvl.loyalty_cards.features.api.root.component.RootComponent
+import com.vvl.loyalty_cards.features.api.root.navigator.RootNavigator
 import kotlinx.serialization.Serializable
 
 class RootComponentImpl(

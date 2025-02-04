@@ -1,4 +1,4 @@
-package com.vvl.loyalty_cards.api.loyalty_cards_list.component
+package com.vvl.loyalty_cards.features.api.loyalty_cards_list.component
 
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import kotlinx.coroutines.flow.Flow

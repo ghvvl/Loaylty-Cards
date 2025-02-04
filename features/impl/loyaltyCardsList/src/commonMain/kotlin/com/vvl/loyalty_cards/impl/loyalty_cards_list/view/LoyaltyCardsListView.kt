@@ -30,7 +30,7 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.vvl.loyalty_cards.api.loyalty_cards_list.component.LoyaltyCardsListComponent
+import com.vvl.loyalty_cards.features.api.loyalty_cards_list.component.LoyaltyCardsListComponent
 import com.vvl.loyalty_cards.impl.loyalty_cards_list.view.internal.LoyaltyCardItem
 import loyaltycards.features.impl.loyaltycardslist.generated.resources.Res
 import loyaltycards.features.impl.loyaltycardslist.generated.resources.add_loyalty_card
