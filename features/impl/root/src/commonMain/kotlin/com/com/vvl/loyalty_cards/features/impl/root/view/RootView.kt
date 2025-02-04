@@ -1,4 +1,4 @@
-package com.vvl.loyalty_cards.impl.root.view
+package com.com.vvl.loyalty_cards.features.impl.root.view
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable

@@ -1,4 +1,4 @@
-package com.vvl.loyalty_cards.impl.root.component
+package com.com.vvl.loyalty_cards.features.impl.root.component
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack

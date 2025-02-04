@@ -9,7 +9,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.backhandler.BackDispatcher
 import com.arkivanov.decompose.extensions.compose.stack.animation.predictiveback.PredictiveBackGestureIcon
 import com.arkivanov.decompose.extensions.compose.stack.animation.predictiveback.PredictiveBackGestureOverlay
-import com.vvl.loyalty_cards.impl.root.view.RootView
+import com.com.vvl.loyalty_cards.features.impl.root.view.RootView
 import com.vvl.loyalty_cards.app.theme.AppTheme
 import com.vvl.loyalty_cards.features.api.root.component.RootComponent
 import com.vvl.loyalty_cards.features.impl.add_loyalty_card.view.AddLoyaltyCardView
