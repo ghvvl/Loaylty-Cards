@@ -42,8 +42,18 @@ class RootViewController(componentContext: ComponentContext) : KoinComponent {
                         //TODO: think about DI
                         RootView(
                             component = rootComponent,
-                            loyaltyCardsListView = { LoyaltyCardsListView(it) },
-                            loyaltyCardDetailsView = { LoyaltyCardDetailsView(it) },
+                            loyaltyCardsListView = { component, isSharedElementVisible ->
+                                LoyaltyCardsListView(
+                                    component,
+                                    isSharedElementVisible
+                                )
+                            },
+                            loyaltyCardDetailsView = { component, isSharedElementVisible ->
+                                LoyaltyCardDetailsView(
+                                    component,
+                                    isSharedElementVisible
+                                )
+                            },
                             addLoyaltyCardView = { AddLoyaltyCardView(it) }
                         )
                     }

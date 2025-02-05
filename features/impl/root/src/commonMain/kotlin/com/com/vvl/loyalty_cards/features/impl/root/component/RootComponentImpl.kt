@@ -20,7 +20,11 @@ import kotlinx.serialization.Serializable
 internal class RootComponentImpl(
     componentContext: ComponentContext,
     val loyaltyCardsListComponent: (ComponentContext, RootNavigator) -> LoyaltyCardsListComponent,
-    val loyaltyCardDetailsComponent: (ComponentContext, RootNavigator) -> LoyaltyCardDetailsComponent,
+    val loyaltyCardDetailsComponent: (
+        ComponentContext,
+        RootNavigator,
+        LoyaltyCard
+    ) -> LoyaltyCardDetailsComponent,
     val addLoyaltyCardComponent: (ComponentContext, RootNavigator) -> AddLoyaltyCardComponent
 ) : RootComponent, ComponentContext by componentContext {
 
@@ -32,10 +36,11 @@ internal class RootComponentImpl(
         }
 
         override fun openLoyaltyCardDetails(card: LoyaltyCard, replaceCurrent: Boolean) {
+            val config = RootConfig.LoyaltyCardDetails(card)
             if (replaceCurrent) {
-                navigation.replaceCurrent(RootConfig.LoyaltyCardDetails)
+                navigation.replaceCurrent(config)
             } else {
-                navigation.pushNew(RootConfig.LoyaltyCardDetails)
+                navigation.pushNew(config)
             }
         }
 
@@ -61,15 +66,15 @@ internal class RootComponentImpl(
         componentContext: ComponentContext
     ): RootComponent.RootChild =
         when (config) {
-            RootConfig.LoyaltyCardsList -> RootComponent.RootChild.LoyaltyCardsList(
+            is RootConfig.LoyaltyCardsList -> RootComponent.RootChild.LoyaltyCardsList(
                 loyaltyCardsListComponent(componentContext, rootNavigator)
             )
 
-            RootConfig.LoyaltyCardDetails -> RootComponent.RootChild.LoyaltyCardDetails(
-                loyaltyCardDetailsComponent(componentContext, rootNavigator)
+            is RootConfig.LoyaltyCardDetails -> RootComponent.RootChild.LoyaltyCardDetails(
+                loyaltyCardDetailsComponent(componentContext, rootNavigator, config.loyaltyCard)
             )
 
-            RootConfig.AddLoyaltyCard -> RootComponent.RootChild.AddLoyaltyCard(
+            is RootConfig.AddLoyaltyCard -> RootComponent.RootChild.AddLoyaltyCard(
                 addLoyaltyCardComponent(componentContext, rootNavigator)
             )
         }
@@ -84,7 +89,7 @@ internal class RootComponentImpl(
         data object LoyaltyCardsList : RootConfig
 
         @Serializable
-        data object LoyaltyCardDetails : RootConfig
+        data class LoyaltyCardDetails(val loyaltyCard: LoyaltyCard) : RootConfig
 
         @Serializable
         data object AddLoyaltyCard : RootConfig

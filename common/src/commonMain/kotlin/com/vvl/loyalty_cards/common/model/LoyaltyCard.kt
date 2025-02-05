@@ -8,5 +8,7 @@ data class LoyaltyCard(
     @SerialName("date")
     val data: String,
     @SerialName("code_type")
-    val codeType: LoyaltyCardCodeType
+    val codeType: LoyaltyCardCodeType,
+    @SerialName("card_color")
+    val cardColor: Int
 )

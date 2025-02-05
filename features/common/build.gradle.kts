@@ -1,8 +1,9 @@
+import org.jetbrains.compose.compose
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.compose)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -14,14 +15,9 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.features.api.root)
+            api(projects.common)
 
             implementation(compose.material3)
-
-            implementation(libs.decompose)
-            implementation(libs.decompose.compose)
-            implementation(project.dependencies.platform(libs.koin.bom))
-            implementation(libs.koin)
         }
     }
 }

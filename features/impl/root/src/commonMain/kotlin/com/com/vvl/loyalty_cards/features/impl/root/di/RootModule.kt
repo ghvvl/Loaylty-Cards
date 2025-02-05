@@ -10,9 +10,11 @@ val rootModule = module {
     factory {
         RootComponentImpl(
             it.get(),
-            { context, holder -> get { parametersOf(context, holder) } },
-            { context, holder -> get { parametersOf(context, holder) } },
-            { context, holder -> get { parametersOf(context, holder) } },
+            { context, navigator -> get { parametersOf(context, navigator) } },
+            { context, navigator, loyaltyCard ->
+                get { parametersOf(context, navigator, loyaltyCard) }
+            },
+            { context, navigator -> get { parametersOf(context, navigator) } },
         )
     } bind RootComponent::class
 }

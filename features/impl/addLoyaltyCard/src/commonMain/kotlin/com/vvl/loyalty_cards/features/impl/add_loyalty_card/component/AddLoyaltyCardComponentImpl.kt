@@ -2,17 +2,18 @@ package com.vvl.loyalty_cards.features.impl.add_loyalty_card.component
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
+import com.arkivanov.essenty.lifecycle.doOnResume
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.common.model.LoyaltyCardCodeType
 import com.vvl.loyalty_cards.data.storage.api.loyalty_cards.storage.LoyaltyCardsStorage
 import com.vvl.loyalty_cards.features.api.add_loyalty_card.component.AddLoyaltyCardComponent
 import com.vvl.loyalty_cards.features.api.root.navigator.RootNavigator
+import com.vvl.loyalty_cards.features.impl.add_loyalty_card.utils.generateColor
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import com.arkivanov.essenty.lifecycle.doOnResume
 
 internal class AddLoyaltyCardComponentImpl(
     componentContext: ComponentContext,
@@ -37,7 +38,8 @@ internal class AddLoyaltyCardComponentImpl(
     }
 
     override fun onCodeReceived(code: String, codeType: LoyaltyCardCodeType) {
-        val loyaltyCard = LoyaltyCard(code, codeType)
+        val color = generateColor()
+        val loyaltyCard = LoyaltyCard(code, codeType, color)
         coroutineScope().launch {
             loyaltyCardsStorage.addLoyaltyCard(loyaltyCard)
             rootNavigator.openLoyaltyCardDetails(loyaltyCard, true)

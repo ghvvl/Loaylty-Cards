@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
@@ -21,13 +23,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
+import com.vvl.loyalty_cards.features.common.view.LoyaltyCardView
 
 @Suppress("MagicNumber")
 @Composable
 internal fun LazyItemScope.LoyaltyCardItem(
     card: LoyaltyCard,
     onSwipe: (LoyaltyCard) -> Unit,
-    onClick: (LoyaltyCard) -> Unit
+    onClick: (LoyaltyCard) -> Unit,
+    sharedTransitionModifier: @Composable Modifier.(String) -> Modifier
 ) {
     val dismissState = rememberSwipeToDismissBoxState(
         confirmValueChange = {
@@ -55,18 +59,12 @@ internal fun LazyItemScope.LoyaltyCardItem(
         },
         enableDismissFromStartToEnd = false
     ) {
-        Card(
+        LoyaltyCardView(
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(27f / 17f),
-            onClick = { onClick(card) }
-        ) {
-            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Row {
-                    Text(card.data)
-                    Text(card.codeType.toString())
-                }
-            }
-        }
+                .sharedTransitionModifier(card.data),
+            loyaltyCard = card,
+            onClick = onClick
+        )
     }
 }

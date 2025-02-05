@@ -1,6 +1,8 @@
 package com.com.vvl.loyalty_cards.features.impl.loyalty_cards_list.view
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Arrangement
@@ -37,9 +39,12 @@ import loyaltycards.features.impl.loyaltycardslist.generated.resources.add_loyal
 import loyaltycards.features.impl.loyaltycardslist.generated.resources.loyalty_cards_title
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
-fun LoyaltyCardsListView(component: LoyaltyCardsListComponent) {
+fun SharedTransitionScope.LoyaltyCardsListView(
+    component: LoyaltyCardsListComponent,
+    isSharedElementVisible: Boolean
+) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     var isVisible by rememberSaveable { mutableStateOf(true) }
     val nestedScrollConnection = remember {
@@ -99,7 +104,12 @@ fun LoyaltyCardsListView(component: LoyaltyCardsListComponent) {
                     it,
                     component::onLoyaltyCardSwiped,
                     component::onLoyaltyCardClicked
-                )
+                ) { key ->
+                    sharedElementWithCallerManagedVisibility(
+                        sharedContentState = rememberSharedContentState(key),
+                        visible = isSharedElementVisible
+                    )
+                }
             }
         }
     }

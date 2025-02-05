@@ -21,13 +21,13 @@ kotlin {
             implementation(libs.google.barcode.scanning)
         }
         commonMain.dependencies {
-            implementation(compose.components.resources)
-
             implementation(projects.data.storage.api.loyaltyCards)
             api(projects.features.api.addLoyaltyCard)
             implementation(projects.features.api.root)
 
+            implementation(compose.components.resources)
             implementation(compose.material3)
+
             implementation(libs.decompose)
             implementation(libs.decompose.compose)
             implementation(libs.essenty.coroutines)
