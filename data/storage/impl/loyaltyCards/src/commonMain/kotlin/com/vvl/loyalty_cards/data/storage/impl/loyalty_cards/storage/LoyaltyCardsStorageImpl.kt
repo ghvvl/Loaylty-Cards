@@ -1,8 +1,8 @@
 package com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.storage
 
 import androidx.datastore.core.DataStore
-import com.vvl.loyalty_cards.data.storage.api.loyalty_cards.storage.LoyaltyCardsStorage
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
+import com.vvl.loyalty_cards.data.storage.api.loyalty_cards.storage.LoyaltyCardsStorage
 import kotlinx.coroutines.flow.Flow
 
 class LoyaltyCardsStorageImpl(

@@ -27,6 +27,8 @@ gms = "16.1.0"
 permissions = "0.18.1"
 
 [libraries]
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+
 androidx-activity = { module = "androidx.activity:activity-compose", version.ref = "activity" }
 androidx-splash = { module = "androidx.core:core-splashscreen", version.ref = "splash" }
 
