@@ -6,12 +6,12 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.popToFirst
-import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.decompose.router.stack.pushNew
+import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.decompose.value.Value
+import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.features.api.add_loyalty_card.component.AddLoyaltyCardComponent
 import com.vvl.loyalty_cards.features.api.loyalty_card_details.component.LoyaltyCardDetailsComponent
-import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.features.api.loyalty_cards_list.component.LoyaltyCardsListComponent
 import com.vvl.loyalty_cards.features.api.root.component.RootComponent
 import com.vvl.loyalty_cards.features.api.root.navigator.RootNavigator

@@ -96,7 +96,6 @@ internal class BarcodeAnalyzer(
         }
     }
 
-
     fun setCurrentOrientation(newOrientation: UIDeviceOrientation) {
         previewLayer.connection?.videoOrientation = when (newOrientation) {
             UIDeviceOrientation.UIDeviceOrientationLandscapeLeft -> AVCaptureVideoOrientationLandscapeRight

@@ -21,15 +21,17 @@ fun save(coder: NSCoder, state: SerializableContainer) {
 
 @Suppress("unused", "TooGenericExceptionCaught", "SwallowedException") // Used in Swift
 @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
-fun restore(coder: NSCoder): SerializableContainer? =
-    (coder.decodeTopLevelObjectOfClass(
+fun restore(coder: NSCoder): SerializableContainer? {
+    val decodedObject = coder.decodeTopLevelObjectOfClass(
         aClass = NSString,
         forKey = "state",
         error = null
-    ) as String?)?.let {
+    )
+    return (decodedObject as String?)?.let {
         try {
             json.decodeFromString(SerializableContainer.serializer(), it)
         } catch (e: Exception) {
             null
         }
     }
+}

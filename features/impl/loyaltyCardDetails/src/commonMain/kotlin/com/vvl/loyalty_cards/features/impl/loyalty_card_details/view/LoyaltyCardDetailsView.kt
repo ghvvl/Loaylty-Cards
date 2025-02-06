@@ -39,7 +39,7 @@ fun SharedTransitionScope.LoyaltyCardDetailsView(
             TopAppBar(title = {}, navigationIcon = {
                 IconButton(onClick = component::onBackClicked) {
                     Icon(
-                        Icons.AutoMirrored.Filled.ArrowBack,
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Localized description"
                     )
                 }

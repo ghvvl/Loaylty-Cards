@@ -34,7 +34,7 @@ internal class MainActivity : ComponentActivity() {
         val rootComponent: RootComponent = get { parametersOf(defaultComponentContext()) }
         setContent {
             AppTheme {
-                //TODO: think about DI
+                // TODO: think about DI
                 Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
                     RootView(
                         component = rootComponent,
