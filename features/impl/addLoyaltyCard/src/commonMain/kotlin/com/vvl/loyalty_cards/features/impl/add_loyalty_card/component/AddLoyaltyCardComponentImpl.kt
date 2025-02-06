@@ -2,6 +2,7 @@ package com.vvl.loyalty_cards.features.impl.add_loyalty_card.component
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
+import com.arkivanov.essenty.lifecycle.doOnResume
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.common.model.LoyaltyCardCodeType
 import com.vvl.loyalty_cards.data.storage.api.loyalty_cards.storage.LoyaltyCardsStorage
@@ -12,7 +13,6 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import com.arkivanov.essenty.lifecycle.doOnResume
 
 internal class AddLoyaltyCardComponentImpl(
     componentContext: ComponentContext,

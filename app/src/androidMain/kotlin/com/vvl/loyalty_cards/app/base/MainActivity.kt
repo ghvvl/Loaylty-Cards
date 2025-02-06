@@ -26,7 +26,7 @@ internal class MainActivity : ComponentActivity() {
         val rootComponent: RootComponent = get { parametersOf(defaultComponentContext()) }
         setContent {
             AppTheme {
-                //TODO: think about DI
+                // TODO: think about DI
                 RootView(
                     component = rootComponent,
                     loyaltyCardsListView = { LoyaltyCardsListView(it) },
