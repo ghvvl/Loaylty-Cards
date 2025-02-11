@@ -1,9 +1,9 @@
-package com.vvl.loyalty_cards.features.impl.widget.utils
+package com.vvl.loyalty_cards.features.common.utils
 
 import com.vvl.loyalty_cards.common.model.LoyaltyCardCodeType
 import io.github.alexzhirkevich.qrose.oned.BarcodeType
 
-internal fun LoyaltyCardCodeType.toBarCodeType(): BarcodeType = when (this) {
+fun LoyaltyCardCodeType.toBarCodeType(): BarcodeType = when (this) {
     LoyaltyCardCodeType.QR_CODE -> throw IllegalArgumentException("QR is not barcode!")
     LoyaltyCardCodeType.CODABAR -> BarcodeType.Codabar
     LoyaltyCardCodeType.CODE_39 -> BarcodeType.Code39

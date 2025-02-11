@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.vvl.loyalty_cards.features.api.add_loyalty_card.component.AddLoyaltyCardComponent
 import dev.icerock.moko.permissions.Permission
 import dev.icerock.moko.permissions.PermissionsController
+import dev.icerock.moko.permissions.camera.CAMERA
 import dev.icerock.moko.permissions.compose.BindEffect
 import dev.icerock.moko.permissions.compose.PermissionsControllerFactory
 import dev.icerock.moko.permissions.compose.rememberPermissionsControllerFactory

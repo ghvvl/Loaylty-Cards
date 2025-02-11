@@ -44,6 +44,7 @@ kotlin {
             implementation(projects.features.impl.addLoyaltyCard)
 
             implementation(compose.material3)
+
             implementation(libs.decompose)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin)

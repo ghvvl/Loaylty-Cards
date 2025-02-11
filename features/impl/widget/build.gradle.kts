@@ -6,6 +6,7 @@ plugins {
 
 dependencies {
     implementation(projects.data.storage.impl.loyaltyCards)
+    implementation(projects.features.common)
 
     implementation(libs.glance.appwidget)
     implementation(libs.glance.material3)

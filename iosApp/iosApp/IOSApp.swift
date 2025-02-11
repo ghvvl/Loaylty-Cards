@@ -7,7 +7,7 @@ struct iOSApp: App {
     var appDelegate: AppDelegate
 
     init() {
-        DIKt.doInitKoin()
+        IOSDIKt.doInitKoin()
     }
 
     var body: some Scene {

@@ -1,5 +1,6 @@
 package com.vvl.loyalty_cards.app.base
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -24,6 +25,7 @@ class RootViewController(componentContext: ComponentContext) : KoinComponent {
 
     private val rootComponent: RootComponent by inject { parametersOf(componentContext) }
 
+    @OptIn(ExperimentalSharedTransitionApi::class)
     fun getUIViewController(backDispatcher: BackDispatcher): UIViewController {
         return ComposeUIViewController(
             configure = { enforceStrictPlistSanityCheck = false },
@@ -42,8 +44,18 @@ class RootViewController(componentContext: ComponentContext) : KoinComponent {
                         // TODO: think about DI
                         RootView(
                             component = rootComponent,
-                            loyaltyCardsListView = { LoyaltyCardsListView(it) },
-                            loyaltyCardDetailsView = { LoyaltyCardDetailsView(it) },
+                            loyaltyCardsListView = { component, isSharedElementVisible ->
+                                LoyaltyCardsListView(
+                                    component,
+                                    isSharedElementVisible
+                                )
+                            },
+                            loyaltyCardDetailsView = { component, isSharedElementVisible ->
+                                LoyaltyCardDetailsView(
+                                    component,
+                                    isSharedElementVisible
+                                )
+                            },
                             addLoyaltyCardView = { AddLoyaltyCardView(it) }
                         )
                     }

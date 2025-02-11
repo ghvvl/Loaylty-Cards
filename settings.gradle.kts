@@ -17,6 +17,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "LoyaltyCards"
 include(":app")
+include(":features:common")
 include(":features:api:root")
 include(":features:impl:root")
 include(":features:api:loyaltyCardsList")
