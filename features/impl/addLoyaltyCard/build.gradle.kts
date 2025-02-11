@@ -31,7 +31,8 @@ kotlin {
             implementation(libs.decompose)
             implementation(libs.decompose.compose)
             implementation(libs.essenty.coroutines)
-            implementation(libs.permissions)
+            implementation(libs.permissions.compose)
+            implementation(libs.permissions.camera)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin)
         }

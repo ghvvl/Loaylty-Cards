@@ -23,7 +23,7 @@ fun RootView(
     component: RootComponent,
     loyaltyCardsListView: @Composable SharedTransitionScope.(LoyaltyCardsListComponent, Boolean) -> Unit,
     loyaltyCardDetailsView: @Composable SharedTransitionScope.(LoyaltyCardDetailsComponent, Boolean) -> Unit,
-    addLoyaltyCardView: @Composable SharedTransitionScope. (AddLoyaltyCardComponent) -> Unit
+    addLoyaltyCardView: @Composable SharedTransitionScope.(AddLoyaltyCardComponent) -> Unit
 ) = SharedTransitionLayout {
     Children(
         stack = component.childStack,

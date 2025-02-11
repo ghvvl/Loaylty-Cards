@@ -39,7 +39,7 @@ internal class AddLoyaltyCardComponentImpl(
 
     override fun onCodeReceived(code: String, codeType: LoyaltyCardCodeType) {
         val color = generateColor()
-        val loyaltyCard = LoyaltyCard(code, codeType, color)
+        val loyaltyCard = LoyaltyCard("", code, codeType, color)
         coroutineScope().launch {
             loyaltyCardsStorage.addLoyaltyCard(loyaltyCard)
             rootNavigator.openLoyaltyCardDetails(loyaltyCard, true)

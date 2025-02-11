@@ -21,7 +21,7 @@ import androidx.glance.layout.Box
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.size
 import com.vvl.loyalty_cards.data.storage.api.loyalty_cards.storage.LoyaltyCardsStorage
-import com.vvl.loyalty_cards.features.impl.widget.utils.toBarCodeType
+import com.vvl.loyalty_cards.features.common.utils.toBarCodeType
 import io.github.alexzhirkevich.qrose.oned.BarcodePainter
 import io.github.alexzhirkevich.qrose.toImageBitmap
 import org.koin.compose.koinInject
@@ -73,7 +73,7 @@ internal class LoyaltyCardsWidget : GlanceAppWidget() {
                                 .toImageBitmap(500, 250)
                                 .asAndroidBitmap()
                         ),
-                        contentDescription = "back",
+                        contentDescription = "Localized description",
                         colorFilter = ColorFilter.tint(GlanceTheme.colors.primary)
                     )
                 }

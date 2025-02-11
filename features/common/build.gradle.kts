@@ -16,6 +16,8 @@ kotlin {
             api(projects.common)
 
             implementation(compose.material3)
+            implementation(libs.qrose)
+            implementation(libs.qrose.barcode)
         }
     }
 }

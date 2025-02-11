@@ -24,7 +24,7 @@ qrose = "1.0.1"
 camera = "1.4.1"
 mlkit = "17.3.0"
 gms = "16.1.0"
-permissions = "0.18.1"
+permissions = "0.19.0"
 
 [libraries]
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
@@ -64,7 +64,8 @@ camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = 
 barcode-scanning = { module = "com.google.mlkit:barcode-scanning", version.ref = "mlkit" }
 google-barcode-scanning = { module = "com.google.android.gms:play-services-code-scanner", version.ref = "gms" }
 
-permissions = { module = "dev.icerock.moko:permissions-compose", version.ref = "permissions" }
+permissions-compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "permissions" }
+permissions-camera = { module = "dev.icerock.moko:permissions-camera", version.ref = "permissions" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
