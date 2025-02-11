@@ -1,8 +1,12 @@
 package com.vvl.loyalty_cards.app.base
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.ComposeUIViewController
 import com.arkivanov.decompose.ComponentContext
@@ -24,6 +28,7 @@ class RootViewController(componentContext: ComponentContext) : KoinComponent {
 
     private val rootComponent: RootComponent by inject { parametersOf(componentContext) }
 
+    @OptIn(ExperimentalSharedTransitionApi::class)
     fun getUIViewController(backDispatcher: BackDispatcher): UIViewController {
         return ComposeUIViewController(
             configure = { enforceStrictPlistSanityCheck = false },
@@ -40,22 +45,26 @@ class RootViewController(componentContext: ComponentContext) : KoinComponent {
                 ) {
                     AppTheme {
                         // TODO: think about DI
-                        RootView(
-                            component = rootComponent,
-                            loyaltyCardsListView = { component, isSharedElementVisible ->
-                                LoyaltyCardsListView(
-                                    component,
-                                    isSharedElementVisible
-                                )
-                            },
-                            loyaltyCardDetailsView = { component, isSharedElementVisible ->
-                                LoyaltyCardDetailsView(
-                                    component,
-                                    isSharedElementVisible
-                                )
-                            },
-                            addLoyaltyCardView = { AddLoyaltyCardView(it) }
-                        )
+                        Box(
+                            Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)
+                        ) {
+                            RootView(
+                                component = rootComponent,
+                                loyaltyCardsListView = { component, isSharedElementVisible ->
+                                    LoyaltyCardsListView(
+                                        component,
+                                        isSharedElementVisible
+                                    )
+                                },
+                                loyaltyCardDetailsView = { component, isSharedElementVisible ->
+                                    LoyaltyCardDetailsView(
+                                        component,
+                                        isSharedElementVisible
+                                    )
+                                },
+                                addLoyaltyCardView = { AddLoyaltyCardView(it) }
+                            )
+                        }
                     }
                 }
             }

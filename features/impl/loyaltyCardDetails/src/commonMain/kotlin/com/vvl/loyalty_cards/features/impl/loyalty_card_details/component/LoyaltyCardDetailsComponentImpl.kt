@@ -5,11 +5,13 @@ import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.update
 import com.arkivanov.decompose.value.updateAndGet
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
+import com.arkivanov.essenty.lifecycle.doOnPause
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.data.storage.api.loyalty_cards.storage.LoyaltyCardsStorage
 import com.vvl.loyalty_cards.features.api.loyalty_card_details.component.LoyaltyCardDetailsComponent
 import com.vvl.loyalty_cards.features.api.loyalty_card_details.model.BrightnessMode
 import com.vvl.loyalty_cards.features.api.root.navigator.RootNavigator
+import com.vvl.loyalty_cards.features.impl.loyalty_card_details.delegate.BrightnessDelegate
 import kotlinx.coroutines.launch
 
 internal class LoyaltyCardDetailsComponentImpl(
@@ -17,6 +19,7 @@ internal class LoyaltyCardDetailsComponentImpl(
     private val rootNavigator: RootNavigator,
     private val providedLoyaltyCard: LoyaltyCard,
     private val loyaltyCardsStorage: LoyaltyCardsStorage,
+    private val brightnessDelegate: BrightnessDelegate
 ) : LoyaltyCardDetailsComponent, ComponentContext by componentContext {
 
     private val coroutineScope = coroutineScope()
@@ -24,6 +27,11 @@ internal class LoyaltyCardDetailsComponentImpl(
     override val loyaltyCard = MutableValue(providedLoyaltyCard)
 
     override val brightnessMode = MutableValue(BrightnessMode.AUTO)
+
+    init {
+        brightnessMode.subscribe(brightnessDelegate::setBrightness)
+        lifecycle.doOnPause { brightnessMode.value = BrightnessMode.AUTO }
+    }
 
     override fun onResetClicked() {
         loyaltyCard.value = providedLoyaltyCard
