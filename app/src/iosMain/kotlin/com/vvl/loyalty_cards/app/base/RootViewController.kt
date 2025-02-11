@@ -45,26 +45,22 @@ class RootViewController(componentContext: ComponentContext) : KoinComponent {
                 ) {
                     AppTheme {
                         // TODO: think about DI
-                        Box(
-                            Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)
-                        ) {
-                            RootView(
-                                component = rootComponent,
-                                loyaltyCardsListView = { component, isSharedElementVisible ->
-                                    LoyaltyCardsListView(
-                                        component,
-                                        isSharedElementVisible
-                                    )
-                                },
-                                loyaltyCardDetailsView = { component, isSharedElementVisible ->
-                                    LoyaltyCardDetailsView(
-                                        component,
-                                        isSharedElementVisible
-                                    )
-                                },
-                                addLoyaltyCardView = { AddLoyaltyCardView(it) }
-                            )
-                        }
+                        RootView(
+                            component = rootComponent,
+                            loyaltyCardsListView = { component, isSharedElementVisible ->
+                                LoyaltyCardsListView(
+                                    component,
+                                    isSharedElementVisible
+                                )
+                            },
+                            loyaltyCardDetailsView = { component, isSharedElementVisible ->
+                                LoyaltyCardDetailsView(
+                                    component,
+                                    isSharedElementVisible
+                                )
+                            },
+                            addLoyaltyCardView = { AddLoyaltyCardView(it) }
+                        )
                     }
                 }
             }

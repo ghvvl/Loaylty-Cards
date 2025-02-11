@@ -3,15 +3,13 @@ package com.com.vvl.loyalty_cards.features.impl.root.view
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.stack.Children
-import com.arkivanov.decompose.extensions.compose.stack.animation.fade
-import com.arkivanov.decompose.extensions.compose.stack.animation.plus
-import com.arkivanov.decompose.extensions.compose.stack.animation.predictiveback.predictiveBackAnimation
-import com.arkivanov.decompose.extensions.compose.stack.animation.scale
-import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
+import com.com.vvl.loyalty_cards.features.impl.root.utils.backAnimation
 import com.vvl.loyalty_cards.features.api.add_loyalty_card.component.AddLoyaltyCardComponent
 import com.vvl.loyalty_cards.features.api.loyalty_card_details.component.LoyaltyCardDetailsComponent
 import com.vvl.loyalty_cards.features.api.loyalty_cards_list.component.LoyaltyCardsListComponent
@@ -24,14 +22,17 @@ fun RootView(
     loyaltyCardsListView: @Composable SharedTransitionScope.(LoyaltyCardsListComponent, Boolean) -> Unit,
     loyaltyCardDetailsView: @Composable SharedTransitionScope.(LoyaltyCardDetailsComponent, Boolean) -> Unit,
     addLoyaltyCardView: @Composable SharedTransitionScope.(AddLoyaltyCardComponent) -> Unit
-) = SharedTransitionLayout {
+) = SharedTransitionLayout(
+    Modifier
+        .fillMaxSize()
+        .background(MaterialTheme.colorScheme.background)
+) {
     Children(
         stack = component.childStack,
         modifier = Modifier.fillMaxSize(),
-        animation = predictiveBackAnimation(
+        animation = backAnimation(
             backHandler = component.backHandler,
-            fallbackAnimation = stackAnimation(fade() + scale()),
-            onBack = component::onBackClicked,
+            onBack = component::onBackClicked
         ),
     ) {
         when (val child = it.instance) {
