@@ -45,7 +45,7 @@ private fun Modifier.slideExitModifier(progress: Float): Modifier =
     offsetXFactor(progress)
 
 private fun Modifier.slideEnterModifier(progress: Float): Modifier =
-    fade(progress).offsetXFactor((progress - 1f) * 0.5f)
+    fade(progress).offsetXFactor((progress - 1f) / 2f)
 
 private fun Modifier.fade(factor: Float) =
     drawWithContent {
