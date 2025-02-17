@@ -14,6 +14,7 @@ dependencies {
     implementation(libs.koin)
     implementation(libs.koin.compose)
     implementation(libs.qrose.barcode)
+    implementation(libs.qrose)
 }
 
 android {

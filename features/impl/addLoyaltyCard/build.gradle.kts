@@ -14,11 +14,15 @@ kotlin {
 
     sourceSets {
         androidMain.dependencies {
+            implementation(projects.common)
+
             implementation(libs.camera.lifecycle)
             implementation(libs.camera.view)
             implementation(libs.camera.camera2)
             implementation(libs.barcode.scanning)
             implementation(libs.google.barcode.scanning)
+            implementation(libs.qrose)
+            implementation(libs.qrose.barcode)
         }
         commonMain.dependencies {
             implementation(projects.data.storage.api.loyaltyCards)
