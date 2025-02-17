@@ -1,10 +1,13 @@
 package com.vvl.loyalty_cards.features.impl.widget.widget
 
 import android.content.Context
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.asAndroidBitmap
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
 import androidx.glance.ColorFilter
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
@@ -12,21 +15,36 @@ import androidx.glance.GlanceTheme
 import androidx.glance.Image
 import androidx.glance.ImageProvider
 import androidx.glance.LocalSize
+import androidx.glance.Visibility
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.SizeMode
+import androidx.glance.appwidget.lazy.LazyColumn
+import androidx.glance.appwidget.lazy.items
 import androidx.glance.appwidget.provideContent
 import androidx.glance.background
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
+import androidx.glance.layout.Column
 import androidx.glance.layout.fillMaxSize
+import androidx.glance.layout.padding
 import androidx.glance.layout.size
+import androidx.glance.text.Text
+import androidx.glance.text.TextAlign
+import androidx.glance.text.TextStyle
+import androidx.glance.visibility
+import com.vvl.loyalty_cards.common.model.LoyaltyCard
+import com.vvl.loyalty_cards.common.model.LoyaltyCardCodeType
 import com.vvl.loyalty_cards.data.storage.api.loyalty_cards.storage.LoyaltyCardsStorage
 import com.vvl.loyalty_cards.features.common.utils.toBarCodeType
+import com.vvl.loyalty_cards.features.impl.widget.R
+import io.github.alexzhirkevich.qrose.QrCodePainter
 import io.github.alexzhirkevich.qrose.oned.BarcodePainter
 import io.github.alexzhirkevich.qrose.toImageBitmap
-import org.koin.compose.koinInject
+import org.koin.mp.KoinPlatform
 
 internal class LoyaltyCardsWidget : GlanceAppWidget() {
+
+    private val storage: LoyaltyCardsStorage by lazy { KoinPlatform.getKoin().get() }
 
     override val sizeMode: SizeMode = SizeMode.Exact
 
@@ -44,40 +62,75 @@ internal class LoyaltyCardsWidget : GlanceAppWidget() {
         provideContent {
             GlanceTheme {
                 val size = LocalSize.current
-
-                val iw: Dp
-                val ih: Dp
-
-                if (size.height * 2.5f < size.width) {
-                    ih = size.height
-                    iw = ih * 2.5f
-                } else {
-                    iw = size.width
-                    ih = iw / 2.5f
-                }
-
                 Box(
                     modifier = GlanceModifier
                         .fillMaxSize()
                         .background(GlanceTheme.colors.widgetBackground),
                     contentAlignment = Alignment.Center
                 ) {
-                    val storage: LoyaltyCardsStorage = koinInject()
                     val cards by storage.loyaltyCards.collectAsState(emptyList())
-
-                    val card = cards.firstOrNull() ?: return@Box
-                    Image(
-                        modifier = GlanceModifier.size(width = iw, height = ih),
-                        provider = ImageProvider(
-                            BarcodePainter(card.data, card.codeType.toBarCodeType())
-                                .toImageBitmap(500, 250)
-                                .asAndroidBitmap()
-                        ),
-                        contentDescription = "Localized description",
-                        colorFilter = ColorFilter.tint(GlanceTheme.colors.primary)
-                    )
+                    LazyColumn(GlanceModifier.fillMaxSize()) {
+                        items(cards) {
+                            CardItem(it, size)
+                        }
+                    }
                 }
             }
+        }
+    }
+
+    @Composable
+    private fun CardItem(loyaltyCard: LoyaltyCard, size: DpSize) {
+        Column(
+            modifier = GlanceModifier
+                .size(width = size.width, height = size.height)
+                .padding(32.dp),
+            horizontalAlignment = Alignment.Horizontal.CenterHorizontally
+        ) {
+            Text(
+                modifier = GlanceModifier
+                    .visibility(if (loyaltyCard.name.isNotBlank()) Visibility.Visible else Visibility.Gone)
+                    .background(ImageProvider(R.drawable.text_background))
+                    .padding(8.dp),
+                text = loyaltyCard.name,
+                style = TextStyle(textAlign = TextAlign.Center)
+            )
+            val dataBitmap = remember {
+                if (loyaltyCard.codeType == LoyaltyCardCodeType.QR_CODE) {
+                    QrCodePainter(loyaltyCard.data).let {
+                        it.toImageBitmap(
+                            it.intrinsicSize.width.toInt(),
+                            it.intrinsicSize.height.toInt()
+                        )
+                    }
+                } else {
+                    BarcodePainter(loyaltyCard.data, loyaltyCard.codeType.toBarCodeType())
+                        .let {
+                            val ratio =
+                                it.intrinsicSize.width / it.intrinsicSize.height
+
+                            if (ratio > 10) {
+                                it.toImageBitmap(
+                                    (ratio * 10).toInt(),
+                                    10
+                                )
+                            } else {
+                                it.toImageBitmap(
+                                    it.intrinsicSize.width.toInt(),
+                                    it.intrinsicSize.height.toInt()
+                                )
+                            }
+                        }
+                }
+            }
+            Image(
+                modifier = GlanceModifier
+                    .fillMaxSize()
+                    .padding(top = 16.dp),
+                provider = ImageProvider(dataBitmap.asAndroidBitmap()),
+                contentDescription = "Localized description",
+                colorFilter = ColorFilter.tint(GlanceTheme.colors.primary)
+            )
         }
     }
 }

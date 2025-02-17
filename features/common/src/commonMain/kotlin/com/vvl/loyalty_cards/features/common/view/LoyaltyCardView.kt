@@ -57,7 +57,8 @@ fun LoyaltyCardView(
                     .padding(8.dp),
                 text = loyaltyCard.name,
                 color = Color.Black,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                maxLines = 1
             )
             val painter = if (loyaltyCard.codeType == LoyaltyCardCodeType.QR_CODE) {
                 rememberQrCodePainter(

@@ -34,7 +34,7 @@ import loyaltycards.features.impl.loyaltycarddetails.generated.resources.Res
 import loyaltycards.features.impl.loyaltycarddetails.generated.resources.loyalty_card_name
 import org.jetbrains.compose.resources.stringResource
 
-private const val MAX_LOYALTY_CARD_NAME_LENGTH = 40
+private const val MAX_LOYALTY_CARD_NAME_LENGTH = 32
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
@@ -87,13 +87,15 @@ private fun SharedTransitionScope.DrawContent(
     isSharedElementVisible: Boolean,
     paddingValues: PaddingValues
 ) {
-    Box(Modifier.fillMaxSize()) {
+    Box(
+        Modifier
+            .fillMaxSize()
+            .padding(paddingValues)
+            .padding(horizontal = 16.dp)
+    ) {
         val loyaltyCard by component.loyaltyCard.subscribeAsState()
         OutlinedTextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(paddingValues)
-                .padding(horizontal = 32.dp),
+            modifier = Modifier.fillMaxWidth(),
             value = loyaltyCard.name,
             onValueChange = {
                 component.onLoyaltyCardNameChanged(it.take(MAX_LOYALTY_CARD_NAME_LENGTH))
@@ -107,11 +109,9 @@ private fun SharedTransitionScope.DrawContent(
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             maxLines = 1
         )
-
         LoyaltyCardView(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 32.dp)
                 .sharedElementWithCallerManagedVisibility(
                     sharedContentState = rememberSharedContentState(key = loyaltyCard.data),
                     visible = isSharedElementVisible
