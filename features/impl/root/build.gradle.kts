@@ -14,12 +14,15 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            implementation(projects.data.storage.api.loyaltyCards)
             api(projects.features.api.root)
+            api(projects.features.api.deepLinks)
 
             implementation(compose.material3)
 
             implementation(libs.decompose)
             implementation(libs.decompose.compose)
+            implementation(libs.essenty.coroutines)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin)
         }

@@ -8,6 +8,8 @@ interface LoyaltyCardsStorage {
 
     suspend fun addLoyaltyCard(card: LoyaltyCard)
 
+    suspend fun getLoyaltyCard(cardData: String): LoyaltyCard?
+
     suspend fun updateLoyaltyCard(card: LoyaltyCard)
 
     suspend fun removeLoyaltyCard(card: LoyaltyCard)

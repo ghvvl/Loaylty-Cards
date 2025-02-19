@@ -9,12 +9,14 @@ import org.koin.dsl.module
 val rootModule = module {
     factory {
         RootComponentImpl(
-            it.get(),
-            { context, navigator -> get { parametersOf(context, navigator) } },
-            { context, navigator, loyaltyCard ->
+            componentContext = it.get(),
+            loyaltyCardsListComponent = { context, navigator -> get { parametersOf(context, navigator) } },
+            loyaltyCardDetailsComponent = { context, navigator, loyaltyCard ->
                 get { parametersOf(context, navigator, loyaltyCard) }
             },
-            { context, navigator -> get { parametersOf(context, navigator) } },
+            addLoyaltyCardComponent = { context, navigator -> get { parametersOf(context, navigator) } },
+            deepLinksHandler = get(),
+            loyaltyCardsStorage = get()
         )
     } bind RootComponent::class
 }

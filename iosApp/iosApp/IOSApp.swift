@@ -1,5 +1,6 @@
 import SwiftUI
 import App
+import Rinku
 
 @main
 struct iOSApp: App {
@@ -21,11 +22,11 @@ struct iOSApp: App {
     }
 }
 
-class AppDelegate: NSObject, UIApplicationDelegate {
+class AppDelegate : NSObject, UIApplicationDelegate {
     private var stateKeeper = StateKeeperDispatcherKt.StateKeeperDispatcher(savedState: nil)
-    
+
     let backDispatcher: BackDispatcher = BackDispatcherKt.BackDispatcher()
-    
+
     lazy var componentContext = DefaultComponentContext(
         lifecycle: ApplicationLifecycle(),
         stateKeeper: stateKeeper,
@@ -33,13 +34,36 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         backHandler: backDispatcher
     )
 
+    private let rinku = RinkuIos.init(deepLinkFilter: nil, deepLinkMapper: nil)
+
+    func application(
+        _ app: UIApplication,
+        open url: URL,
+        options: [UIApplication.OpenURLOptionsKey : Any] = [:]
+    ) -> Bool {
+        rinku.onDeepLinkReceived(url: url.absoluteString)
+        return true
+    }
+
+    func application(
+        _ application: UIApplication,
+        continue userActivity: NSUserActivity,
+        restorationHandler: @escaping([UIUserActivityRestoring]? ) -> Void
+    ) -> Bool {
+        if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL {
+            rinku.onDeepLinkReceived(userActivity: userActivity)
+        }
+        return true
+    }
+
     func application(_ application: UIApplication, shouldSaveSecureApplicationState coder: NSCoder) -> Bool {
         StateKeeperUtilsKt.save(coder: coder, state: stateKeeper.save())
         return true
     }
-    
+
     func application(_ application: UIApplication, shouldRestoreSecureApplicationState coder: NSCoder) -> Bool {
-        stateKeeper = StateKeeperDispatcherKt.StateKeeperDispatcher(savedState: StateKeeperUtilsKt.restore(coder: coder))
+        stateKeeper =
+        StateKeeperDispatcherKt.StateKeeperDispatcher(savedState: StateKeeperUtilsKt.restore (coder: coder))
         return true
     }
 }

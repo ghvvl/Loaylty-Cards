@@ -4,17 +4,24 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.navigate
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.popToFirst
 import com.arkivanov.decompose.router.stack.pushNew
 import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.decompose.value.Value
+import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
+import com.arkivanov.essenty.lifecycle.doOnCreate
+import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
+import com.vvl.loyalty_cards.data.storage.api.loyalty_cards.storage.LoyaltyCardsStorage
 import com.vvl.loyalty_cards.features.api.add_loyalty_card.component.AddLoyaltyCardComponent
+import com.vvl.loyalty_cards.features.api.deep_links.DeepLinksHandler
 import com.vvl.loyalty_cards.features.api.loyalty_card_details.component.LoyaltyCardDetailsComponent
 import com.vvl.loyalty_cards.features.api.loyalty_cards_list.component.LoyaltyCardsListComponent
 import com.vvl.loyalty_cards.features.api.root.component.RootComponent
 import com.vvl.loyalty_cards.features.api.root.navigator.RootNavigator
+import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
 internal class RootComponentImpl(
@@ -25,8 +32,12 @@ internal class RootComponentImpl(
         RootNavigator,
         LoyaltyCard
     ) -> LoyaltyCardDetailsComponent,
-    val addLoyaltyCardComponent: (ComponentContext, RootNavigator) -> AddLoyaltyCardComponent
+    val addLoyaltyCardComponent: (ComponentContext, RootNavigator) -> AddLoyaltyCardComponent,
+    private val deepLinksHandler: DeepLinksHandler,
+    private val loyaltyCardsStorage: LoyaltyCardsStorage
 ) : RootComponent, ComponentContext by componentContext {
+
+    private val scope = coroutineScope()
 
     private val navigation = StackNavigation<RootConfig>()
 
@@ -78,6 +89,25 @@ internal class RootComponentImpl(
                 addLoyaltyCardComponent(componentContext, rootNavigator)
             )
         }
+
+    init {
+        lifecycle.doOnCreate {
+            deepLinksHandler
+                .addOpenCardDetailsDeepLinkListener { cardId ->
+                    scope.launch {
+                        val loyaltyCard =
+                            loyaltyCardsStorage.getLoyaltyCard(cardId) ?: return@launch
+                        navigation.navigate {
+                            listOf(
+                                RootConfig.LoyaltyCardsList,
+                                RootConfig.LoyaltyCardDetails(loyaltyCard)
+                            )
+                        }
+                    }
+                }
+        }
+        lifecycle.doOnDestroy { deepLinksHandler.removeOpenCardDetailsDeepLinkListener() }
+    }
 
     override fun onBackClicked() {
         navigation.pop()

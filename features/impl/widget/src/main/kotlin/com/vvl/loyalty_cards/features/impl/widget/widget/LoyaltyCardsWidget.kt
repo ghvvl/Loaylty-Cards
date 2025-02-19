@@ -1,5 +1,6 @@
 package com.vvl.loyalty_cards.features.impl.widget.widget
 
+import android.content.ComponentName
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -16,6 +17,10 @@ import androidx.glance.Image
 import androidx.glance.ImageProvider
 import androidx.glance.LocalSize
 import androidx.glance.Visibility
+import androidx.glance.action.ActionParameters
+import androidx.glance.action.actionParametersOf
+import androidx.glance.action.actionStartActivity
+import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.SizeMode
 import androidx.glance.appwidget.lazy.LazyColumn
@@ -35,6 +40,7 @@ import androidx.glance.visibility
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.common.model.LoyaltyCardCodeType
 import com.vvl.loyalty_cards.data.storage.api.loyalty_cards.storage.LoyaltyCardsStorage
+import com.vvl.loyalty_cards.features.api.deep_links.DeepLinksProvider
 import com.vvl.loyalty_cards.features.common.utils.toBarCodeType
 import com.vvl.loyalty_cards.features.impl.widget.R
 import io.github.alexzhirkevich.qrose.QrCodePainter
@@ -42,9 +48,14 @@ import io.github.alexzhirkevich.qrose.oned.BarcodePainter
 import io.github.alexzhirkevich.qrose.toImageBitmap
 import org.koin.mp.KoinPlatform
 
+const val WIDGET_KEY_NAME = "widget"
+
 internal class LoyaltyCardsWidget : GlanceAppWidget() {
+    private val keyWidget = ActionParameters.Key<String>(WIDGET_KEY_NAME)
 
     private val storage: LoyaltyCardsStorage by lazy { KoinPlatform.getKoin().get() }
+    private val activityComponent: ComponentName by lazy { KoinPlatform.getKoin().get() }
+    private val deepLinksProvider: DeepLinksProvider by lazy { KoinPlatform.getKoin().get() }
 
     override val sizeMode: SizeMode = SizeMode.Exact
 
@@ -84,6 +95,14 @@ internal class LoyaltyCardsWidget : GlanceAppWidget() {
         Column(
             modifier = GlanceModifier
                 .size(width = size.width, height = size.height)
+                .clickable(
+                    actionStartActivity(
+                        activityComponent,
+                        actionParametersOf(
+                            keyWidget to deepLinksProvider.createOpenCardDetailsDeepLink(loyaltyCard.data)
+                        )
+                    )
+                )
                 .padding(32.dp),
             horizontalAlignment = Alignment.Horizontal.CenterHorizontally
         ) {

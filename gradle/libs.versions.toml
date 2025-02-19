@@ -25,6 +25,7 @@ camera = "1.4.1"
 mlkit = "17.3.0"
 gms = "16.1.0"
 permissions = "0.19.0"
+deeplinks = "1.3.5"
 
 [libraries]
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
@@ -66,6 +67,8 @@ google-barcode-scanning = { module = "com.google.android.gms:play-services-code-
 
 permissions-compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "permissions" }
 permissions-camera = { module = "dev.icerock.moko:permissions-camera", version.ref = "permissions" }
+
+deeplinks = { module = "dev.theolm:rinku", version.ref = "deeplinks" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
