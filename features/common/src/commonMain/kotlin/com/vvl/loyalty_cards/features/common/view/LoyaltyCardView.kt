@@ -3,16 +3,18 @@ package com.vvl.loyalty_cards.features.common.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -37,10 +39,17 @@ fun LoyaltyCardView(
     loyaltyCard: LoyaltyCard,
     onClick: ((LoyaltyCard) -> Unit)?,
 ) {
-    ClickableCardIfNeeded(
+    var color by remember { mutableStateOf(Color.Black) }
+    Card(
         modifier = modifier.aspectRatio(CARD_ASPECT_RATIO),
         colors = CardDefaults.cardColors(containerColor = Color(loyaltyCard.cardColor)),
-        onClick = onClick?.let { { it(loyaltyCard) } }
+        onClick = {
+            if (onClick != null) {
+                onClick(loyaltyCard)
+            } else {
+                color = if (color == Color.Black) Color.White else Color.Black
+            }
+        }
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -63,13 +72,13 @@ fun LoyaltyCardView(
             val painter = if (loyaltyCard.codeType == LoyaltyCardCodeType.QR_CODE) {
                 rememberQrCodePainter(
                     data = loyaltyCard.data,
-                    colors = QrColors(dark = QrBrush.solid(Color.White))
+                    colors = QrColors(dark = QrBrush.solid(color))
                 )
             } else {
                 rememberBarcodePainter(
                     data = loyaltyCard.data,
                     type = loyaltyCard.codeType.toBarCodeType(),
-                    brush = SolidColor(Color.White)
+                    brush = SolidColor(color)
                 )
             }
 
@@ -81,28 +90,5 @@ fun LoyaltyCardView(
                 contentDescription = "Localized description"
             )
         }
-    }
-}
-
-@Composable
-private fun ClickableCardIfNeeded(
-    modifier: Modifier,
-    colors: CardColors,
-    onClick: (() -> Unit)?,
-    content: @Composable ColumnScope.() -> Unit,
-) {
-    if (onClick != null) {
-        Card(
-            modifier = modifier,
-            colors = colors,
-            onClick = { onClick() },
-            content = content
-        )
-    } else {
-        Card(
-            modifier = modifier,
-            colors = colors,
-            content = content
-        )
     }
 }

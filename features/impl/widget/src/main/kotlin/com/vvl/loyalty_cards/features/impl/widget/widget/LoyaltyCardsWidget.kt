@@ -47,6 +47,7 @@ import io.github.alexzhirkevich.qrose.QrCodePainter
 import io.github.alexzhirkevich.qrose.oned.BarcodePainter
 import io.github.alexzhirkevich.qrose.toImageBitmap
 import org.koin.mp.KoinPlatform
+import kotlin.math.ceil
 
 const val WIDGET_KEY_NAME = "widget"
 
@@ -114,7 +115,7 @@ internal class LoyaltyCardsWidget : GlanceAppWidget() {
                 text = loyaltyCard.name,
                 style = TextStyle(textAlign = TextAlign.Center)
             )
-            val dataBitmap = remember {
+            val dataBitmap = remember(loyaltyCard.data) {
                 if (loyaltyCard.codeType == LoyaltyCardCodeType.QR_CODE) {
                     QrCodePainter(loyaltyCard.data).let {
                         it.toImageBitmap(
@@ -135,8 +136,8 @@ internal class LoyaltyCardsWidget : GlanceAppWidget() {
                                 )
                             } else {
                                 it.toImageBitmap(
-                                    it.intrinsicSize.width.toInt(),
-                                    it.intrinsicSize.height.toInt()
+                                    ceil(it.intrinsicSize.width).toInt(),
+                                    ceil(it.intrinsicSize.height).toInt()
                                 )
                             }
                         }

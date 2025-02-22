@@ -28,7 +28,7 @@ internal class DeepLinksManager(scope: CoroutineScope) : DeepLinksProvider, Deep
     }
 
     override fun createOpenCardDetailsDeepLink(cardData: String): String =
-        "$DEEP_LINKS_SCHEME://$DEEP_LINK_OPEN_CARD_DETAILS?$DEEP_LINK_OPEN_CARD_DETAILS_CARD_ID=${cardData}"
+        "$DEEP_LINKS_SCHEME://$DEEP_LINK_OPEN_CARD_DETAILS?$DEEP_LINK_OPEN_CARD_DETAILS_CARD_ID=$cardData"
 
     override fun validateDeeplink(url: String): Boolean = url.startsWith(DEEP_LINKS_SCHEME)
 
