@@ -1,6 +1,7 @@
 package com.com.vvl.loyalty_cards.features.impl.loyalty_cards_list.view
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.slideInVertically
@@ -43,7 +44,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun SharedTransitionScope.LoyaltyCardsListView(
     component: LoyaltyCardsListComponent,
-    isSharedElementVisible: Boolean
+    animatedVisibilityScope: AnimatedVisibilityScope
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     var isVisible by rememberSaveable { mutableStateOf(true) }
@@ -105,9 +106,9 @@ fun SharedTransitionScope.LoyaltyCardsListView(
                     component::onLoyaltyCardSwiped,
                     component::onLoyaltyCardClicked
                 ) { key ->
-                    sharedElementWithCallerManagedVisibility(
+                    sharedBounds(
                         sharedContentState = rememberSharedContentState(key),
-                        visible = isSharedElementVisible
+                        animatedVisibilityScope = animatedVisibilityScope
                     )
                 }
             }
