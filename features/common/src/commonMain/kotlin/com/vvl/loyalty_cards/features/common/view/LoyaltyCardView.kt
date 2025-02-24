@@ -39,7 +39,7 @@ fun LoyaltyCardView(
     loyaltyCard: LoyaltyCard,
     onClick: ((LoyaltyCard) -> Unit)?,
 ) {
-    var color by remember { mutableStateOf(Color.Black) }
+    var color by remember { mutableStateOf(Color.White) }
     Card(
         modifier = modifier.aspectRatio(CARD_ASPECT_RATIO),
         colors = CardDefaults.cardColors(containerColor = Color(loyaltyCard.cardColor)),
