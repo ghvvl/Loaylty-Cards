@@ -77,7 +77,7 @@ internal class LoyaltyCardsWidget : GlanceAppWidget() {
                 Box(
                     modifier = GlanceModifier
                         .fillMaxSize()
-                        .background(GlanceTheme.colors.widgetBackground),
+                        .background(GlanceTheme.colors.primary),
                     contentAlignment = Alignment.Center
                 ) {
                     val cards by storage.loyaltyCards.collectAsState(emptyList())
@@ -126,20 +126,10 @@ internal class LoyaltyCardsWidget : GlanceAppWidget() {
                 } else {
                     BarcodePainter(loyaltyCard.data, loyaltyCard.codeType.toBarCodeType())
                         .let {
-                            val ratio =
-                                it.intrinsicSize.width / it.intrinsicSize.height
-
-                            if (ratio > 10) {
-                                it.toImageBitmap(
-                                    (ratio * 10).toInt(),
-                                    10
-                                )
-                            } else {
-                                it.toImageBitmap(
-                                    ceil(it.intrinsicSize.width).toInt(),
-                                    ceil(it.intrinsicSize.height).toInt()
-                                )
-                            }
+                            it.toImageBitmap(
+                                ceil(it.intrinsicSize.width).toInt(),
+                                ceil(it.intrinsicSize.height).toInt()
+                            )
                         }
                 }
             }
@@ -149,7 +139,7 @@ internal class LoyaltyCardsWidget : GlanceAppWidget() {
                     .padding(top = 16.dp),
                 provider = ImageProvider(dataBitmap.asAndroidBitmap()),
                 contentDescription = "Localized description",
-                colorFilter = ColorFilter.tint(GlanceTheme.colors.primary)
+                colorFilter = ColorFilter.tint(GlanceTheme.colors.widgetBackground)
             )
         }
     }

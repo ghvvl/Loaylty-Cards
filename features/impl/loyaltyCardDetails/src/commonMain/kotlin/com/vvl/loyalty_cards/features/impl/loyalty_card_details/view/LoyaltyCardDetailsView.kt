@@ -1,5 +1,6 @@
 package com.vvl.loyalty_cards.features.impl.loyalty_card_details.view
 
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Box
@@ -40,7 +41,7 @@ private const val MAX_LOYALTY_CARD_NAME_LENGTH = 32
 @Composable
 fun SharedTransitionScope.LoyaltyCardDetailsView(
     component: LoyaltyCardDetailsComponent,
-    isSharedElementVisible: Boolean,
+    animatedVisibilityScope: AnimatedVisibilityScope
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -76,7 +77,7 @@ fun SharedTransitionScope.LoyaltyCardDetailsView(
                 }
             )
         },
-        content = { DrawContent(component, isSharedElementVisible, it) }
+        content = { DrawContent(component, animatedVisibilityScope, it) }
     )
 }
 
@@ -84,7 +85,7 @@ fun SharedTransitionScope.LoyaltyCardDetailsView(
 @Composable
 private fun SharedTransitionScope.DrawContent(
     component: LoyaltyCardDetailsComponent,
-    isSharedElementVisible: Boolean,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     paddingValues: PaddingValues
 ) {
     Box(
@@ -112,9 +113,10 @@ private fun SharedTransitionScope.DrawContent(
         LoyaltyCardView(
             modifier = Modifier
                 .fillMaxWidth()
-                .sharedElementWithCallerManagedVisibility(
-                    sharedContentState = rememberSharedContentState(key = loyaltyCard.data),
-                    visible = isSharedElementVisible
+                .sharedBounds(
+                    sharedContentState = rememberSharedContentState(loyaltyCard.data),
+                    animatedVisibilityScope = animatedVisibilityScope,
+                    renderInOverlayDuringTransition = false
                 )
                 .align(Alignment.Center),
             loyaltyCard = loyaltyCard,
