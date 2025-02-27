@@ -1,6 +1,6 @@
 package com.vvl.loyalty_cards.features.api.widget.component
 
-interface WidgetComponent {
+interface WidgetDelegate {
 
-    fun updateAllWidgets()
+    suspend fun updateAllWidgets()
 }

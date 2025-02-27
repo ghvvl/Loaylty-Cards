@@ -11,6 +11,7 @@ import com.vvl.loyalty_cards.data.storage.api.loyalty_cards.storage.LoyaltyCards
 import com.vvl.loyalty_cards.features.api.loyalty_card_details.component.LoyaltyCardDetailsComponent
 import com.vvl.loyalty_cards.features.api.loyalty_card_details.model.BrightnessMode
 import com.vvl.loyalty_cards.features.api.root.navigator.RootNavigator
+import com.vvl.loyalty_cards.features.api.widget.component.WidgetDelegate
 import com.vvl.loyalty_cards.features.impl.loyalty_card_details.delegate.BrightnessDelegate
 import kotlinx.coroutines.launch
 
@@ -19,7 +20,8 @@ internal class LoyaltyCardDetailsComponentImpl(
     private val rootNavigator: RootNavigator,
     private val providedLoyaltyCard: LoyaltyCard,
     private val loyaltyCardsStorage: LoyaltyCardsStorage,
-    private val brightnessDelegate: BrightnessDelegate
+    private val brightnessDelegate: BrightnessDelegate,
+    private val widgetDelegate: WidgetDelegate
 ) : LoyaltyCardDetailsComponent, ComponentContext by componentContext {
 
     private val coroutineScope = coroutineScope()
@@ -37,6 +39,7 @@ internal class LoyaltyCardDetailsComponentImpl(
         loyaltyCard.value = providedLoyaltyCard
         coroutineScope.launch {
             loyaltyCardsStorage.updateLoyaltyCard(providedLoyaltyCard)
+            widgetDelegate.updateAllWidgets()
         }
     }
 
@@ -53,6 +56,7 @@ internal class LoyaltyCardDetailsComponentImpl(
         val newLoyaltyCard = loyaltyCard.updateAndGet { it.copy(name = name) }
         coroutineScope.launch {
             loyaltyCardsStorage.updateLoyaltyCard(newLoyaltyCard)
+            widgetDelegate.updateAllWidgets()
         }
     }
 
