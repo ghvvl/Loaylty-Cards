@@ -51,7 +51,7 @@ import kotlin.math.ceil
 
 const val WIDGET_KEY_NAME = "widget"
 
-internal class LoyaltyCardsWidget : GlanceAppWidget() {
+internal class Widget : GlanceAppWidget() {
     private val keyWidget = ActionParameters.Key<String>(WIDGET_KEY_NAME)
 
     private val storage: LoyaltyCardsStorage by lazy { KoinPlatform.getKoin().get() }

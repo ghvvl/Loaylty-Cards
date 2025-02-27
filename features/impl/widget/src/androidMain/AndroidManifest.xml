@@ -4,7 +4,7 @@
     <application>
 
         <receiver
-            android:name="com.vvl.loyalty_cards.features.impl.widget.receiver.LoyaltyCardsReceiver"
+            android:name="com.vvl.loyalty_cards.features.impl.widget.receiver.WidgetReceiver"
             android:exported="false">
 
             <intent-filter>
