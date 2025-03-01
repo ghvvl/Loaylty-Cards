@@ -62,15 +62,17 @@ fun SharedTransitionScope.LoyaltyCardDetailsView(
                         BrightnessMode.AUTO -> Icons.Filled.BrightnessHigh
                         BrightnessMode.MAX -> Icons.Filled.BrightnessAuto
                     }
+                    if (component.showResetButton.subscribeAsState().value) {
+                        IconButton(onClick = component::onResetClicked) {
+                            Icon(
+                                imageVector = Icons.Filled.Refresh,
+                                contentDescription = "Localized description"
+                            )
+                        }
+                    }
                     IconButton(onClick = component::onBrightnessClicked) {
                         Icon(
                             imageVector = icon,
-                            contentDescription = "Localized description"
-                        )
-                    }
-                    IconButton(onClick = component::onResetClicked) {
-                        Icon(
-                            imageVector = Icons.Filled.Refresh,
                             contentDescription = "Localized description"
                         )
                     }

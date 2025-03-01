@@ -8,6 +8,8 @@ interface LoyaltyCardDetailsComponent {
 
     val loyaltyCard: Value<LoyaltyCard>
 
+    val showResetButton: Value<Boolean>
+
     val brightnessMode: Value<BrightnessMode>
 
     fun onResetClicked()

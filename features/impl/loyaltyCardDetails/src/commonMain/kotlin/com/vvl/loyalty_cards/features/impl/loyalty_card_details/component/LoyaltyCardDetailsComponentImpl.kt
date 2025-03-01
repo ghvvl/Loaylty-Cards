@@ -2,6 +2,8 @@ package com.vvl.loyalty_cards.features.impl.loyalty_card_details.component
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
+import com.arkivanov.decompose.value.Value
+import com.arkivanov.decompose.value.operator.map
 import com.arkivanov.decompose.value.update
 import com.arkivanov.decompose.value.updateAndGet
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
@@ -25,6 +27,8 @@ internal class LoyaltyCardDetailsComponentImpl(
     private val coroutineScope = coroutineScope()
 
     override val loyaltyCard = MutableValue(providedLoyaltyCard)
+
+    override val showResetButton: Value<Boolean> = loyaltyCard.map { it != providedLoyaltyCard }
 
     override val brightnessMode = MutableValue(BrightnessMode.AUTO)
 
