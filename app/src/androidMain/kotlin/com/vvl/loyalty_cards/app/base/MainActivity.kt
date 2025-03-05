@@ -7,8 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.arkivanov.decompose.defaultComponentContext
-import com.com.vvl.loyalty_cards.features.impl.loyalty_cards_list.view.LoyaltyCardsListView
-import com.com.vvl.loyalty_cards.features.impl.root.view.RootView
+import com.vvl.loyalty_cards.features.impl.root.view.RootView
 import com.vvl.loyalty_cards.app.theme.AppTheme
 import com.vvl.loyalty_cards.features.api.deep_links.DeepLinksHandler
 import com.vvl.loyalty_cards.features.api.root.component.RootComponent

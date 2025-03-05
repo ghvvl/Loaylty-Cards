@@ -34,6 +34,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.data.storage.impl.loyaltyCards)
             implementation(projects.features.impl.root)
+            implementation(projects.features.impl.loyaltyCardsList)
             implementation(projects.features.impl.loyaltyCardDetails)
             implementation(projects.features.impl.addLoyaltyCard)
             implementation(projects.features.impl.deepLinks)
