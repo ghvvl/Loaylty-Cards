@@ -16,7 +16,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1ABF60F82D73071D00D99EA0"
+               BlueprintIdentifier = "1A08DB902D78FF640060456F"
                BuildableName = "widgetExtension.appex"
                BlueprintName = "widgetExtension"
                ReferencedContainer = "container:iosApp.xcodeproj">
@@ -30,7 +30,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1A09BE6D2D457550003A137B"
+               BlueprintIdentifier = "1A08DB6F2D78FE450060456F"
                BuildableName = "iosApp.app"
                BlueprintName = "iosApp"
                ReferencedContainer = "container:iosApp.xcodeproj">
@@ -62,7 +62,7 @@
          BundleIdentifier = "com.apple.springboard">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1ABF60F82D73071D00D99EA0"
+            BlueprintIdentifier = "1A08DB902D78FF640060456F"
             BuildableName = "widgetExtension.appex"
             BlueprintName = "widgetExtension"
             ReferencedContainer = "container:iosApp.xcodeproj">
@@ -71,7 +71,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1A09BE6D2D457550003A137B"
+            BlueprintIdentifier = "1A08DB6F2D78FE450060456F"
             BuildableName = "iosApp.app"
             BlueprintName = "iosApp"
             ReferencedContainer = "container:iosApp.xcodeproj">
@@ -107,7 +107,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1A09BE6D2D457550003A137B"
+            BlueprintIdentifier = "1A08DB6F2D78FE450060456F"
             BuildableName = "iosApp.app"
             BlueprintName = "iosApp"
             ReferencedContainer = "container:iosApp.xcodeproj">
