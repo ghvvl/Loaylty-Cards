@@ -2,8 +2,9 @@ package com.vvl.loyalty_cards.app.di
 
 import com.vvl.loyalty_cards.features.impl.add_loyalty_card.di.addLoyaltyCardModule
 import com.vvl.loyalty_cards.features.impl.loyalty_card_details.di.iosLoyaltyCardDetailsModule
+import com.vvl.loyalty_cards.features.impl.widget.di.iosWidgetModule
 import org.koin.core.context.startKoin
 
 fun initKoin() = startKoin {
-    modules(listOf(appModule, addLoyaltyCardModule, iosLoyaltyCardDetailsModule))
+    modules(listOf(appModule, addLoyaltyCardModule, iosLoyaltyCardDetailsModule, iosWidgetModule))
 }

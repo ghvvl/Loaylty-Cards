@@ -8,8 +8,13 @@ import org.koin.dsl.module
 val androidAddLoyaltyCardModule = module {
     factory<AddLoyaltyCardComponent> {
         AndroidAddLoyaltyCardComponentImpl(
-            get(),
-            AddLoyaltyCardComponentImpl(it.get(), it.get(), get())
+            context = get(),
+            delegatedComponent = AddLoyaltyCardComponentImpl(
+                componentContext = it.get(),
+                rootNavigator = it.get(),
+                loyaltyCardsStorage = get(),
+                widgetDelegate = get()
+            )
         )
     }
 }

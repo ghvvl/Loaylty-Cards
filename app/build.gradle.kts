@@ -11,9 +11,6 @@ plugins {
 kotlin {
     androidTarget()
 
-    //We need this kludge because of moko-permissions that doesn't support jvm target
-    //jvm()
-
     listOf(
         iosX64(),
         iosArm64(),
@@ -30,8 +27,6 @@ kotlin {
 
     sourceSets {
         androidMain.dependencies {
-            implementation(projects.features.impl.widget)
-
             implementation(libs.androidx.splash)
             implementation(libs.androidx.activity)
             implementation(libs.koin.android)
@@ -43,6 +38,7 @@ kotlin {
             implementation(projects.features.impl.loyaltyCardDetails)
             implementation(projects.features.impl.addLoyaltyCard)
             implementation(projects.features.impl.deepLinks)
+            implementation(projects.features.impl.widget)
 
             implementation(compose.material3)
 

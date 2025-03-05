@@ -20,6 +20,7 @@ kotlin {
 
             api(projects.features.api.loyaltyCardsList)
             implementation(projects.features.api.root)
+            implementation(projects.features.api.widget)
             implementation(projects.features.common)
 
             implementation(compose.components.resources)

@@ -8,17 +8,21 @@ import com.vvl.loyalty_cards.common.model.LoyaltyCardCodeType
 import com.vvl.loyalty_cards.data.storage.api.loyalty_cards.storage.LoyaltyCardsStorage
 import com.vvl.loyalty_cards.features.api.add_loyalty_card.component.AddLoyaltyCardComponent
 import com.vvl.loyalty_cards.features.api.root.navigator.RootNavigator
+import com.vvl.loyalty_cards.features.api.widget.component.WidgetDelegate
 import com.vvl.loyalty_cards.features.impl.add_loyalty_card.utils.generateColor
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import kotlin.uuid.Uuid
 
+@OptIn(kotlin.uuid.ExperimentalUuidApi::class)
 internal class AddLoyaltyCardComponentImpl(
     componentContext: ComponentContext,
     private val rootNavigator: RootNavigator,
-    private val loyaltyCardsStorage: LoyaltyCardsStorage
+    private val loyaltyCardsStorage: LoyaltyCardsStorage,
+    private val widgetDelegate: WidgetDelegate
 ) : AddLoyaltyCardComponent, ComponentContext by componentContext {
 
     override val useExternalBarcodeScanner = MutableStateFlow(false)
@@ -30,7 +34,8 @@ internal class AddLoyaltyCardComponentImpl(
     override val wasPermissionGranted = MutableStateFlow(false)
 
     init {
-        lifecycle.doOnResume { _requestPermission.trySend(Unit) }
+        // lifecycle.doOnResume { _requestPermission.trySend(Unit) }
+        onCodeReceived(Uuid.random().toString(), LoyaltyCardCodeType.QR_CODE)
     }
 
     override fun onPermissionResultReceived(isGranted: Boolean) {
@@ -42,6 +47,7 @@ internal class AddLoyaltyCardComponentImpl(
         val loyaltyCard = LoyaltyCard("", code, codeType, color)
         coroutineScope().launch {
             loyaltyCardsStorage.addLoyaltyCard(loyaltyCard)
+            widgetDelegate.updateAllWidgets()
             rootNavigator.openLoyaltyCardDetails(loyaltyCard, true)
         }
     }

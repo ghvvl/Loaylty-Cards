@@ -1,7 +1,7 @@
 package com.vvl.loyalty_cards.app.di
 
-import com.com.vvl.loyalty_cards.features.impl.loyalty_cards_list.di.loyaltyCardsListModule
-import com.com.vvl.loyalty_cards.features.impl.root.di.rootModule
+import com.vvl.loyalty_cards.features.impl.loyalty_cards_list.di.loyaltyCardsListModule
+import com.vvl.loyalty_cards.features.impl.root.di.rootModule
 import com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.di.loyaltyCardsModule
 import com.vvl.loyalty_cards.features.impl.deep_links.di.deepLinksModule
 import kotlinx.coroutines.CoroutineScope
