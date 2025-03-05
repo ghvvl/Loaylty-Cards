@@ -15,7 +15,9 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import kotlin.uuid.Uuid
 
+@OptIn(kotlin.uuid.ExperimentalUuidApi::class)
 internal class AddLoyaltyCardComponentImpl(
     componentContext: ComponentContext,
     private val rootNavigator: RootNavigator,
@@ -32,7 +34,8 @@ internal class AddLoyaltyCardComponentImpl(
     override val wasPermissionGranted = MutableStateFlow(false)
 
     init {
-        lifecycle.doOnResume { _requestPermission.trySend(Unit) }
+        // lifecycle.doOnResume { _requestPermission.trySend(Unit) }
+        onCodeReceived(Uuid.random().toString(), LoyaltyCardCodeType.QR_CODE)
     }
 
     override fun onPermissionResultReceived(isGranted: Boolean) {

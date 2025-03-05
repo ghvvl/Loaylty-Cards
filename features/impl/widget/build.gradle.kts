@@ -8,9 +8,15 @@ plugins {
 kotlin {
     androidTarget()
 
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "Widget"
+        }
+    }
 
     sourceSets {
         androidMain.dependencies {
@@ -29,10 +35,7 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.qrose.barcode)
             implementation(libs.qrose)
-        }
-
-        iosMain.dependencies {
-
+            implementation(libs.coroutines)
         }
     }
 }
