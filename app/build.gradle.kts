@@ -1,4 +1,5 @@
 import com.android.build.gradle.ProguardFiles.ProguardFile
+import org.gradle.kotlin.dsl.sourceSets
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
@@ -22,6 +23,7 @@ kotlin {
             export(libs.essenty)
             export(libs.essenty.backHandler)
             export(libs.essenty.stateKeeper)
+            export(projects.features.impl.widget)
         }
     }
 
@@ -55,6 +57,7 @@ kotlin {
             api(libs.essenty)
             api(libs.essenty.backHandler)
             api(libs.essenty.stateKeeper)
+            api(projects.features.impl.widget)
         }
     }
 }

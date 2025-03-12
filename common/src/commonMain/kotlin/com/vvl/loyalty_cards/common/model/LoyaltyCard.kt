@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class LoyaltyCard(
     @SerialName("name")
     val name: String,
-    @SerialName("date")
+    @SerialName("data")
     val data: String,
     @SerialName("code_type")
     val codeType: LoyaltyCardCodeType,

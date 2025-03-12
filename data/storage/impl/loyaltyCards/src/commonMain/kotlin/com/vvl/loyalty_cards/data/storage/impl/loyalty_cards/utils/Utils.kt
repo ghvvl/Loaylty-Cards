@@ -13,17 +13,16 @@ import okio.BufferedSink
 import okio.BufferedSource
 import okio.FileSystem
 import okio.Path.Companion.toPath
+import okio.SYSTEM
 
 internal const val DATA_STORE_FILE_NAME = "datastore/loyalty_cards.preferences_pb"
-
-expect val fileSystem: FileSystem
 
 @Suppress("TooGenericExceptionCaught", "SwallowedException")
 @OptIn(ExperimentalSerializationApi::class)
 internal fun createDataStore(producePath: () -> String): DataStore<List<LoyaltyCard>> =
     DataStoreFactory.create(
         storage = OkioStorage(
-            fileSystem,
+            FileSystem.SYSTEM,
             object : OkioSerializer<List<LoyaltyCard>> {
                 override val defaultValue: List<LoyaltyCard> = emptyList()
 

@@ -16,7 +16,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1A08DB902D78FF640060456F"
+               BlueprintIdentifier = "1AEDC9162D7A62B7000EE6C6"
                BuildableName = "widgetExtension.appex"
                BlueprintName = "widgetExtension"
                ReferencedContainer = "container:iosApp.xcodeproj">
@@ -62,7 +62,7 @@
          BundleIdentifier = "com.apple.springboard">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1A08DB902D78FF640060456F"
+            BlueprintIdentifier = "1AEDC9162D7A62B7000EE6C6"
             BuildableName = "widgetExtension.appex"
             BlueprintName = "widgetExtension"
             ReferencedContainer = "container:iosApp.xcodeproj">
@@ -103,16 +103,17 @@
       debugDocumentVersioning = "YES"
       askForAppToLaunch = "Yes"
       launchAutomaticallySubstyle = "2">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.springboard">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1A08DB6F2D78FE450060456F"
-            BuildableName = "iosApp.app"
-            BlueprintName = "iosApp"
+            BlueprintIdentifier = "1AEDC9162D7A62B7000EE6C6"
+            BuildableName = "widgetExtension.appex"
+            BlueprintName = "widgetExtension"
             ReferencedContainer = "container:iosApp.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
