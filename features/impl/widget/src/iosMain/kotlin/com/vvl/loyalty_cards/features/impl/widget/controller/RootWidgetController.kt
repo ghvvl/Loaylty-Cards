@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.first
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class RootWidgetController() : KoinComponent {
+class RootWidgetController : KoinComponent {
 
     private val storage: LoyaltyCardsStorage by inject()
     private val widgetDelegate: IOSWidgetDelegateImpl by inject()

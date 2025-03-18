@@ -14,7 +14,7 @@ import com.vvl.loyalty_cards.features.api.add_loyalty_card.component.AddLoyaltyC
 import com.vvl.loyalty_cards.features.impl.add_loyalty_card.utils.setupAnalysis
 
 @Composable
-actual fun PlatformCameraPreviewView(component: AddLoyaltyCardComponent) {
+internal actual fun PlatformCameraPreviewView(component: AddLoyaltyCardComponent) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
