@@ -9,7 +9,7 @@ import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.s
 import com.arkivanov.decompose.extensions.compose.stack.animation.predictiveback.materialPredictiveBackAnimatable
 import com.arkivanov.essenty.backhandler.BackHandler
 
-actual fun <C : Any, T : Any> backAnimation(
+internal actual fun <C : Any, T : Any> backAnimation(
     backHandler: BackHandler,
     onBack: () -> Unit,
 ): StackAnimation<C, T> =

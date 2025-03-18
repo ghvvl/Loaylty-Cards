@@ -1,38 +1,29 @@
 package com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.storage
 
-import androidx.datastore.core.DataStore
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.data.storage.api.loyalty_cards.storage.LoyaltyCardsStorage
+import com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.database.LoyaltyCardsDao
+import com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.model.DBLoyaltyCard
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 
-class LoyaltyCardsStorageImpl(
-    private val dataStore: DataStore<List<LoyaltyCard>>
+internal class LoyaltyCardsStorageImpl(
+    private val loyaltyCardsDao: LoyaltyCardsDao
 ) : LoyaltyCardsStorage {
 
-    override val loyaltyCards: Flow<List<LoyaltyCard>> = dataStore.data
+    override val loyaltyCards: Flow<List<LoyaltyCard>> =
+        loyaltyCardsDao.getAllAsFlow().map { it.map { it.map() } }
 
     override suspend fun addLoyaltyCard(card: LoyaltyCard) = updateLoyaltyCard(card)
 
     override suspend fun getLoyaltyCard(cardData: String) =
         loyaltyCards.first().firstOrNull { it.data == cardData }
 
-    override suspend fun updateLoyaltyCard(card: LoyaltyCard) {
-        dataStore.updateData {
-            val index = it.indexOfFirst { it.data == card.data }
-            val newList = it.toMutableList()
+    override suspend fun updateLoyaltyCard(card: LoyaltyCard) = loyaltyCardsDao.insert(card.map())
 
-            if (index == -1) {
-                newList.add(0, card)
-            } else {
-                newList[index] = card
-            }
+    override suspend fun removeLoyaltyCard(card: LoyaltyCard) = loyaltyCardsDao.delete(card.map())
 
-            newList
-        }
-    }
-
-    override suspend fun removeLoyaltyCard(card: LoyaltyCard) {
-        dataStore.updateData { it - card }
-    }
+    private fun DBLoyaltyCard.map(): LoyaltyCard = LoyaltyCard(name, data, codeType, cardColor)
+    private fun LoyaltyCard.map(): DBLoyaltyCard = DBLoyaltyCard(name, data, codeType, cardColor)
 }

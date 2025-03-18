@@ -8,8 +8,6 @@ plugins {
 kotlin {
     androidTarget()
 
-    jvm()
-
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -32,10 +30,6 @@ kotlin {
             implementation(libs.coroutines)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin)
-        }
-
-        jvmMain.dependencies {
-            implementation(libs.coroutines.jvm)
         }
     }
 }

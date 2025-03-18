@@ -10,11 +10,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.experimental.stack.ChildStack
-import com.vvl.loyalty_cards.features.impl.root.utils.backAnimation
 import com.vvl.loyalty_cards.features.api.add_loyalty_card.component.AddLoyaltyCardComponent
 import com.vvl.loyalty_cards.features.api.loyalty_card_details.component.LoyaltyCardDetailsComponent
 import com.vvl.loyalty_cards.features.api.loyalty_cards_list.component.LoyaltyCardsListComponent
 import com.vvl.loyalty_cards.features.api.root.component.RootComponent
+import com.vvl.loyalty_cards.features.impl.root.utils.backAnimation
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable

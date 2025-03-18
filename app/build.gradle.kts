@@ -12,6 +12,8 @@ plugins {
 kotlin {
     androidTarget()
 
+    //jvm()
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -47,7 +49,6 @@ kotlin {
             implementation(libs.decompose)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin)
-            implementation(libs.datastore)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)

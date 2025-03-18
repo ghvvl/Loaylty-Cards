@@ -15,7 +15,7 @@ import com.vvl.loyalty_cards.features.impl.add_loyalty_card.utils.OrientationLis
 import platform.UIKit.UIView
 
 @Composable
-actual fun PlatformCameraPreviewView(component: AddLoyaltyCardComponent) {
+internal actual fun PlatformCameraPreviewView(component: AddLoyaltyCardComponent) {
     val scope = rememberCoroutineScope()
     val analyzer = remember { BarcodeAnalyzer(scope, component::onCodeReceived) }
     DisposableEffect(Unit) {
