@@ -1,42 +1,37 @@
 import WidgetKit
 import App
+import UIKit
 
 class IOSWidgetProvider: TimelineProvider, @unchecked Sendable {
     
+    private let defaultEntry = IOSWidgetEntry(cards: [IOSWidgetCardEntry(cardImage: UIImage(), cardName: "cardName")], date: Date())
+    
     func placeholder(in context: Context) -> IOSWidgetEntry {
-        IOSWidgetEntry(cardName: "CardName", cardData: "CardInfo", date: Date())
+        defaultEntry
     }
     
     func getSnapshot(in context: Context, completion: @escaping (IOSWidgetEntry) -> Void) {
-        completion(
-            IOSWidgetEntry(cardName: "CardName", cardData: "CardInfo", date: Date())
-        )
+        completion(defaultEntry)
     }
     
     private var task: Task<Void, Never>?
     
-     private let widgetController: RootWidgetController
+    private let widgetController: RootWidgetController
     
     init() {
-          IOSDIKt.startKoin()
-          widgetController = RootWidgetController()
+        IOSDIKt.startKoin()
+        widgetController = RootWidgetController()
     }
     
     func getTimeline(in context: Context, completion: @escaping @Sendable (Timeline<IOSWidgetEntry>) -> Void) {
-        //IOSDIKt.stopKoin()
-        if (task != nil){ return }
-        //task?.cancel()
+        task?.cancel()
         task = Task {
             do {
-             //   IOSDIKt.startKoin()
-                NSLog("CREAETE")
-              //  let widgetController = RootWidgetController()
                 let cards = try await widgetController.current()
-               // IOSDIKt.stopKoin()
-                let entry  = IOSWidgetEntry(cardName: cards.first?.name ?? "", cardData: cards.first?.data ?? "", date: Date())
+                let entry  = IOSWidgetEntry(
+                    cards: cards.map{ card in IOSWidgetCardEntry(cardImage: UIImage(data: widgetController.mapToNSData(card: card))!, cardName: card.name) },
+                    date: Date())
                 completion(Timeline(entries: [entry], policy: .never))
-                NSLog("cards received \(cards)")
-                task = nil
             } catch {
                 NSLog("Failed with error: \(error)")
             }

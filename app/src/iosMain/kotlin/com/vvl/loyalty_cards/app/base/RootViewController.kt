@@ -27,40 +27,37 @@ class RootViewController(componentContext: ComponentContext) : KoinComponent {
 
     @OptIn(ExperimentalSharedTransitionApi::class)
     fun getUIViewController(backDispatcher: BackDispatcher): UIViewController {
-        return ComposeUIViewController(
-            configure = { enforceStrictPlistSanityCheck = false },
-            content = {
-                PredictiveBackGestureOverlay(
-                    modifier = Modifier.fillMaxSize(),
-                    backDispatcher = backDispatcher,
-                    backIcon = { progress, _ ->
-                        PredictiveBackGestureIcon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            progress = progress,
-                        )
-                    }
-                ) {
-                    AppTheme {
-                        // TODO: think about DI
-                        RootView(
-                            component = rootComponent,
-                            loyaltyCardsListView = { component, animatedVisibilityScope ->
-                                LoyaltyCardsListView(
-                                    component,
-                                    animatedVisibilityScope
-                                )
-                            },
-                            loyaltyCardDetailsView = { component, animatedVisibilityScope ->
-                                LoyaltyCardDetailsView(
-                                    component,
-                                    animatedVisibilityScope
-                                )
-                            },
-                            addLoyaltyCardView = { AddLoyaltyCardView(it) }
-                        )
-                    }
+        return ComposeUIViewController {
+            PredictiveBackGestureOverlay(
+                modifier = Modifier.fillMaxSize(),
+                backDispatcher = backDispatcher,
+                backIcon = { progress, _ ->
+                    PredictiveBackGestureIcon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        progress = progress,
+                    )
+                }
+            ) {
+                AppTheme {
+                    // TODO: think about DI
+                    RootView(
+                        component = rootComponent,
+                        loyaltyCardsListView = { component, animatedVisibilityScope ->
+                            LoyaltyCardsListView(
+                                component,
+                                animatedVisibilityScope
+                            )
+                        },
+                        loyaltyCardDetailsView = { component, animatedVisibilityScope ->
+                            LoyaltyCardDetailsView(
+                                component,
+                                animatedVisibilityScope
+                            )
+                        },
+                        addLoyaltyCardView = { AddLoyaltyCardView(it) }
+                    )
                 }
             }
-        )
+        }
     }
 }
