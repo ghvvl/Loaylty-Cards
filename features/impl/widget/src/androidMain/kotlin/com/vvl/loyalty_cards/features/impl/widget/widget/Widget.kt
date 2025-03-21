@@ -36,6 +36,7 @@ import androidx.glance.layout.size
 import androidx.glance.text.Text
 import androidx.glance.text.TextAlign
 import androidx.glance.text.TextStyle
+import androidx.glance.unit.ColorProvider
 import androidx.glance.visibility
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.common.model.LoyaltyCardCodeType
@@ -77,7 +78,7 @@ internal class Widget : GlanceAppWidget() {
                 Box(
                     modifier = GlanceModifier
                         .fillMaxSize()
-                        .background(GlanceTheme.colors.primary),
+                        .background(ColorProvider(R.color.primary)),
                     contentAlignment = Alignment.Center
                 ) {
                     val cards by storage.loyaltyCards.collectAsState(emptyList())
@@ -139,7 +140,7 @@ internal class Widget : GlanceAppWidget() {
                     .padding(top = 16.dp),
                 provider = ImageProvider(dataBitmap.asAndroidBitmap()),
                 contentDescription = "Localized description",
-                colorFilter = ColorFilter.tint(GlanceTheme.colors.widgetBackground)
+                colorFilter = ColorFilter.tint(ColorProvider(R.color.background))
             )
         }
     }
