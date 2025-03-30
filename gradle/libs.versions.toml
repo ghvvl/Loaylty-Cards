@@ -4,11 +4,12 @@ android-compileSdk = "35"
 android-minSdk = "31"
 android-targetSdk = "35"
 
-agp = "8.9.0"
+agp = "8.9.1"
 compose = "1.7.3"
-kotlin = "2.1.20-RC3"
+kotlin = "2.1.20"
 versions = "0.52.0"
 detekt = "1.23.8"
+ksp = "2.1.20-1.0.32"
 
 activity = "1.10.1"
 splash = "1.0.1"
@@ -18,11 +19,11 @@ essenty = "2.5.0"
 
 coroutines = "1.10.1"
 koin = "4.1.0-Beta5"
-room = "2.7.0-rc02"
-sqlite = "2.5.0-rc02"
+room = "2.7.0-rc03"
+sqlite = "2.5.0-rc03"
 serialization = "1.8.0"
 qrose = "1.0.1"
-camera = "1.4.1"
+camera = "1.4.2"
 mlkit = "17.3.0"
 gms = "16.1.0"
 permissions = "0.19.1"
@@ -83,5 +84,5 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
-ksp = { id = "com.google.devtools.ksp", version = "2.1.20-RC3-1.0.31" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
