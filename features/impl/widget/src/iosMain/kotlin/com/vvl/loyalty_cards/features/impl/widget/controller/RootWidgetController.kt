@@ -3,6 +3,7 @@ package com.vvl.loyalty_cards.features.impl.widget.controller
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.common.model.LoyaltyCardCodeType
 import com.vvl.loyalty_cards.data.storage.api.loyalty_cards.storage.LoyaltyCardsStorage
+import com.vvl.loyalty_cards.features.api.deep_links.DeepLinksProvider
 import com.vvl.loyalty_cards.features.common.utils.toBarCodeType
 import com.vvl.loyalty_cards.features.impl.widget.delegate.IOSWidgetDelegateImpl
 import io.github.alexzhirkevich.qrose.QrCodePainter
@@ -22,8 +23,9 @@ class RootWidgetController : KoinComponent {
 
     private val storage: LoyaltyCardsStorage by inject()
     private val widgetDelegate: IOSWidgetDelegateImpl by inject()
+    private val deepLinksProvider: DeepLinksProvider by inject()
 
-    suspend fun current(): List<LoyaltyCard> = storage.loyaltyCards.first()
+    suspend fun getCurrentCards(): List<LoyaltyCard> = storage.loyaltyCards.first()
 
     fun setCallback(callback: () -> Unit) {
         widgetDelegate.callback = callback
@@ -54,4 +56,7 @@ class RootWidgetController : KoinComponent {
             length = this@toData.size.toULong()
         )
     }
+
+    fun createDeeplinkForCard(card: LoyaltyCard): String =
+        deepLinksProvider.createOpenCardDetailsDeepLink(card.data)
 }

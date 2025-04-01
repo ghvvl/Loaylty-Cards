@@ -26,6 +26,7 @@ kotlin {
             export(libs.essenty.backHandler)
             export(libs.essenty.stateKeeper)
             export(projects.features.impl.widget)
+            export(libs.deeplinks)
         }
     }
 
@@ -59,6 +60,7 @@ kotlin {
             api(libs.essenty.backHandler)
             api(libs.essenty.stateKeeper)
             api(projects.features.impl.widget)
+            api(libs.deeplinks)
         }
     }
 }

@@ -10,7 +10,7 @@ struct IOSWidget: Widget {
             kind: "Loyalty cards widget",
             provider: IOSWidgetProvider()
         ) { entry in
-            IOSWidgetView(entry: entry).containerBackground(.fill.tertiary, for: .widget)
+            IOSWidgetView(entry: entry).containerBackground(.white, for: .widget).widgetURL(entry.deeplink)
         }
     }
 }

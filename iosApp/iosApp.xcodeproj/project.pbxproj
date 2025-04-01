@@ -136,6 +136,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1A08DB7F2D78FE460060456F /* Build configuration list for PBXNativeTarget "iosApp" */;
 			buildPhases = (
+				1A5608022D9DD45A00AA21FE /* ShellScript */,
 				1A08DB6C2D78FE450060456F /* Sources */,
 				1A08DB6D2D78FE450060456F /* Frameworks */,
 				1A08DB6E2D78FE450060456F /* Resources */,
@@ -237,6 +238,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1A5608022D9DD45A00AA21FE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export JAVA_HOME=\"/Applications/Android Studio.app/Contents/jbr/Contents/Home\"\ncd \"$SRCROOT/..\"\n./gradlew :app:embedAndSignAppleFrameworkForXcode\n";
+		};
 		1AEDC9312D7A62CB000EE6C6 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -253,7 +271,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export JAVA_HOME=\"/Applications/Android Studio.app/Contents/jbr/Contents/Home\"\ncd \"$SRCROOT/..\"\n./gradlew :app:embedAndSignAppleFrameworkForXcode\n./gradlew :features:impl:deepLinks:embedAndSignAppleFrameworkForXcode\n";
+			shellScript = "export JAVA_HOME=\"/Applications/Android Studio.app/Contents/jbr/Contents/Home\"\ncd \"$SRCROOT/..\"\n./gradlew :app:embedAndSignAppleFrameworkForXcode\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
