@@ -13,4 +13,6 @@ interface LoyaltyCardsStorage {
     suspend fun updateLoyaltyCard(card: LoyaltyCard)
 
     suspend fun removeLoyaltyCard(card: LoyaltyCard)
+
+    suspend fun replaceLoyaltyCards(cards: List<LoyaltyCard>)
 }

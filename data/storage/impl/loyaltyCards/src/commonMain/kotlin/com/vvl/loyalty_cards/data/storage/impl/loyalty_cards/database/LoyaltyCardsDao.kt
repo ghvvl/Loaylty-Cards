@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.model.DBLoyaltyCard
 import kotlinx.coroutines.flow.Flow
 
@@ -18,4 +19,16 @@ internal interface LoyaltyCardsDao {
 
     @Query("SELECT * FROM DBLoyaltyCard ORDER BY id DESC")
     fun getAllAsFlow(): Flow<List<DBLoyaltyCard>>
+
+    @Transaction
+    suspend fun replaceData(newCards: List<DBLoyaltyCard>) {
+        clearAll()
+        insertAll(newCards)
+    }
+
+    @Query("DELETE FROM DBLoyaltyCard")
+    suspend fun clearAll()
+
+    @Insert
+    suspend fun insertAll(cards: List<DBLoyaltyCard>)
 }

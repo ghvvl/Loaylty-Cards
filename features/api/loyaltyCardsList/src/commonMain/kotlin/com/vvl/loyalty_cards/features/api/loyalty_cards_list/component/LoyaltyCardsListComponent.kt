@@ -7,6 +7,8 @@ interface LoyaltyCardsListComponent {
 
     val loyaltyCards: Flow<List<LoyaltyCard>>
 
+    fun onLoyaltyCardPositionChanged(from: Int, to: Int)
+
     fun onLoyaltyCardSwiped(card: LoyaltyCard)
 
     fun onLoyaltyCardClicked(card: LoyaltyCard)

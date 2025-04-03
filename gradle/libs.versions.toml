@@ -28,6 +28,7 @@ mlkit = "17.3.0"
 gms = "16.1.0"
 permissions = "0.19.1"
 deeplinks = "1.4.0"
+reorderable = "2.4.3"
 
 [libraries]
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
@@ -73,6 +74,8 @@ permissions-compose = { module = "dev.icerock.moko:permissions-compose", version
 permissions-camera = { module = "dev.icerock.moko:permissions-camera", version.ref = "permissions" }
 
 deeplinks = { module = "dev.theolm:rinku", version.ref = "deeplinks" }
+
+reorderable = { module = "sh.calvin.reorderable:reorderable", version.ref = "reorderable" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

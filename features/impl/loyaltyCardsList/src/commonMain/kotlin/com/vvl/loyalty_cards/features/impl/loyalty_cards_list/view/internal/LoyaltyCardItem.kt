@@ -21,6 +21,7 @@ import com.vvl.loyalty_cards.features.common.view.LoyaltyCardView
 @Suppress("MagicNumber")
 @Composable
 internal fun LazyItemScope.LoyaltyCardItem(
+    modifier: Modifier,
     card: LoyaltyCard,
     onSwipe: (LoyaltyCard) -> Unit,
     onClick: (LoyaltyCard) -> Unit,
@@ -35,10 +36,9 @@ internal fun LazyItemScope.LoyaltyCardItem(
         }
     )
     SwipeToDismissBox(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .animateItem(),
+            .padding(horizontal = 16.dp),
         state = dismissState,
         backgroundContent = {
             val color by animateColorAsState(
