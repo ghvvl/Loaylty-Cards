@@ -2,12 +2,18 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "58a5f6735866c27944d0e1f5510de28d",
+    "identityHash": "ee522f0b1c4afba44af8ca584d601193",
     "entities": [
       {
         "tableName": "DBLoyaltyCard",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT NOT NULL, `data` TEXT NOT NULL, `codeType` TEXT NOT NULL, `cardColor` INTEGER NOT NULL, PRIMARY KEY(`data`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `data` TEXT NOT NULL, `codeType` TEXT NOT NULL, `cardColor` INTEGER NOT NULL)",
         "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
           {
             "fieldPath": "name",
             "columnName": "name",
@@ -34,16 +40,27 @@
           }
         ],
         "primaryKey": {
-          "autoGenerate": false,
+          "autoGenerate": true,
           "columnNames": [
-            "data"
+            "id"
           ]
-        }
+        },
+        "indices": [
+          {
+            "name": "index_DBLoyaltyCard_data",
+            "unique": true,
+            "columnNames": [
+              "data"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_DBLoyaltyCard_data` ON `${TABLE_NAME}` (`data`)"
+          }
+        ]
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '58a5f6735866c27944d0e1f5510de28d')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ee522f0b1c4afba44af8ca584d601193')"
     ]
   }
 }

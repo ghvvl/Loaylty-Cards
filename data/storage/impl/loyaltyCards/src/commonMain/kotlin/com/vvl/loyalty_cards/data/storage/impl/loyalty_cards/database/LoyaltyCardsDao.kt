@@ -14,12 +14,9 @@ internal interface LoyaltyCardsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(card: DBLoyaltyCard)
 
-    @Delete
-    suspend fun delete(card: DBLoyaltyCard)
+    @Query("DELETE FROM DBLoyaltyCard WHERE data = :data")
+    suspend fun deleteByData(data: String)
 
-    @Query("SELECT * FROM DBLoyaltyCard")
+    @Query("SELECT * FROM DBLoyaltyCard ORDER BY id DESC")
     fun getAllAsFlow(): Flow<List<DBLoyaltyCard>>
-
-    @Query("SELECT * FROM DBLoyaltyCARD WHERE data=:data")
-    suspend fun getCardByData(data: String): DBLoyaltyCard?
 }

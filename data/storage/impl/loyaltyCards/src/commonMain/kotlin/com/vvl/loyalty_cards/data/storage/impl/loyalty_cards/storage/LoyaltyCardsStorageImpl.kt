@@ -21,15 +21,28 @@ internal class LoyaltyCardsStorageImpl(
         loyaltyCards.first().firstOrNull { it.data == cardData }
 
     override suspend fun updateLoyaltyCard(card: LoyaltyCard) {
-        val oldCard = loyaltyCardsDao.getCardByData(card.data)
+        val oldCard = getLoyaltyCard(card.data)
         val newData = card.copy(
             name = card.name.ifEmpty { oldCard?.name.orEmpty() }
         )
         loyaltyCardsDao.insert(newData.map())
     }
 
-    override suspend fun removeLoyaltyCard(card: LoyaltyCard) = loyaltyCardsDao.delete(card.map())
+    override suspend fun removeLoyaltyCard(card: LoyaltyCard) =
+        loyaltyCardsDao.deleteByData(card.data)
 
-    private fun DBLoyaltyCard.map(): LoyaltyCard = LoyaltyCard(name, data, codeType, cardColor)
-    private fun LoyaltyCard.map(): DBLoyaltyCard = DBLoyaltyCard(name, data, codeType, cardColor)
+    private fun DBLoyaltyCard.map(): LoyaltyCard = LoyaltyCard(
+        name = name,
+        data = data,
+        codeType = codeType,
+        cardColor = cardColor
+    )
+
+    private fun LoyaltyCard.map(): DBLoyaltyCard = DBLoyaltyCard(
+        id = 0,
+        name = name,
+        data = data,
+        codeType = codeType,
+        cardColor = cardColor
+    )
 }
