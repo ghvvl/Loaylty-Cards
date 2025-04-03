@@ -20,7 +20,13 @@ internal class LoyaltyCardsStorageImpl(
     override suspend fun getLoyaltyCard(cardData: String) =
         loyaltyCards.first().firstOrNull { it.data == cardData }
 
-    override suspend fun updateLoyaltyCard(card: LoyaltyCard) = loyaltyCardsDao.insert(card.map())
+    override suspend fun updateLoyaltyCard(card: LoyaltyCard) {
+        val oldCard = loyaltyCardsDao.getCardByData(card.data)
+        val newData = card.copy(
+            name = card.name.ifEmpty { oldCard?.name.orEmpty() }
+        )
+        loyaltyCardsDao.insert(newData.map())
+    }
 
     override suspend fun removeLoyaltyCard(card: LoyaltyCard) = loyaltyCardsDao.delete(card.map())
 

@@ -19,4 +19,7 @@ internal interface LoyaltyCardsDao {
 
     @Query("SELECT * FROM DBLoyaltyCard")
     fun getAllAsFlow(): Flow<List<DBLoyaltyCard>>
+
+    @Query("SELECT * FROM DBLoyaltyCARD WHERE data=:data")
+    suspend fun getCardByData(data: String): DBLoyaltyCard?
 }
