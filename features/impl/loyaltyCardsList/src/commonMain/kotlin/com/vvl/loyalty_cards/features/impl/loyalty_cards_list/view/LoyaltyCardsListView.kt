@@ -7,6 +7,7 @@ import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -97,6 +98,7 @@ fun SharedTransitionScope.LoyaltyCardsListView(
     ) { paddingValues ->
         val loyaltyCards by component.loyaltyCards.collectAsState(emptyList())
         LazyColumn(
+            modifier = Modifier.fillMaxSize(),
             contentPadding = paddingValues,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
