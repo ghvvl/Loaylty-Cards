@@ -28,6 +28,7 @@ kotlin {
             implementation(libs.decompose.compose)
             implementation(libs.essenty.coroutines)
             implementation(libs.coroutines)
+            implementation(libs.reorderable)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin)
         }

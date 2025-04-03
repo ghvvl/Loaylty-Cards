@@ -31,6 +31,11 @@ internal class LoyaltyCardsStorageImpl(
     override suspend fun removeLoyaltyCard(card: LoyaltyCard) =
         loyaltyCardsDao.deleteByData(card.data)
 
+    override suspend fun replaceLoyaltyCards(cards: List<LoyaltyCard>) {
+        // getAllAsFlow function are desc sorted so we need reverse here too
+        loyaltyCardsDao.replaceData(cards.asReversed().map { it.map() })
+    }
+
     private fun DBLoyaltyCard.map(): LoyaltyCard = LoyaltyCard(
         name = name,
         data = data,

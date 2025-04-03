@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -40,6 +41,8 @@ import loyaltycards.features.impl.loyaltycardslist.generated.resources.Res
 import loyaltycards.features.impl.loyaltycardslist.generated.resources.add_loyalty_card
 import loyaltycards.features.impl.loyaltycardslist.generated.resources.loyalty_cards_title
 import org.jetbrains.compose.resources.stringResource
+import sh.calvin.reorderable.ReorderableItem
+import sh.calvin.reorderable.rememberReorderableLazyListState
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
@@ -97,21 +100,29 @@ fun SharedTransitionScope.LoyaltyCardsListView(
         floatingActionButtonPosition = FabPosition.Center
     ) { paddingValues ->
         val loyaltyCards by component.loyaltyCards.collectAsState(emptyList())
+        val lazyListState = rememberLazyListState()
+        val reorderableLazyListState = rememberReorderableLazyListState(lazyListState) { from, to ->
+            component.onLoyaltyCardPositionChanged(from.index, to.index)
+        }
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
+            state = lazyListState,
             contentPadding = paddingValues,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(loyaltyCards, key = { it.data }) {
-                LoyaltyCardItem(
-                    it,
-                    component::onLoyaltyCardSwiped,
-                    component::onLoyaltyCardClicked
-                ) { key ->
-                    sharedBounds(
-                        sharedContentState = rememberSharedContentState(key),
-                        animatedVisibilityScope = animatedVisibilityScope
-                    )
+            items(loyaltyCards, key = { it.data }) { item ->
+                ReorderableItem(reorderableLazyListState, key = item.data) { isDragging ->
+                    LoyaltyCardItem(
+                        Modifier.longPressDraggableHandle(),
+                        item,
+                        component::onLoyaltyCardSwiped,
+                        component::onLoyaltyCardClicked
+                    ) { key ->
+                        sharedBounds(
+                            sharedContentState = rememberSharedContentState(key),
+                            animatedVisibilityScope = animatedVisibilityScope
+                        )
+                    }
                 }
             }
         }
