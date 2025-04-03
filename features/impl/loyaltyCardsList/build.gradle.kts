@@ -8,8 +8,6 @@ plugins {
 kotlin {
     androidTarget()
 
-    jvm()
-
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -20,6 +18,7 @@ kotlin {
 
             api(projects.features.api.loyaltyCardsList)
             implementation(projects.features.api.root)
+            implementation(projects.features.api.widget)
             implementation(projects.features.common)
 
             implementation(compose.components.resources)
@@ -31,10 +30,6 @@ kotlin {
             implementation(libs.coroutines)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin)
-        }
-
-        jvmMain.dependencies {
-            implementation(libs.coroutines.jvm)
         }
     }
 }

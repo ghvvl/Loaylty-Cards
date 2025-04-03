@@ -28,6 +28,7 @@ kotlin {
             implementation(projects.data.storage.api.loyaltyCards)
             api(projects.features.api.addLoyaltyCard)
             implementation(projects.features.api.root)
+            implementation(projects.features.api.widget)
 
             implementation(compose.components.resources)
             implementation(compose.material3)

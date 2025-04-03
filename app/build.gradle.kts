@@ -1,4 +1,5 @@
 import com.android.build.gradle.ProguardFiles.ProguardFile
+import org.gradle.kotlin.dsl.sourceSets
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
@@ -11,7 +12,6 @@ plugins {
 kotlin {
     androidTarget()
 
-    //We need this kludge because of moko-permissions that doesn't support jvm target
     //jvm()
 
     listOf(
@@ -25,13 +25,13 @@ kotlin {
             export(libs.essenty)
             export(libs.essenty.backHandler)
             export(libs.essenty.stateKeeper)
+            export(projects.features.impl.widget)
+            export(libs.deeplinks)
         }
     }
 
     sourceSets {
         androidMain.dependencies {
-            implementation(projects.features.impl.widget)
-
             implementation(libs.androidx.splash)
             implementation(libs.androidx.activity)
             implementation(libs.koin.android)
@@ -43,13 +43,13 @@ kotlin {
             implementation(projects.features.impl.loyaltyCardDetails)
             implementation(projects.features.impl.addLoyaltyCard)
             implementation(projects.features.impl.deepLinks)
+            implementation(projects.features.impl.widget)
 
             implementation(compose.material3)
 
             implementation(libs.decompose)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin)
-            implementation(libs.datastore)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -59,6 +59,8 @@ kotlin {
             api(libs.essenty)
             api(libs.essenty.backHandler)
             api(libs.essenty.stateKeeper)
+            api(projects.features.impl.widget)
+            api(libs.deeplinks)
         }
     }
 }

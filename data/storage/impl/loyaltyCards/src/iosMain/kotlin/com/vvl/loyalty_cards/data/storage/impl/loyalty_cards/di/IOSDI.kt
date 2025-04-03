@@ -1,26 +1,18 @@
 package com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.di
 
-import androidx.datastore.core.DataStore
-import com.vvl.loyalty_cards.common.model.LoyaltyCard
-import com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.utils.DATA_STORE_FILE_NAME
-import com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.utils.createDataStore
-import kotlinx.cinterop.ExperimentalForeignApi
-import platform.Foundation.NSDocumentDirectory
+import androidx.room.Room
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.database.DB_FILE_NAME
+import com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.database.LoyaltyCardsDatabase
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSURL
-import platform.Foundation.NSUserDomainMask
 
-@OptIn(ExperimentalForeignApi::class)
-actual fun getDataStore(): DataStore<List<LoyaltyCard>> = createDataStore(
-    producePath = {
-        val documentDirectory: NSURL? =
-            NSFileManager.defaultManager.URLForDirectory(
-                directory = NSDocumentDirectory,
-                inDomain = NSUserDomainMask,
-                appropriateForURL = null,
-                create = false,
-                error = null,
-            )
-        requireNotNull(documentDirectory).path + "/$DATA_STORE_FILE_NAME"
-    }
-)
+internal actual fun createDatabase(): LoyaltyCardsDatabase {
+    val documentDirectory: NSURL? = NSFileManager
+        .defaultManager
+        .containerURLForSecurityApplicationGroupIdentifier("group.com.vvl.loyalty_cards")
+    val dbFile = requireNotNull(documentDirectory).path + "/$DB_FILE_NAME"
+    return Room.databaseBuilder<LoyaltyCardsDatabase>(dbFile)
+        .setDriver(BundledSQLiteDriver())
+        .build()
+}

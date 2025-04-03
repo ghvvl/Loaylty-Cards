@@ -15,6 +15,7 @@ plugins {
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.ksp) apply false
     alias(libs.plugins.versions)
     alias(libs.plugins.detekt)
 }
@@ -76,7 +77,7 @@ subprojects {
     }
 
     tasks.withType<KotlinCompile> {
-        compilerOptions.apiVersion.set(KotlinVersion.KOTLIN_2_1)
+        compilerOptions.languageVersion.set(KotlinVersion.KOTLIN_2_1)
     }
 
     apply {

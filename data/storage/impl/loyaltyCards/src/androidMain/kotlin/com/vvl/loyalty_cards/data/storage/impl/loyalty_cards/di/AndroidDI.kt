@@ -1,14 +1,21 @@
 package com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.di
 
-import android.content.Context
-import androidx.datastore.core.DataStore
-import com.vvl.loyalty_cards.common.model.LoyaltyCard
-import com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.utils.DATA_STORE_FILE_NAME
-import com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.utils.createDataStore
+import android.app.Application
+import androidx.room.Room
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.database.DB_FILE_NAME
+import com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.database.LoyaltyCardsDatabase
+import kotlinx.coroutines.Dispatchers
 import org.koin.mp.KoinPlatform
 
-actual fun getDataStore(): DataStore<List<LoyaltyCard>> = createDataStore(
-    producePath = {
-        KoinPlatform.getKoin().get<Context>().filesDir.resolve(DATA_STORE_FILE_NAME).absolutePath
-    }
-)
+internal actual fun createDatabase(): LoyaltyCardsDatabase {
+    val application = KoinPlatform.getKoin().get<Application>()
+    val dbFile = application.getDatabasePath(DB_FILE_NAME)
+    return Room.databaseBuilder<LoyaltyCardsDatabase>(
+        context = application,
+        name = dbFile.absolutePath,
+    )
+        .setDriver(BundledSQLiteDriver())
+        .setQueryCoroutineContext(Dispatchers.IO)
+        .build()
+}
