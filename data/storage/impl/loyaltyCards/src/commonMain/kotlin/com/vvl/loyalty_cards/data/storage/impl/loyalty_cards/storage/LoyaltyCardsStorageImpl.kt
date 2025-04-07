@@ -2,8 +2,8 @@ package com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.storage
 
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.data.storage.api.loyalty_cards.storage.LoyaltyCardsStorage
-import com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.database.LoyaltyCardsDao
-import com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.model.DBLoyaltyCard
+import com.vvl.loyalty_cards.data.storage.impl.database.database.LoyaltyCardsDao
+import com.vvl.loyalty_cards.data.storage.impl.database.model.DBLoyaltyCard
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map

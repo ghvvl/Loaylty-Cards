@@ -12,7 +12,8 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.data.storage.api.loyaltyCards)
+            api(projects.data.storage.api.widget)
+            implementation(projects.data.storage.api.loyaltyCards)
             implementation(projects.data.storage.impl.database)
 
             implementation(libs.coroutines)
