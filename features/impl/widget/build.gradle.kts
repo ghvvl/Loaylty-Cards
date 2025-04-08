@@ -20,6 +20,7 @@ kotlin {
 
         commonMain.dependencies {
             implementation(projects.data.storage.impl.loyaltyCards)
+            implementation(projects.data.storage.impl.widget)
             implementation(projects.features.common)
             implementation(projects.features.api.deepLinks)
             implementation(projects.features.api.widget)

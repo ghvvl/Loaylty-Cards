@@ -92,8 +92,8 @@ internal class RootComponentImpl(
 
     init {
         lifecycle.doOnCreate {
-            deepLinksHandler
-                .addOpenCardDetailsDeepLinkListener { cardId ->
+            with(deepLinksHandler) {
+                addOpenCardDetailsDeepLinkListener { cardId ->
                     scope.launch {
                         val loyaltyCard =
                             loyaltyCardsStorage.getLoyaltyCard(cardId) ?: return@launch
@@ -105,8 +105,11 @@ internal class RootComponentImpl(
                         }
                     }
                 }
+                addOpenWidgetStateDetailsDeepLinkListener { widgetId ->
+                }
+            }
         }
-        lifecycle.doOnDestroy { deepLinksHandler.removeOpenCardDetailsDeepLinkListener() }
+        lifecycle.doOnDestroy { deepLinksHandler.clearDeepLinkListeners() }
     }
 
     override fun onBackClicked() {
