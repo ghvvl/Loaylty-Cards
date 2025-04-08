@@ -46,6 +46,7 @@ kotlin {
             implementation(projects.features.impl.addLoyaltyCard)
             implementation(projects.features.impl.deepLinks)
             implementation(projects.features.impl.widget)
+            implementation(projects.features.impl.home)
 
             implementation(compose.material3)
 

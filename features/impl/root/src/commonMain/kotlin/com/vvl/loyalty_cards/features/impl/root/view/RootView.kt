@@ -11,8 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.experimental.stack.ChildStack
 import com.vvl.loyalty_cards.features.api.add_loyalty_card.component.AddLoyaltyCardComponent
+import com.vvl.loyalty_cards.features.api.home.component.HomeComponent
 import com.vvl.loyalty_cards.features.api.loyalty_card_details.component.LoyaltyCardDetailsComponent
-import com.vvl.loyalty_cards.features.api.loyalty_cards_list.component.LoyaltyCardsListComponent
 import com.vvl.loyalty_cards.features.api.root.component.RootComponent
 import com.vvl.loyalty_cards.features.impl.root.utils.backAnimation
 
@@ -20,9 +20,8 @@ import com.vvl.loyalty_cards.features.impl.root.utils.backAnimation
 @Composable
 fun RootView(
     component: RootComponent,
-    loyaltyCardsListView: @Composable SharedTransitionScope.(
-        LoyaltyCardsListComponent,
-        AnimatedVisibilityScope
+    homeView: @Composable SharedTransitionScope.(
+        HomeComponent, AnimatedVisibilityScope
     ) -> Unit,
     loyaltyCardDetailsView: @Composable SharedTransitionScope.(
         LoyaltyCardDetailsComponent,
@@ -43,11 +42,8 @@ fun RootView(
         )
     ) {
         when (val child = it.instance) {
-            is RootComponent.RootChild.LoyaltyCardsList -> {
-                loyaltyCardsListView(
-                    child.component,
-                    this
-                )
+            is RootComponent.RootChild.Home -> {
+                homeView(child.component, this)
             }
 
             is RootComponent.RootChild.LoyaltyCardDetails -> {

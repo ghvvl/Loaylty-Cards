@@ -11,6 +11,7 @@ import com.vvl.loyalty_cards.app.theme.AppTheme
 import com.vvl.loyalty_cards.features.api.deep_links.DeepLinksHandler
 import com.vvl.loyalty_cards.features.api.root.component.RootComponent
 import com.vvl.loyalty_cards.features.impl.add_loyalty_card.view.AddLoyaltyCardView
+import com.vvl.loyalty_cards.features.impl.home.view.HomeView
 import com.vvl.loyalty_cards.features.impl.loyalty_card_details.di.androidLoyaltyCardDetailsModule
 import com.vvl.loyalty_cards.features.impl.loyalty_card_details.view.LoyaltyCardDetailsView
 import com.vvl.loyalty_cards.features.impl.loyalty_cards_list.view.LoyaltyCardsListView
@@ -59,10 +60,15 @@ internal class MainActivity : ComponentActivity() {
                 // TODO: think about DI
                 RootView(
                     component = rootComponent,
-                    loyaltyCardsListView = { component, animatedVisibilityScope ->
-                        LoyaltyCardsListView(
+                    homeView = { component, animatedVisibilityScope ->
+                        HomeView(
                             component,
-                            animatedVisibilityScope
+                            { component ->
+                                LoyaltyCardsListView(
+                                    component,
+                                    animatedVisibilityScope
+                                )
+                            }
                         )
                     },
                     loyaltyCardDetailsView = { component, animatedVisibilityScope ->

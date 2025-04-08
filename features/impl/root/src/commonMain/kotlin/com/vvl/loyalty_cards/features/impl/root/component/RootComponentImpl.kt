@@ -17,8 +17,9 @@ import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.data.storage.api.loyalty_cards.storage.LoyaltyCardsStorage
 import com.vvl.loyalty_cards.features.api.add_loyalty_card.component.AddLoyaltyCardComponent
 import com.vvl.loyalty_cards.features.api.deep_links.DeepLinksHandler
+import com.vvl.loyalty_cards.features.api.home.component.HomeComponent
+import com.vvl.loyalty_cards.features.api.home.model.LaunchMode
 import com.vvl.loyalty_cards.features.api.loyalty_card_details.component.LoyaltyCardDetailsComponent
-import com.vvl.loyalty_cards.features.api.loyalty_cards_list.component.LoyaltyCardsListComponent
 import com.vvl.loyalty_cards.features.api.root.component.RootComponent
 import com.vvl.loyalty_cards.features.api.root.navigator.RootNavigator
 import kotlinx.coroutines.launch
@@ -26,7 +27,7 @@ import kotlinx.serialization.Serializable
 
 internal class RootComponentImpl(
     componentContext: ComponentContext,
-    val loyaltyCardsListComponent: (ComponentContext, RootNavigator) -> LoyaltyCardsListComponent,
+    val homeComponent: (ComponentContext, RootNavigator, LaunchMode) -> HomeComponent,
     val loyaltyCardDetailsComponent: (
         ComponentContext,
         RootNavigator,
@@ -67,7 +68,7 @@ internal class RootComponentImpl(
     override val childStack: Value<ChildStack<*, RootComponent.RootChild>> = childStack(
         source = navigation,
         serializer = RootConfig.serializer(),
-        initialConfiguration = RootConfig.LoyaltyCardsList,
+        initialConfiguration = RootConfig.Home(LaunchMode.LoyaltyCardsList),
         childFactory = ::child,
         handleBackButton = true
     )
@@ -77,8 +78,8 @@ internal class RootComponentImpl(
         componentContext: ComponentContext
     ): RootComponent.RootChild =
         when (config) {
-            is RootConfig.LoyaltyCardsList -> RootComponent.RootChild.LoyaltyCardsList(
-                loyaltyCardsListComponent(componentContext, rootNavigator)
+            is RootConfig.Home -> RootComponent.RootChild.Home(
+                homeComponent(componentContext, rootNavigator, LaunchMode.LoyaltyCardsList)
             )
 
             is RootConfig.LoyaltyCardDetails -> RootComponent.RootChild.LoyaltyCardDetails(
@@ -99,7 +100,7 @@ internal class RootComponentImpl(
                             loyaltyCardsStorage.getLoyaltyCard(cardId) ?: return@launch
                         navigation.navigate {
                             listOf(
-                                RootConfig.LoyaltyCardsList,
+                                RootConfig.Home(LaunchMode.LoyaltyCardsList),
                                 RootConfig.LoyaltyCardDetails(loyaltyCard)
                             )
                         }
@@ -119,7 +120,7 @@ internal class RootComponentImpl(
     @Serializable
     private sealed interface RootConfig {
         @Serializable
-        data object LoyaltyCardsList : RootConfig
+        data class Home(val launchMode: LaunchMode) : RootConfig
 
         @Serializable
         data class LoyaltyCardDetails(val loyaltyCard: LoyaltyCard) : RootConfig

@@ -136,7 +136,7 @@ internal class Widget : GlanceAppWidget() {
     // https://issuetracker.google.com/issues/216663009
     @Composable
     @ReadOnlyComposable
-    fun stringResource(@StringRes id: Int, vararg formatArgs: Any): String {
+    private fun stringResource(@StringRes id: Int, vararg formatArgs: Any): String {
         return LocalContext.current.getString(id, *formatArgs)
     }
 
