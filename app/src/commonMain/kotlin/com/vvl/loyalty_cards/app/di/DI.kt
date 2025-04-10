@@ -7,6 +7,7 @@ import com.vvl.loyalty_cards.features.impl.deep_links.di.deepLinksModule
 import com.vvl.loyalty_cards.features.impl.home.di.homeModule
 import com.vvl.loyalty_cards.features.impl.loyalty_cards_list.di.loyaltyCardsListModule
 import com.vvl.loyalty_cards.features.impl.root.di.rootModule
+import com.vvl.loyalty_cards.features.impl.widgets_list.di.widgetsListModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import org.koin.dsl.module
@@ -20,6 +21,7 @@ internal val appModule = module {
         rootModule,
         loyaltyCardsListModule,
         homeModule,
+        widgetsListModule,
         deepLinksModule
     )
 }

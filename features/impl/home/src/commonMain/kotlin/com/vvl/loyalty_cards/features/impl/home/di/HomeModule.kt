@@ -20,6 +20,9 @@ val homeModule = module {
                     )
                 }
             },
+            widgetsListComponent = { context ->
+                get { parametersOf(context, it.get<RootNavigator>()) }
+            }
         )
     } bind HomeComponent::class
 }

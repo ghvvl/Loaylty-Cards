@@ -92,6 +92,7 @@ internal class RootComponentImpl(
         }
 
     init {
+        //TODO: recheck that all widgets in DB are still really exist
         lifecycle.doOnCreate {
             with(deepLinksHandler) {
                 addOpenCardDetailsDeepLinkListener { cardId ->

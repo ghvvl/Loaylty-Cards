@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -12,10 +11,10 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.features.api.loyaltyCardsList)
-            api(projects.features.api.widgetsList)
+            implementation(projects.common)
 
             implementation(libs.decompose)
+            implementation(libs.coroutines)
         }
     }
 }

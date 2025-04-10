@@ -47,6 +47,7 @@ kotlin {
             implementation(projects.features.impl.deepLinks)
             implementation(projects.features.impl.widget)
             implementation(projects.features.impl.home)
+            implementation(projects.features.impl.widgetsList)
 
             implementation(compose.material3)
 

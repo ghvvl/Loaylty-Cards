@@ -17,6 +17,7 @@ import com.vvl.loyalty_cards.features.impl.loyalty_card_details.view.LoyaltyCard
 import com.vvl.loyalty_cards.features.impl.loyalty_cards_list.view.LoyaltyCardsListView
 import com.vvl.loyalty_cards.features.impl.root.view.RootView
 import com.vvl.loyalty_cards.features.impl.widget.widget.WIDGET_KEY_NAME
+import com.vvl.loyalty_cards.features.impl.widgets_list.view.WidgetsListView
 import dev.theolm.rinku.Rinku
 import dev.theolm.rinku.RinkuInit
 import dev.theolm.rinku.models.DeepLinkFilter
@@ -65,6 +66,12 @@ internal class MainActivity : ComponentActivity() {
                             component,
                             { component ->
                                 LoyaltyCardsListView(
+                                    component,
+                                    animatedVisibilityScope
+                                )
+                            },
+                            { component ->
+                                WidgetsListView(
                                     component,
                                     animatedVisibilityScope
                                 )
