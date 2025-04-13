@@ -76,7 +76,8 @@ internal class MainActivity : ComponentActivity() {
                                     component,
                                     animatedVisibilityScope
                                 )
-                            }
+                            },
+                            animatedVisibilityScope
                         )
                     },
                     loyaltyCardDetailsView = { component, animatedVisibilityScope ->
@@ -86,7 +87,9 @@ internal class MainActivity : ComponentActivity() {
                         )
                     },
                     addLoyaltyCardView = { AddLoyaltyCardView(it) },
-                    widgetDetailsView = { WidgetDetailsView(it) }
+                    widgetDetailsView = { component, animatedVisibilityScope ->
+                        WidgetDetailsView(component,animatedVisibilityScope)
+                    }
                 )
             }
         }

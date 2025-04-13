@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 internal class WidgetDetailsComponentImpl(
     componentContext: ComponentContext,
     private val rootNavigator: RootNavigator,
-    private val providedWidgetId: WidgetId,
+    override val providedWidgetId: WidgetId,
     private val widgetStorage: WidgetStorage,
     private val widgetDelegate: WidgetDelegate
 ) : WidgetDetailsComponent, ComponentContext by componentContext {

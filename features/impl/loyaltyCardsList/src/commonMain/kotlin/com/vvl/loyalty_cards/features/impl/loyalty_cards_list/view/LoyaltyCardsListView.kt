@@ -4,6 +4,8 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Arrangement
@@ -85,7 +87,16 @@ fun SharedTransitionScope.LoyaltyCardsListView(
             )
         },
         floatingActionButton = {
+            val modifier = with(animatedVisibilityScope) {
+                Modifier
+                    .renderInSharedTransitionScopeOverlay()
+                    .animateEnterExit(
+                        enter = fadeIn() + slideInVertically { it },
+                        exit = fadeOut() + slideOutVertically { it }
+                    )
+            }
             AnimatedVisibility(
+                modifier = modifier,
                 visible = isVisible,
                 enter = slideInVertically(initialOffsetY = { it * 2 }),
                 exit = slideOutVertically(targetOffsetY = { it * 2 }),
@@ -116,13 +127,9 @@ fun SharedTransitionScope.LoyaltyCardsListView(
                         Modifier.longPressDraggableHandle(),
                         item,
                         component::onLoyaltyCardSwiped,
-                        component::onLoyaltyCardClicked
-                    ) { key ->
-                        sharedBounds(
-                            sharedContentState = rememberSharedContentState(key),
-                            animatedVisibilityScope = animatedVisibilityScope
-                        )
-                    }
+                        component::onLoyaltyCardClicked,
+                        animatedVisibilityScope
+                    )
                 }
             }
         }

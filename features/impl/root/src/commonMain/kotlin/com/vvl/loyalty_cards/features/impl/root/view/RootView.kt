@@ -30,7 +30,7 @@ fun RootView(
         AnimatedVisibilityScope
     ) -> Unit,
     addLoyaltyCardView: @Composable SharedTransitionScope.(AddLoyaltyCardComponent) -> Unit,
-    widgetDetailsView: @Composable SharedTransitionScope.(WidgetDetailsComponent) -> Unit
+    widgetDetailsView: @Composable SharedTransitionScope.(WidgetDetailsComponent, AnimatedVisibilityScope) -> Unit
 ) = SharedTransitionLayout(
     Modifier
         .fillMaxSize()
@@ -61,7 +61,7 @@ fun RootView(
             }
 
             is RootComponent.RootChild.WidgetDetails -> {
-                widgetDetailsView(child.component)
+                widgetDetailsView(child.component, this)
             }
         }
     }

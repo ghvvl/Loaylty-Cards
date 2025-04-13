@@ -1,5 +1,8 @@
 package com.vvl.loyalty_cards.features.impl.loyalty_cards_list.view.internal
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -18,14 +21,15 @@ import androidx.compose.ui.unit.dp
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.features.common.view.LoyaltyCardView
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Suppress("MagicNumber")
 @Composable
-internal fun LazyItemScope.LoyaltyCardItem(
+internal fun SharedTransitionScope.LoyaltyCardItem(
     modifier: Modifier,
     card: LoyaltyCard,
     onSwipe: (LoyaltyCard) -> Unit,
     onClick: (LoyaltyCard) -> Unit,
-    sharedTransitionModifier: @Composable Modifier.(String) -> Modifier
+    animatedVisibilityScope: AnimatedVisibilityScope
 ) {
     val dismissState = rememberSwipeToDismissBoxState(
         confirmValueChange = {
@@ -55,7 +59,10 @@ internal fun LazyItemScope.LoyaltyCardItem(
         LoyaltyCardView(
             modifier = Modifier
                 .fillMaxWidth()
-                .sharedTransitionModifier(card.data),
+                .sharedElement(
+                    state = rememberSharedContentState(card.data),
+                    animatedVisibilityScope = animatedVisibilityScope
+                ),
             loyaltyCard = card,
             onClick = onClick
         )

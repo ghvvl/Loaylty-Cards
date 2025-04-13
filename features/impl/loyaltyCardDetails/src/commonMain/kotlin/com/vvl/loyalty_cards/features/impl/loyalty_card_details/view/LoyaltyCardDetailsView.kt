@@ -105,7 +105,10 @@ private fun SharedTransitionScope.DrawContent(
             },
             label = { Text(stringResource(Res.string.loyalty_card_name)) },
             supportingText = {
-                Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) {
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.CenterEnd
+                ) {
                     Text("${loyaltyCard.name.length}/$MAX_LOYALTY_CARD_NAME_LENGTH")
                 }
             },
@@ -115,8 +118,8 @@ private fun SharedTransitionScope.DrawContent(
         LoyaltyCardView(
             modifier = Modifier
                 .fillMaxWidth()
-                .sharedBounds(
-                    sharedContentState = rememberSharedContentState(loyaltyCard.data),
+                .sharedElement(
+                    state = rememberSharedContentState(loyaltyCard.data),
                     animatedVisibilityScope = animatedVisibilityScope,
                     renderInOverlayDuringTransition = false
                 )

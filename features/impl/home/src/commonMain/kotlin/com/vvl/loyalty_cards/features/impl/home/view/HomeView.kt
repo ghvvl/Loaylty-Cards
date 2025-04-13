@@ -1,7 +1,12 @@
 package com.vvl.loyalty_cards.features.impl.home.view
 
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
@@ -29,7 +34,8 @@ import org.jetbrains.compose.resources.stringResource
 fun SharedTransitionScope.HomeView(
     component: HomeComponent,
     loyaltyCardsListView: @Composable (LoyaltyCardsListComponent) -> Unit,
-    widgetsListView: @Composable (WidgetsListComponent) -> Unit
+    widgetsListView: @Composable (WidgetsListComponent) -> Unit,
+    animatedVisibilityScope: AnimatedVisibilityScope
 ) {
     Column(Modifier.fillMaxSize()) {
         val childStack by component.childStack.subscribeAsState()
@@ -49,7 +55,16 @@ fun SharedTransitionScope.HomeView(
                 }
             }
         }
-        NavigationBar {
+
+        val modifier = with(animatedVisibilityScope) {
+            Modifier
+                .renderInSharedTransitionScopeOverlay()
+                .animateEnterExit(
+                    enter = fadeIn() + slideInVertically { it },
+                    exit = fadeOut() + slideOutVertically { it }
+                )
+        }
+        NavigationBar(modifier) {
             NavigationBarItem(
                 selected = activeComponent is HomeComponent.HomeChild.LoyaltyCardsList,
                 onClick = component::onLoyaltyCardsListClicked,

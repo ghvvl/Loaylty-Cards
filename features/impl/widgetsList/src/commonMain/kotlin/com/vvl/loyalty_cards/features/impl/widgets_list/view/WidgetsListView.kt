@@ -4,8 +4,11 @@ import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
@@ -16,6 +19,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -54,24 +58,40 @@ fun SharedTransitionScope.WidgetsListView(
             items(widgets, key = { it.widgetId.id }) { item ->
                 WidgetItem(
                     item,
-                    component::onWidgetClicked
-                )/* {
-                    sharedBounds(
-                        sharedContentState = rememberSharedContentState(key),
-                        animatedVisibilityScope = animatedVisibilityScope
-                    )
-                }*/
+                    component::onWidgetClicked,
+                    animatedVisibilityScope
+                )
             }
         }
     }
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-private fun WidgetItem(widgetState: WidgetState, onClick: (WidgetId) -> Unit) {
+private fun SharedTransitionScope.WidgetItem(
+    widgetState: WidgetState,
+    onClick: (WidgetId) -> Unit,
+    animatedVisibilityScope: AnimatedVisibilityScope
+) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
-        onClick = { onClick(widgetState.widgetId) }
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        onClick = { onClick(widgetState.widgetId) },
     ) {
-        Text(widgetState.widgetId.id)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(64.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                modifier = Modifier.sharedBounds(
+                    sharedContentState = rememberSharedContentState(widgetState.widgetId.id),
+                    animatedVisibilityScope = animatedVisibilityScope
+                ),
+                text = widgetState.widgetId.id
+            )
+        }
     }
 }
