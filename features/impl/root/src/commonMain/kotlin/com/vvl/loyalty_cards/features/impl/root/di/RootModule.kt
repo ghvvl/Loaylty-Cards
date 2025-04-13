@@ -25,15 +25,13 @@ val rootModule = module {
                 get { parametersOf(context, navigator, loyaltyCard) }
             },
             addLoyaltyCardComponent = { context, navigator ->
-                get {
-                    parametersOf(
-                        context,
-                        navigator
-                    )
-                }
+                get { parametersOf(context, navigator) }
+            },
+            widgetDetailsComponent = { context, navigator, widgetId ->
+                get { parametersOf(context, navigator, widgetId) }
             },
             deepLinksHandler = get(),
-            loyaltyCardsStorage = get()
+            loyaltyCardsStorage = get(),
         )
     } bind RootComponent::class
 }

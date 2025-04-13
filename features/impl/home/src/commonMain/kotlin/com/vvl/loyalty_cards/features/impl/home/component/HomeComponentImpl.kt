@@ -24,8 +24,14 @@ internal class HomeComponentImpl(
     override val childStack: Value<ChildStack<*, HomeComponent.HomeChild>> = childStack(
         source = navigation,
         serializer = HomeConfig.serializer(),
-        initialConfiguration = when (launchMode) {
-            is LaunchMode.LoyaltyCardsList -> HomeConfig.LoyaltyCardsList
+        initialStack = {
+            when (launchMode) {
+                is LaunchMode.LoyaltyCardsList -> listOf(HomeConfig.LoyaltyCardsList)
+                is LaunchMode.WidgetList -> listOf(
+                    HomeConfig.LoyaltyCardsList,
+                    HomeConfig.WidgetsList
+                )
+            }
         },
         childFactory = ::child,
         handleBackButton = true

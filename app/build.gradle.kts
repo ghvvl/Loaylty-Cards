@@ -48,6 +48,7 @@ kotlin {
             implementation(projects.features.impl.widget)
             implementation(projects.features.impl.home)
             implementation(projects.features.impl.widgetsList)
+            implementation(projects.features.impl.widgetDetails)
 
             implementation(compose.material3)
 

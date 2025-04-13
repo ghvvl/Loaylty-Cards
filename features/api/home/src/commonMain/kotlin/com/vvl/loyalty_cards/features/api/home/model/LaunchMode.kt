@@ -6,4 +6,7 @@ import kotlinx.serialization.Serializable
 sealed interface LaunchMode {
     @Serializable
     object LoyaltyCardsList : LaunchMode
+
+    @Serializable
+    object WidgetList : LaunchMode
 }

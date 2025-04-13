@@ -5,6 +5,7 @@ import com.vvl.loyalty_cards.data.storage.impl.loyalty_cards.di.loyaltyCardsModu
 import com.vvl.loyalty_cards.data.storage.impl.widget.di.widgetModule
 import com.vvl.loyalty_cards.features.impl.deep_links.di.deepLinksModule
 import com.vvl.loyalty_cards.features.impl.home.di.homeModule
+import com.vvl.loyalty_cards.features.impl.loyalty_card_details.di.widgetDetailsModule
 import com.vvl.loyalty_cards.features.impl.loyalty_cards_list.di.loyaltyCardsListModule
 import com.vvl.loyalty_cards.features.impl.root.di.rootModule
 import com.vvl.loyalty_cards.features.impl.widgets_list.di.widgetsListModule
@@ -22,6 +23,7 @@ internal val appModule = module {
         loyaltyCardsListModule,
         homeModule,
         widgetsListModule,
+        widgetDetailsModule,
         deepLinksModule
     )
 }

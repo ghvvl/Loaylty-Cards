@@ -49,7 +49,5 @@ internal class AddLoyaltyCardComponentImpl(
         }
     }
 
-    override fun onBackClicked() {
-        rootNavigator.onBackClicked()
-    }
+    override fun onBackClicked() = rootNavigator.onBackClicked()
 }

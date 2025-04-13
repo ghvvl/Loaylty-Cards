@@ -30,7 +30,6 @@ internal class DeepLinksManager(scope: CoroutineScope) : DeepLinksProvider, Deep
                     }
 
                     deepLink.host == DEEP_LINK_OPEN_WIDGET_STATE_DETAILS -> {
-                        println(deepLink.parameters)
                         val widgetId = WidgetId(
                             deepLink.parameters[DEEP_LINK_OPEN_WIDGET_STATE_DETAILS_WIDGET_ID]
                                 ?: return@listenForDeepLinks
@@ -46,8 +45,9 @@ internal class DeepLinksManager(scope: CoroutineScope) : DeepLinksProvider, Deep
     override fun createOpenCardDetailsDeepLink(cardData: String): String =
         "$DEEP_LINKS_SCHEME://$DEEP_LINK_OPEN_CARD_DETAILS?$DEEP_LINK_OPEN_CARD_DETAILS_CARD_ID=$cardData"
 
+    @Suppress("MaximumLineLength", "MaxLineLength")
     override fun createOpenWidgetStateDetailsDeeplink(widgetId: WidgetId): String =
-        "$DEEP_LINKS_SCHEME://$DEEP_LINK_OPEN_WIDGET_STATE_DETAILS?$DEEP_LINK_OPEN_WIDGET_STATE_DETAILS_WIDGET_ID=${widgetId.id}".apply { println(this) }
+        "$DEEP_LINKS_SCHEME://$DEEP_LINK_OPEN_WIDGET_STATE_DETAILS?$DEEP_LINK_OPEN_WIDGET_STATE_DETAILS_WIDGET_ID=${widgetId.id}"
 
     override fun validateDeeplink(url: String): Boolean = url.startsWith(DEEP_LINKS_SCHEME)
 

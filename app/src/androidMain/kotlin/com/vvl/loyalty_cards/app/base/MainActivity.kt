@@ -14,6 +14,7 @@ import com.vvl.loyalty_cards.features.impl.add_loyalty_card.view.AddLoyaltyCardV
 import com.vvl.loyalty_cards.features.impl.home.view.HomeView
 import com.vvl.loyalty_cards.features.impl.loyalty_card_details.di.androidLoyaltyCardDetailsModule
 import com.vvl.loyalty_cards.features.impl.loyalty_card_details.view.LoyaltyCardDetailsView
+import com.vvl.loyalty_cards.features.impl.loyalty_card_details.view.WidgetDetailsView
 import com.vvl.loyalty_cards.features.impl.loyalty_cards_list.view.LoyaltyCardsListView
 import com.vvl.loyalty_cards.features.impl.root.view.RootView
 import com.vvl.loyalty_cards.features.impl.widget.widget.WIDGET_KEY_NAME
@@ -63,14 +64,14 @@ internal class MainActivity : ComponentActivity() {
                     component = rootComponent,
                     homeView = { component, animatedVisibilityScope ->
                         HomeView(
-                            component,
-                            { component ->
+                            component = component,
+                            loyaltyCardsListView = { component ->
                                 LoyaltyCardsListView(
                                     component,
                                     animatedVisibilityScope
                                 )
                             },
-                            { component ->
+                            widgetsListView = { component ->
                                 WidgetsListView(
                                     component,
                                     animatedVisibilityScope
@@ -84,7 +85,8 @@ internal class MainActivity : ComponentActivity() {
                             animatedVisibilityScope
                         )
                     },
-                    addLoyaltyCardView = { AddLoyaltyCardView(it) }
+                    addLoyaltyCardView = { AddLoyaltyCardView(it) },
+                    widgetDetailsView = { WidgetDetailsView(it) }
                 )
             }
         }

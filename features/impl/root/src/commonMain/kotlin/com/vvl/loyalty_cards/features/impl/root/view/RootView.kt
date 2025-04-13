@@ -14,6 +14,7 @@ import com.vvl.loyalty_cards.features.api.add_loyalty_card.component.AddLoyaltyC
 import com.vvl.loyalty_cards.features.api.home.component.HomeComponent
 import com.vvl.loyalty_cards.features.api.loyalty_card_details.component.LoyaltyCardDetailsComponent
 import com.vvl.loyalty_cards.features.api.root.component.RootComponent
+import com.vvl.loyalty_cards.features.api.widget_details.component.WidgetDetailsComponent
 import com.vvl.loyalty_cards.features.impl.root.utils.backAnimation
 
 @OptIn(ExperimentalSharedTransitionApi::class)
@@ -21,13 +22,15 @@ import com.vvl.loyalty_cards.features.impl.root.utils.backAnimation
 fun RootView(
     component: RootComponent,
     homeView: @Composable SharedTransitionScope.(
-        HomeComponent, AnimatedVisibilityScope
+        HomeComponent,
+        AnimatedVisibilityScope
     ) -> Unit,
     loyaltyCardDetailsView: @Composable SharedTransitionScope.(
         LoyaltyCardDetailsComponent,
         AnimatedVisibilityScope
     ) -> Unit,
-    addLoyaltyCardView: @Composable SharedTransitionScope.(AddLoyaltyCardComponent) -> Unit
+    addLoyaltyCardView: @Composable SharedTransitionScope.(AddLoyaltyCardComponent) -> Unit,
+    widgetDetailsView: @Composable SharedTransitionScope.(WidgetDetailsComponent) -> Unit
 ) = SharedTransitionLayout(
     Modifier
         .fillMaxSize()
@@ -55,6 +58,10 @@ fun RootView(
 
             is RootComponent.RootChild.AddLoyaltyCard -> {
                 addLoyaltyCardView(child.component)
+            }
+
+            is RootComponent.RootChild.WidgetDetails -> {
+                widgetDetailsView(child.component)
             }
         }
     }
