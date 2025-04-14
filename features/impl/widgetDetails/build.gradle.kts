@@ -15,11 +15,13 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.data.storage.api.widget)
+            implementation(projects.data.storage.api.loyaltyCards)
             api(projects.features.api.widgetDetails)
             implementation(projects.features.api.root)
             implementation(projects.features.api.widget)
             implementation(projects.features.common)
 
+            implementation(compose.components.resources)
             implementation(compose.material3)
 
             implementation(libs.decompose)

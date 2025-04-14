@@ -9,6 +9,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -30,17 +31,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.vvl.loyalty_cards.features.api.loyalty_cards_list.component.LoyaltyCardsListComponent
 import com.vvl.loyalty_cards.features.impl.loyalty_cards_list.view.internal.LoyaltyCardItem
 import loyaltycards.features.impl.loyaltycardslist.generated.resources.Res
 import loyaltycards.features.impl.loyaltycardslist.generated.resources.add_loyalty_card
+import loyaltycards.features.impl.loyaltycardslist.generated.resources.loyalty_cards_empty_title
 import loyaltycards.features.impl.loyaltycardslist.generated.resources.loyalty_cards_title
 import org.jetbrains.compose.resources.stringResource
 import sh.calvin.reorderable.ReorderableItem
@@ -111,25 +115,38 @@ fun SharedTransitionScope.LoyaltyCardsListView(
         floatingActionButtonPosition = FabPosition.Center
     ) { paddingValues ->
         val loyaltyCards by component.loyaltyCards.collectAsState(emptyList())
-        val lazyListState = rememberLazyListState()
-        val reorderableLazyListState = rememberReorderableLazyListState(lazyListState) { from, to ->
-            component.onLoyaltyCardPositionChanged(from.index, to.index)
-        }
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            state = lazyListState,
-            contentPadding = paddingValues,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            items(loyaltyCards, key = { it.data }) { item ->
-                ReorderableItem(reorderableLazyListState, key = item.data) { isDragging ->
-                    LoyaltyCardItem(
-                        Modifier.longPressDraggableHandle(),
-                        item,
-                        component::onLoyaltyCardSwiped,
-                        component::onLoyaltyCardClicked,
-                        animatedVisibilityScope
-                    )
+        if (loyaltyCards.isEmpty()) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = stringResource(Res.string.loyalty_cards_empty_title),
+                    textAlign = TextAlign.Center
+                )
+            }
+        } else {
+            val lazyListState = rememberLazyListState()
+            val reorderableLazyListState =
+                rememberReorderableLazyListState(lazyListState) { from, to ->
+                    component.onLoyaltyCardPositionChanged(from.index, to.index)
+                }
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                state = lazyListState,
+                contentPadding = paddingValues,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                items(loyaltyCards, key = { it.data }) { item ->
+                    ReorderableItem(reorderableLazyListState, key = item.data) { isDragging ->
+                        LoyaltyCardItem(
+                            Modifier.longPressDraggableHandle(),
+                            item,
+                            component::onLoyaltyCardSwiped,
+                            component::onLoyaltyCardClicked,
+                            animatedVisibilityScope
+                        )
+                    }
                 }
             }
         }

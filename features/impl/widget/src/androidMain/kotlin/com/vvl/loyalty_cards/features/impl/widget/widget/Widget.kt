@@ -15,6 +15,7 @@ import androidx.glance.ColorFilter
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
+import androidx.glance.IconImageProvider
 import androidx.glance.Image
 import androidx.glance.ImageProvider
 import androidx.glance.LocalContext
@@ -91,13 +92,36 @@ internal class Widget : GlanceAppWidget() {
                 ) {
                     val widgetState by widgetStorage.getWidgetStateFlow(widgetId)
                         .collectAsState(null)
-                    if (widgetState == null) {
+                    if (widgetState?.widgetCards.isNullOrEmpty()) {
                         EmptyWidgetState(widgetId)
                     } else {
                         LazyColumn(GlanceModifier.fillMaxSize()) {
-                            items(widgetState!!.widgetCards) {
+                            items(widgetState!!.widgetCards.toList()) {
                                 CardItem(it, size)
                             }
+                        }
+
+                        Box(
+                            modifier = GlanceModifier.fillMaxSize(),
+                            contentAlignment = Alignment.TopEnd
+                        ) {
+                            Image(
+                                modifier = GlanceModifier
+                                    .clickable(
+                                        actionStartActivity(
+                                            activityComponent,
+                                            actionParametersOf(
+                                                keyWidget to deepLinksProvider.createOpenWidgetStateDetailsDeeplink(
+                                                    widgetId
+                                                )
+                                            )
+                                        )
+                                    )
+                                    .padding(top = 8.dp, end = 8.dp),
+                                provider = ImageProvider(R.drawable.ic_settings),
+                                contentDescription = "Localized description",
+                                colorFilter = ColorFilter.tint(ColorProvider(R.color.background))
+                            )
                         }
                     }
                 }

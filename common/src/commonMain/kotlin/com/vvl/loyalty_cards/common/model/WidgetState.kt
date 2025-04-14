@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 data class WidgetState(
     val widgetId: WidgetId,
     // IOS can have only one widgetCard
-    val widgetCards: List<LoyaltyCard>
+    val widgetCards: Set<LoyaltyCard>
 )

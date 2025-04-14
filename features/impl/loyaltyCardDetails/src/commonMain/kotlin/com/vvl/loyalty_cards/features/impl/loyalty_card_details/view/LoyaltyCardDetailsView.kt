@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
+import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.features.api.loyalty_card_details.component.LoyaltyCardDetailsComponent
 import com.vvl.loyalty_cards.features.api.loyalty_card_details.model.BrightnessMode
 import com.vvl.loyalty_cards.features.common.view.LoyaltyCardView
@@ -79,14 +80,24 @@ fun SharedTransitionScope.LoyaltyCardDetailsView(
                 }
             )
         },
-        content = { DrawContent(component, animatedVisibilityScope, it) }
+        content = {
+            val loyaltyCard by component.loyaltyCard.subscribeAsState()
+
+            DrawContent(
+                loyaltyCard,
+                component::onLoyaltyCardNameChanged,
+                animatedVisibilityScope,
+                it
+            )
+        }
     )
 }
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 private fun SharedTransitionScope.DrawContent(
-    component: LoyaltyCardDetailsComponent,
+    loyaltyCard: LoyaltyCard,
+    onLoyaltyCardNameChanged: (String) -> Unit,
     animatedVisibilityScope: AnimatedVisibilityScope,
     paddingValues: PaddingValues
 ) {
@@ -96,13 +107,10 @@ private fun SharedTransitionScope.DrawContent(
             .padding(paddingValues)
             .padding(horizontal = 16.dp)
     ) {
-        val loyaltyCard by component.loyaltyCard.subscribeAsState()
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = loyaltyCard.name,
-            onValueChange = {
-                component.onLoyaltyCardNameChanged(it.take(MAX_LOYALTY_CARD_NAME_LENGTH))
-            },
+            onValueChange = { onLoyaltyCardNameChanged(it.take(MAX_LOYALTY_CARD_NAME_LENGTH)) },
             label = { Text(stringResource(Res.string.loyalty_card_name)) },
             supportingText = {
                 Box(

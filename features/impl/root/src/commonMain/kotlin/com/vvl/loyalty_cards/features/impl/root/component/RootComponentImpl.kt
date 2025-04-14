@@ -79,7 +79,7 @@ internal class RootComponentImpl(
     override val childStack: Value<ChildStack<*, RootComponent.RootChild>> = childStack(
         source = navigation,
         serializer = RootConfig.serializer(),
-        initialConfiguration = RootConfig.Home(LaunchMode.LoyaltyCardsList),
+        initialConfiguration = RootConfig.Home(LaunchMode.LoyaltyCardsList()),
         childFactory = ::child,
         handleBackButton = true
     )
@@ -107,7 +107,6 @@ internal class RootComponentImpl(
         }
 
     init {
-        // TODO: recheck that all widgets in DB are still really exist
         lifecycle.doOnCreate {
             with(deepLinksHandler) {
                 addOpenCardDetailsDeepLinkListener { cardId ->
@@ -115,14 +114,14 @@ internal class RootComponentImpl(
                         val loyaltyCard =
                             loyaltyCardsStorage.getLoyaltyCard(cardId) ?: return@launch
                         navigation.replaceAll(
-                            RootConfig.Home(LaunchMode.LoyaltyCardsList),
+                            RootConfig.Home(LaunchMode.LoyaltyCardsList()),
                             RootConfig.LoyaltyCardDetails(loyaltyCard)
                         )
                     }
                 }
                 addOpenWidgetStateDetailsDeepLinkListener { widgetId ->
                     navigation.replaceAll(
-                        RootConfig.Home(LaunchMode.WidgetList),
+                        RootConfig.Home(LaunchMode.WidgetList()),
                         RootConfig.WidgetDetails(widgetId)
                     )
                 }

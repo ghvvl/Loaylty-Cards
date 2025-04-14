@@ -1,3 +1,4 @@
 <resources>
     <string name="widgets_title">Виджеты</string>
+    <string name="widgets_empty_title">Пожалуйста, создайте виджет на главном экране</string>
 </resources>

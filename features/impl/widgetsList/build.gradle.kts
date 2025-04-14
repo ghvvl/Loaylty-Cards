@@ -24,10 +24,6 @@ kotlin {
             implementation(compose.material3)
 
              implementation(libs.decompose)
-            /*   implementation(libs.decompose.compose)
-               implementation(libs.essenty.coroutines)
-               implementation(libs.coroutines)
-               implementation(libs.reorderable)*/
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin)
         }

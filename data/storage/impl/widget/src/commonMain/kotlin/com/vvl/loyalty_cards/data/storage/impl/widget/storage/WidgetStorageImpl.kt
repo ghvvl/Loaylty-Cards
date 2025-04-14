@@ -9,6 +9,7 @@ import com.vvl.loyalty_cards.data.storage.impl.database.database.WidgetDao
 import com.vvl.loyalty_cards.data.storage.impl.database.model.DBWidgetState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 
 internal class WidgetStorageImpl(
@@ -28,16 +29,26 @@ internal class WidgetStorageImpl(
         widgetDao.insert(DBWidgetState(widgetId, emptyList()))
     }
 
+    override suspend fun updateWidgetState(widgetState: WidgetState) {
+        widgetDao.update(widgetState.map())
+    }
+
     override suspend fun removeWidgetState(widgetId: WidgetId) {
         widgetDao.deleteById(widgetId)
     }
 
-    override fun getWidgetStateFlow(widgetId: WidgetId): Flow<WidgetState?> = widgetStates.map {
-        it.firstOrNull { it.widgetId == widgetId && it.widgetCards.isNotEmpty() }
-    }
+    override fun getWidgetStateFlow(widgetId: WidgetId): Flow<WidgetState> =
+        widgetStates
+            .map { it.firstOrNull { it.widgetId == widgetId } }
+            .filterNotNull()
 
     private fun DBWidgetState.map(loyaltyCards: List<LoyaltyCard>): WidgetState = WidgetState(
         widgetId = widgetId,
-        widgetCards = loyaltyCards.filter { widgetCardsIds.contains(it.data) }
+        widgetCards = loyaltyCards.filter { widgetCardsIds.contains(it.data) }.toSet()
+    )
+
+    private fun WidgetState.map(): DBWidgetState = DBWidgetState(
+        widgetId = widgetId,
+        widgetCardsIds = widgetCards.map { it.data }
     )
 }

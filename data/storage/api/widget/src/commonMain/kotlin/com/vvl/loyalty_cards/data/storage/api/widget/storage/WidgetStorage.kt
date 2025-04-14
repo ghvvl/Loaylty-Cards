@@ -9,7 +9,9 @@ interface WidgetStorage {
 
     suspend fun createWidgetStateIfNeeded(widgetId: WidgetId)
 
+    suspend fun updateWidgetState(widgetState: WidgetState)
+
     suspend fun removeWidgetState(widgetId: WidgetId)
 
-    fun getWidgetStateFlow(widgetId: WidgetId): Flow<WidgetState?>
+    fun getWidgetStateFlow(widgetId: WidgetId): Flow<WidgetState>
 }

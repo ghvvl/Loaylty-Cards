@@ -21,12 +21,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.vvl.loyalty_cards.common.model.WidgetId
 import com.vvl.loyalty_cards.common.model.WidgetState
 import com.vvl.loyalty_cards.features.api.widgets_list.component.WidgetsListComponent
 import loyaltycards.features.impl.widgetslist.generated.resources.Res
+import loyaltycards.features.impl.widgetslist.generated.resources.widgets_empty_title
 import loyaltycards.features.impl.widgetslist.generated.resources.widgets_title
 import org.jetbrains.compose.resources.stringResource
 
@@ -50,17 +52,29 @@ fun SharedTransitionScope.WidgetsListView(
         }
     ) { paddingValues ->
         val widgets by component.widgets.collectAsState(emptyList())
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = paddingValues,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            items(widgets, key = { it.widgetId.id }) { item ->
-                WidgetItem(
-                    item,
-                    component::onWidgetClicked,
-                    animatedVisibilityScope
+        if (widgets.isEmpty()) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = stringResource(Res.string.widgets_empty_title),
+                    textAlign = TextAlign.Center
                 )
+            }
+        } else {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = paddingValues,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                items(widgets, key = { it.widgetId.id }) { item ->
+                    WidgetItem(
+                        item,
+                        component::onWidgetClicked,
+                        animatedVisibilityScope
+                    )
+                }
             }
         }
     }

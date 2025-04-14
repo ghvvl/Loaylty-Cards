@@ -1,4 +1,5 @@
 <resources>
     <string name="loyalty_cards_title">Скидочные карты</string>
     <string name="add_loyalty_card">Добавить новую карту</string>
+    <string name="loyalty_cards_empty_title">Пожалуйста, добавьте скидочные карты, чтобы ими пользоваться</string>
 </resources>
