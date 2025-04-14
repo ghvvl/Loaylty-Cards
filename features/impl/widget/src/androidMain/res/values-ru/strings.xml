@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="widget_empty_formatter">Пожалуйста, добавьте карты к виджету %s внутри приложения></string>
+    <string name="widget_empty_formatter">Пожалуйста, добавьте карты к виджету %s внутри приложения</string>
 </resources>
