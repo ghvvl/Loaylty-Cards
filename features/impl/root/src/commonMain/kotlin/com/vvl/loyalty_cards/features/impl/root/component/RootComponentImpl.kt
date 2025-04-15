@@ -27,6 +27,7 @@ import com.vvl.loyalty_cards.features.api.widget_details.component.WidgetDetails
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
+@Suppress("LongParameterList")
 internal class RootComponentImpl(
     componentContext: ComponentContext,
     val homeComponent: (ComponentContext, RootNavigator, LaunchMode) -> HomeComponent,

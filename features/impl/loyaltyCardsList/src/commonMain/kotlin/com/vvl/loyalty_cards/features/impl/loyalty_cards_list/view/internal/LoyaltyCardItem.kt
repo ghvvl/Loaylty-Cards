@@ -9,12 +9,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyItemScope
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -39,6 +43,7 @@ internal fun SharedTransitionScope.LoyaltyCardItem(
             true
         }
     )
+    val shape = CardDefaults.shape
     SwipeToDismissBox(
         modifier = modifier
             .fillMaxWidth()
@@ -47,12 +52,25 @@ internal fun SharedTransitionScope.LoyaltyCardItem(
         backgroundContent = {
             val color by animateColorAsState(
                 when (dismissState.targetValue) {
-                    SwipeToDismissBoxValue.Settled -> Color.Transparent
+                    SwipeToDismissBoxValue.Settled -> Color.Red
                     SwipeToDismissBoxValue.StartToEnd -> Color.Transparent
                     SwipeToDismissBoxValue.EndToStart -> Color.Red
                 }
             )
-            Box(Modifier.fillMaxSize().background(color))
+            Box(
+                Modifier
+                    .fillMaxSize()
+                    .background(color = color, shape = shape)
+            ) {
+                Icon(
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .padding(end = 16.dp),
+                    imageVector = Icons.Filled.Delete,
+                    contentDescription = "Localized description",
+                    tint = Color.White
+                )
+            }
         },
         enableDismissFromStartToEnd = false
     ) {

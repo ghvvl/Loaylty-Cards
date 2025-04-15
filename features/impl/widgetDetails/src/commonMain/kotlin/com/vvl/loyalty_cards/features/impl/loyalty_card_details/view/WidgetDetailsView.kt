@@ -15,7 +15,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -79,7 +79,7 @@ fun SharedTransitionScope.WidgetDetailsView(
                     if (component.showRemoveAllButton.collectAsState().value) {
                         IconButton(onClick = component::onRemoveAllClicked) {
                             Icon(
-                                imageVector = Icons.Filled.Clear,
+                                imageVector = Icons.Filled.Delete,
                                 contentDescription = "Localized description"
                             )
                         }
