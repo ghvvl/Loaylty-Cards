@@ -43,6 +43,7 @@ internal fun SharedTransitionScope.LoyaltyCardItem(
             true
         }
     )
+
     val shape = CardDefaults.shape
     SwipeToDismissBox(
         modifier = modifier
@@ -50,6 +51,8 @@ internal fun SharedTransitionScope.LoyaltyCardItem(
             .padding(horizontal = 16.dp),
         state = dismissState,
         backgroundContent = {
+            if (dismissState.progress == 1f) return@SwipeToDismissBox
+
             val color by animateColorAsState(
                 when (dismissState.targetValue) {
                     SwipeToDismissBoxValue.Settled -> Color.Red

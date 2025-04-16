@@ -8,7 +8,10 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ViewList
 import androidx.compose.material.icons.filled.Widgets
@@ -42,8 +45,10 @@ fun SharedTransitionScope.HomeView(
         val activeComponent = childStack.active.instance
 
         Children(
-            stack = childStack,
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .consumeWindowInsets(WindowInsets.navigationBars)
+                .weight(1f),
+            stack = childStack
         ) {
             when (val child = it.instance) {
                 is HomeComponent.HomeChild.LoyaltyCardsList -> {

@@ -21,10 +21,15 @@ import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,12 +45,18 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.features.api.loyalty_cards_list.component.LoyaltyCardsListComponent
 import com.vvl.loyalty_cards.features.impl.loyalty_cards_list.view.internal.LoyaltyCardItem
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import loyaltycards.features.impl.loyaltycardslist.generated.resources.Res
 import loyaltycards.features.impl.loyaltycardslist.generated.resources.add_loyalty_card
+import loyaltycards.features.impl.loyaltycardslist.generated.resources.loyalty_cards_delete_action_title
+import loyaltycards.features.impl.loyaltycardslist.generated.resources.loyalty_cards_delete_title
 import loyaltycards.features.impl.loyaltycardslist.generated.resources.loyalty_cards_empty_title
 import loyaltycards.features.impl.loyaltycardslist.generated.resources.loyalty_cards_title
+import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
@@ -74,6 +85,11 @@ fun SharedTransitionScope.LoyaltyCardsListView(
         }
     }
 
+    val snackbarHostState = InitSnackbarHostState(
+        component.showCancelDeleteMessage,
+        component::onCardDeleteCancelClicked
+    )
+
     Scaffold(
         modifier = Modifier
             .nestedScroll(scrollBehavior.nestedScrollConnection)
@@ -90,6 +106,7 @@ fun SharedTransitionScope.LoyaltyCardsListView(
                 scrollBehavior = scrollBehavior
             )
         },
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         floatingActionButton = {
             val modifier = with(animatedVisibilityScope) {
                 Modifier
@@ -151,4 +168,35 @@ fun SharedTransitionScope.LoyaltyCardsListView(
             }
         }
     }
+}
+
+@Composable
+private fun InitSnackbarHostState(
+    showCancelDeleteMessage: Flow<List<LoyaltyCard>>,
+    onCardDeleteCancelClicked: (List<LoyaltyCard>) -> Unit
+): SnackbarHostState {
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(Unit) {
+        showCancelDeleteMessage.collect { previousState ->
+            snackbarHostState.currentSnackbarData?.dismiss()
+
+            launch {
+                val result = snackbarHostState.showSnackbar(
+                    message = getString(Res.string.loyalty_cards_delete_title),
+                    actionLabel = getString(Res.string.loyalty_cards_delete_action_title),
+                    duration = SnackbarDuration.Long
+                )
+                when (result) {
+                    SnackbarResult.ActionPerformed -> {
+                        onCardDeleteCancelClicked(previousState)
+                    }
+
+                    SnackbarResult.Dismissed -> {}
+                }
+            }
+        }
+    }
+
+    return snackbarHostState
 }

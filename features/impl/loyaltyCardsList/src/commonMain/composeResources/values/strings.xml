@@ -2,4 +2,6 @@
     <string name="loyalty_cards_title">Loyalty Cards</string>
     <string name="add_loyalty_card">Add new loyalty card</string>
     <string name="loyalty_cards_empty_title">Please add new loyalty cards to use them</string>
+    <string name="loyalty_cards_delete_title">Loyalty card was deleted</string>
+    <string name="loyalty_cards_delete_action_title">Cancel</string>
 </resources>
