@@ -11,11 +11,14 @@ import com.vvl.loyalty_cards.app.theme.AppTheme
 import com.vvl.loyalty_cards.features.api.deep_links.DeepLinksHandler
 import com.vvl.loyalty_cards.features.api.root.component.RootComponent
 import com.vvl.loyalty_cards.features.impl.add_loyalty_card.view.AddLoyaltyCardView
+import com.vvl.loyalty_cards.features.impl.home.view.HomeView
 import com.vvl.loyalty_cards.features.impl.loyalty_card_details.di.androidLoyaltyCardDetailsModule
 import com.vvl.loyalty_cards.features.impl.loyalty_card_details.view.LoyaltyCardDetailsView
+import com.vvl.loyalty_cards.features.impl.loyalty_card_details.view.WidgetDetailsView
 import com.vvl.loyalty_cards.features.impl.loyalty_cards_list.view.LoyaltyCardsListView
 import com.vvl.loyalty_cards.features.impl.root.view.RootView
 import com.vvl.loyalty_cards.features.impl.widget.widget.WIDGET_KEY_NAME
+import com.vvl.loyalty_cards.features.impl.widgets_list.view.WidgetsListView
 import dev.theolm.rinku.Rinku
 import dev.theolm.rinku.RinkuInit
 import dev.theolm.rinku.models.DeepLinkFilter
@@ -59,9 +62,21 @@ internal class MainActivity : ComponentActivity() {
                 // TODO: think about DI
                 RootView(
                     component = rootComponent,
-                    loyaltyCardsListView = { component, animatedVisibilityScope ->
-                        LoyaltyCardsListView(
-                            component,
+                    homeView = { component, animatedVisibilityScope ->
+                        HomeView(
+                            component = component,
+                            loyaltyCardsListView = { component ->
+                                LoyaltyCardsListView(
+                                    component,
+                                    animatedVisibilityScope
+                                )
+                            },
+                            widgetsListView = { component ->
+                                WidgetsListView(
+                                    component,
+                                    animatedVisibilityScope
+                                )
+                            },
                             animatedVisibilityScope
                         )
                     },
@@ -71,7 +86,10 @@ internal class MainActivity : ComponentActivity() {
                             animatedVisibilityScope
                         )
                     },
-                    addLoyaltyCardView = { AddLoyaltyCardView(it) }
+                    addLoyaltyCardView = { AddLoyaltyCardView(it) },
+                    widgetDetailsView = { component, animatedVisibilityScope ->
+                        WidgetDetailsView(component, animatedVisibilityScope)
+                    }
                 )
             }
         }

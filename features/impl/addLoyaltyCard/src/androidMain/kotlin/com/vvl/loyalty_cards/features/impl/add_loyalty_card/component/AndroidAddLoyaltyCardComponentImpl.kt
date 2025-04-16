@@ -28,5 +28,6 @@ internal class AndroidAddLoyaltyCardComponentImpl(
             }
             .addOnFailureListener { useExternalBarcodeScanner.tryEmit(false) }
             .addOnCanceledListener { delegatedComponent.onBackClicked() }
+            .addOnFailureListener { delegatedComponent.onBackClicked() }
     }
 }

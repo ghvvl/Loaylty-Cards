@@ -2,7 +2,9 @@ package com.vvl.loyalty_cards.features.impl.widget.widget
 
 import android.content.ComponentName
 import android.content.Context
+import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -15,6 +17,7 @@ import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
 import androidx.glance.Image
 import androidx.glance.ImageProvider
+import androidx.glance.LocalContext
 import androidx.glance.LocalSize
 import androidx.glance.Visibility
 import androidx.glance.action.ActionParameters
@@ -22,6 +25,7 @@ import androidx.glance.action.actionParametersOf
 import androidx.glance.action.actionStartActivity
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
+import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.glance.appwidget.SizeMode
 import androidx.glance.appwidget.lazy.LazyColumn
 import androidx.glance.appwidget.lazy.items
@@ -40,7 +44,8 @@ import androidx.glance.unit.ColorProvider
 import androidx.glance.visibility
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.common.model.LoyaltyCardCodeType
-import com.vvl.loyalty_cards.data.storage.api.loyalty_cards.storage.LoyaltyCardsStorage
+import com.vvl.loyalty_cards.common.model.WidgetId
+import com.vvl.loyalty_cards.data.storage.api.widget.storage.WidgetStorage
 import com.vvl.loyalty_cards.features.api.deep_links.DeepLinksProvider
 import com.vvl.loyalty_cards.features.common.utils.toBarCodeType
 import com.vvl.loyalty_cards.features.impl.widget.R
@@ -55,7 +60,7 @@ const val WIDGET_KEY_NAME = "widget"
 internal class Widget : GlanceAppWidget() {
     private val keyWidget = ActionParameters.Key<String>(WIDGET_KEY_NAME)
 
-    private val storage: LoyaltyCardsStorage by lazy { KoinPlatform.getKoin().get() }
+    private val widgetStorage: WidgetStorage by lazy { KoinPlatform.getKoin().get() }
     private val activityComponent: ComponentName by lazy { KoinPlatform.getKoin().get() }
     private val deepLinksProvider: DeepLinksProvider by lazy { KoinPlatform.getKoin().get() }
 
@@ -72,6 +77,9 @@ internal class Widget : GlanceAppWidget() {
 
     @Suppress("MagicNumber")
     override suspend fun provideGlance(context: Context, id: GlanceId) {
+        val widgetId = getWidgetId(context, id)
+        widgetStorage.createWidgetStateIfNeeded(widgetId)
+
         provideContent {
             GlanceTheme {
                 val size = LocalSize.current
@@ -81,15 +89,78 @@ internal class Widget : GlanceAppWidget() {
                         .background(ColorProvider(R.color.primary)),
                     contentAlignment = Alignment.Center
                 ) {
-                    val cards by storage.loyaltyCards.collectAsState(emptyList())
-                    LazyColumn(GlanceModifier.fillMaxSize()) {
-                        items(cards) {
-                            CardItem(it, size)
+                    val widgetState by widgetStorage.getWidgetStateFlow(widgetId)
+                        .collectAsState(null)
+                    if (widgetState?.widgetCards.isNullOrEmpty()) {
+                        EmptyWidgetState(widgetId)
+                    } else {
+                        LazyColumn(GlanceModifier.fillMaxSize()) {
+                            items(widgetState!!.widgetCards.toList()) {
+                                CardItem(it, size)
+                            }
+                        }
+
+                        Box(
+                            modifier = GlanceModifier.fillMaxSize(),
+                            contentAlignment = Alignment.TopEnd
+                        ) {
+                            Image(
+                                modifier = GlanceModifier
+                                    .clickable(
+                                        actionStartActivity(
+                                            activityComponent,
+                                            actionParametersOf(
+                                                keyWidget to deepLinksProvider.createOpenWidgetStateDetailsDeeplink(
+                                                    widgetId
+                                                )
+                                            )
+                                        )
+                                    )
+                                    .padding(top = 8.dp, end = 8.dp),
+                                provider = ImageProvider(R.drawable.ic_settings),
+                                contentDescription = "Localized description",
+                                colorFilter = ColorFilter.tint(ColorProvider(R.color.background))
+                            )
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun getWidgetId(context: Context, glanceId: GlanceId): WidgetId {
+        return WidgetId("№${GlanceAppWidgetManager(context).getAppWidgetId(glanceId)}")
+    }
+
+    @Composable
+    private fun EmptyWidgetState(widgetId: WidgetId) {
+        Box(
+            modifier = GlanceModifier
+                .fillMaxSize()
+                .clickable(
+                    actionStartActivity(
+                        activityComponent,
+                        actionParametersOf(
+                            keyWidget to deepLinksProvider.createOpenWidgetStateDetailsDeeplink(
+                                widgetId
+                            )
+                        )
+                    )
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = stringResource(R.string.widget_empty_formatter, widgetId.id),
+                style = TextStyle(textAlign = TextAlign.Center)
+            )
+        }
+    }
+
+    // https://issuetracker.google.com/issues/216663009
+    @Composable
+    @ReadOnlyComposable
+    private fun stringResource(@StringRes id: Int, vararg formatArgs: Any): String {
+        return LocalContext.current.getString(id, *formatArgs)
     }
 
     @Composable
@@ -143,5 +214,12 @@ internal class Widget : GlanceAppWidget() {
                 colorFilter = ColorFilter.tint(ColorProvider(R.color.background))
             )
         }
+    }
+
+    override suspend fun onDelete(context: Context, glanceId: GlanceId) {
+        val widgetId = getWidgetId(context, glanceId)
+        widgetStorage.removeWidgetState(widgetId)
+
+        super.onDelete(context, glanceId)
     }
 }

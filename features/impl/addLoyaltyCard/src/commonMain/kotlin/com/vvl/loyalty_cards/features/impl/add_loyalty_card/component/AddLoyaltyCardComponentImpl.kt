@@ -2,6 +2,7 @@ package com.vvl.loyalty_cards.features.impl.add_loyalty_card.component
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
+import com.arkivanov.essenty.lifecycle.doOnResume
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.common.model.LoyaltyCardCodeType
 import com.vvl.loyalty_cards.data.storage.api.loyalty_cards.storage.LoyaltyCardsStorage
@@ -48,7 +49,5 @@ internal class AddLoyaltyCardComponentImpl(
         }
     }
 
-    override fun onBackClicked() {
-        rootNavigator.onBackClicked()
-    }
+    override fun onBackClicked() = rootNavigator.onBackClicked()
 }

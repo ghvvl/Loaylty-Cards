@@ -7,6 +7,10 @@ interface LoyaltyCardsListComponent {
 
     val loyaltyCards: Flow<List<LoyaltyCard>>
 
+    val showCancelDeleteMessage: Flow<List<LoyaltyCard>>
+
+    fun onCardDeleteCancelClicked(previousState: List<LoyaltyCard>)
+
     fun onLoyaltyCardPositionChanged(from: Int, to: Int)
 
     fun onLoyaltyCardSwiped(card: LoyaltyCard)

@@ -37,13 +37,18 @@ kotlin {
             implementation(libs.koin.android)
         }
         commonMain.dependencies {
+            implementation(projects.data.storage.impl.database)
             implementation(projects.data.storage.impl.loyaltyCards)
+            implementation(projects.data.storage.impl.widget)
             implementation(projects.features.impl.root)
             implementation(projects.features.impl.loyaltyCardsList)
             implementation(projects.features.impl.loyaltyCardDetails)
             implementation(projects.features.impl.addLoyaltyCard)
             implementation(projects.features.impl.deepLinks)
             implementation(projects.features.impl.widget)
+            implementation(projects.features.impl.home)
+            implementation(projects.features.impl.widgetsList)
+            implementation(projects.features.impl.widgetDetails)
 
             implementation(compose.material3)
 
@@ -55,11 +60,11 @@ kotlin {
             implementation(compose.desktop.currentOs)
         }
         iosMain.dependencies {
+            api(projects.features.impl.widget)
             api(libs.decompose)
             api(libs.essenty)
             api(libs.essenty.backHandler)
             api(libs.essenty.stateKeeper)
-            api(projects.features.impl.widget)
             api(libs.deeplinks)
         }
     }

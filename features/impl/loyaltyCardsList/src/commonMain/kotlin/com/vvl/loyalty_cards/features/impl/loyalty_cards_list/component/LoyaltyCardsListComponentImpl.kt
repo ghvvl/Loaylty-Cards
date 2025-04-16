@@ -8,12 +8,17 @@ import com.vvl.loyalty_cards.features.api.loyalty_cards_list.component.LoyaltyCa
 import com.vvl.loyalty_cards.features.api.root.navigator.RootNavigator
 import com.vvl.loyalty_cards.features.api.widget.component.WidgetDelegate
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 
 internal class LoyaltyCardsListComponentImpl(
     componentContext: ComponentContext,
@@ -24,12 +29,22 @@ internal class LoyaltyCardsListComponentImpl(
 
     private val _loyaltyCards = MutableStateFlow<List<LoyaltyCard>>(emptyList())
 
+    private val cancelDeleteMessage = Channel<List<LoyaltyCard>>(Channel.CONFLATED)
+
     override val loyaltyCards = _loyaltyCards
+
+    override val showCancelDeleteMessage: Flow<List<LoyaltyCard>> =
+        cancelDeleteMessage.receiveAsFlow()
 
     private val scope = coroutineScope()
 
     init {
         loyaltyCardsStorage.loyaltyCards.onEach { _loyaltyCards.emit(it) }.launchIn(scope)
+    }
+
+    override fun onCardDeleteCancelClicked(previousState: List<LoyaltyCard>) {
+        _loyaltyCards.update { previousState }
+        updateDataInDB(0.milliseconds)
     }
 
     override fun onLoyaltyCardPositionChanged(from: Int, to: Int) {
@@ -44,10 +59,10 @@ internal class LoyaltyCardsListComponentImpl(
     }
 
     private var job: Job? = null
-    private fun updateDataInDB() {
+    private fun updateDataInDB(delay: Duration = 500.milliseconds) {
         job?.cancel()
         job = scope.launch {
-            delay(500)
+            delay(delay)
             loyaltyCardsStorage.replaceLoyaltyCards(_loyaltyCards.value)
             widgetDelegate.updateAllWidgets()
         }
@@ -55,6 +70,7 @@ internal class LoyaltyCardsListComponentImpl(
 
     override fun onLoyaltyCardSwiped(card: LoyaltyCard) {
         scope.launch {
+            cancelDeleteMessage.send(_loyaltyCards.value)
             loyaltyCardsStorage.removeLoyaltyCard(card)
             widgetDelegate.updateAllWidgets()
         }
