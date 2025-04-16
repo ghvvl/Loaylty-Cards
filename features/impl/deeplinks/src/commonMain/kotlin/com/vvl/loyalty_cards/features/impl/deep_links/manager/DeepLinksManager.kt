@@ -61,5 +61,6 @@ internal class DeepLinksManager(scope: CoroutineScope) : DeepLinksProvider, Deep
 
     override fun clearDeepLinkListeners() {
         openCardDetailsAction = null
+        openWidgetStateDetailsAction = null
     }
 }

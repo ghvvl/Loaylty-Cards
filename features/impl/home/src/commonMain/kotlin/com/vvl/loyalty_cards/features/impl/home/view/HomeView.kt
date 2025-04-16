@@ -63,7 +63,7 @@ fun SharedTransitionScope.HomeView(
 
         val modifier = with(animatedVisibilityScope) {
             Modifier
-                .renderInSharedTransitionScopeOverlay()
+                .renderInSharedTransitionScopeOverlay(zIndexInOverlay = 1f)
                 .animateEnterExit(
                     enter = fadeIn() + slideInVertically { it },
                     exit = fadeOut() + slideOutVertically { it }

@@ -95,7 +95,16 @@ fun SharedTransitionScope.LoyaltyCardsListView(
             .nestedScroll(scrollBehavior.nestedScrollConnection)
             .nestedScroll(nestedScrollConnection),
         topBar = {
+            val modifier = with(animatedVisibilityScope) {
+                Modifier
+                    .renderInSharedTransitionScopeOverlay(zIndexInOverlay = 1f)
+                    .animateEnterExit(
+                        enter = fadeIn() + slideInVertically { -it },
+                        exit = fadeOut() + slideOutVertically { -it }
+                    )
+            }
             TopAppBar(
+                modifier = modifier,
                 title = {
                     Text(
                         text = stringResource(Res.string.loyalty_cards_title),
@@ -110,7 +119,7 @@ fun SharedTransitionScope.LoyaltyCardsListView(
         floatingActionButton = {
             val modifier = with(animatedVisibilityScope) {
                 Modifier
-                    .renderInSharedTransitionScopeOverlay()
+                    .renderInSharedTransitionScopeOverlay(zIndexInOverlay = 1f)
                     .animateEnterExit(
                         enter = fadeIn() + slideInVertically { it },
                         exit = fadeOut() + slideOutVertically { it }

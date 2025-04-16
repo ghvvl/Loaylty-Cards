@@ -80,8 +80,8 @@ internal fun SharedTransitionScope.LoyaltyCardItem(
         LoyaltyCardView(
             modifier = Modifier
                 .fillMaxWidth()
-                .sharedElement(
-                    state = rememberSharedContentState(card.data),
+                .sharedBounds(
+                    sharedContentState = rememberSharedContentState(card.data),
                     animatedVisibilityScope = animatedVisibilityScope
                 ),
             loyaltyCard = card,

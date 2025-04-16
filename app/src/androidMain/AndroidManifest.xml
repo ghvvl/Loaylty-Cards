@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:name="com.vvl.loyalty_cards.app.base.MainApplication"
@@ -16,6 +15,7 @@
             android:enableOnBackInvokedCallback="true"
             android:exported="true"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.LoyaltyCards.Splash"
             android:windowSoftInputMode="adjustResize">
 
@@ -28,11 +28,12 @@
             <intent-filter android:label="Deeplink">
 
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="loyalty.cards"/>
-                <data android:host="open.card.details.screen"/>
+                <data android:scheme="loyalty.cards" />
+                <data android:host="open.card.details.screen" />
 
             </intent-filter>
 

@@ -126,8 +126,8 @@ private fun SharedTransitionScope.DrawContent(
         LoyaltyCardView(
             modifier = Modifier
                 .fillMaxWidth()
-                .sharedElement(
-                    state = rememberSharedContentState(loyaltyCard.data),
+                .sharedBounds(
+                    sharedContentState = rememberSharedContentState(loyaltyCard.data),
                     animatedVisibilityScope = animatedVisibilityScope,
                     renderInOverlayDuringTransition = false
                 )

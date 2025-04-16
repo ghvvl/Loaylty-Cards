@@ -42,7 +42,6 @@ internal class LoyaltyCardsListComponentImpl(
         loyaltyCardsStorage.loyaltyCards.onEach { _loyaltyCards.emit(it) }.launchIn(scope)
     }
 
-
     override fun onCardDeleteCancelClicked(previousState: List<LoyaltyCard>) {
         _loyaltyCards.update { previousState }
         updateDataInDB(0.milliseconds)
