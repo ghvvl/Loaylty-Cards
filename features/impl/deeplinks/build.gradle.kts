@@ -11,7 +11,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.features.api.deepLinks)
+            api(projects.features.api.deepLinks)
 
             implementation(libs.coroutines)
             implementation(project.dependencies.platform(libs.koin.bom))

@@ -37,6 +37,10 @@ internal class WidgetStorageImpl(
         widgetDao.deleteById(widgetId)
     }
 
+    override suspend fun removeWidgetStates(widgetIds: List<WidgetId>) {
+        widgetDao.deleteByIds(widgetIds)
+    }
+
     override fun getWidgetStateFlow(widgetId: WidgetId): Flow<WidgetState> =
         widgetStates
             .map { it.firstOrNull { it.widgetId == widgetId } }

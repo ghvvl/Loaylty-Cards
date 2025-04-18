@@ -22,4 +22,7 @@ interface WidgetDao {
 
     @Query("DELETE FROM DBWidgetState WHERE widgetId=:widgetId")
     suspend fun deleteById(widgetId: WidgetId)
+
+    @Query("DELETE FROM DBWidgetState WHERE widgetId IN (:widgetIds)")
+    suspend fun deleteByIds(widgetIds: List<WidgetId>)
 }

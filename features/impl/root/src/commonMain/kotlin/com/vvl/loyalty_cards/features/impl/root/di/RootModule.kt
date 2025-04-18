@@ -32,6 +32,8 @@ val rootModule = module {
             },
             deepLinksHandler = get(),
             loyaltyCardsStorage = get(),
+            widgetStorage = get(),
+            widgetDelegate = get()
         )
     } bind RootComponent::class
 }

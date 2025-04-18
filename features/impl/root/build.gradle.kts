@@ -15,8 +15,10 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.data.storage.api.loyaltyCards)
+            implementation(projects.data.storage.api.widget)
             api(projects.features.api.root)
-            api(projects.features.api.deepLinks)
+            implementation(projects.features.api.deepLinks)
+            implementation(projects.features.api.widget)
 
             implementation(compose.material3)
 

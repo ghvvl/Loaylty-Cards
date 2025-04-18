@@ -129,7 +129,14 @@ internal class Widget : GlanceAppWidget() {
     }
 
     private fun getWidgetId(context: Context, glanceId: GlanceId): WidgetId {
-        return WidgetId("№${GlanceAppWidgetManager(context).getAppWidgetId(glanceId)}")
+        return getWidgetId(GlanceAppWidgetManager(context), glanceId)
+    }
+
+    private fun getWidgetId(
+        glanceAppWidgetManager: GlanceAppWidgetManager,
+        glanceId: GlanceId
+    ): WidgetId {
+        return WidgetId("№${glanceAppWidgetManager.getAppWidgetId(glanceId)}")
     }
 
     @Composable
@@ -221,5 +228,12 @@ internal class Widget : GlanceAppWidget() {
         widgetStorage.removeWidgetState(widgetId)
 
         super.onDelete(context, glanceId)
+    }
+
+    suspend fun getCurrentWidgets(context: Context): List<WidgetId> {
+        val glanceAppWidgetManager = GlanceAppWidgetManager(context)
+        return glanceAppWidgetManager
+            .getGlanceIds(javaClass)
+            .map { getWidgetId(glanceAppWidgetManager, it) }
     }
 }
