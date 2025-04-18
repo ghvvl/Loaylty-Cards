@@ -2,22 +2,19 @@ import SwiftUI
 import Foundation
 
 struct IOSWidgetView : View {
-    var entry: IOSWidgetEntry
+    var entry: IOSWidgetModel
     
     var body: some View {
-        // TODO: fix it later
-        let currentCard = entry.cards[0]
-        
         Link(destination: entry.deeplink) {
             VStack(spacing: 8) {
-                Text(currentCard.cardName)
+                Text(entry.card.cardName)
                     .font(.caption)
                     .fontWeight(.medium)
                     .foregroundColor(.black)
                     .multilineTextAlignment(.center)
                     .lineLimit(1)
                 
-                Image(uiImage: currentCard.cardImage)
+                Image(uiImage: entry.card.cardImage)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                 

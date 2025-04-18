@@ -6,10 +6,10 @@ android-targetSdk = "35"
 
 agp = "8.9.1"
 compose = "1.8.0-beta02"
-kotlin = "2.1.20"
+kotlin = "2.1.21-RC"
 versions = "0.52.0"
 detekt = "1.23.8"
-ksp = "2.1.20-2.0.0"
+ksp = "2.1.21-RC-2.0.0"
 
 activity = "1.10.1"
 splash = "1.0.1"

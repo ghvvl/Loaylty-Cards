@@ -44,7 +44,7 @@ internal class WidgetStorageImpl(
 
     private fun DBWidgetState.map(loyaltyCards: List<LoyaltyCard>): WidgetState = WidgetState(
         widgetId = widgetId,
-        widgetCards = loyaltyCards.filter { widgetCardsIds.contains(it.data) }.toSet()
+        widgetCards = loyaltyCards.filter { widgetCardsIds.contains(it.data) }
     )
 
     private fun WidgetState.map(): DBWidgetState = DBWidgetState(

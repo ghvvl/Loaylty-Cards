@@ -1,6 +1,6 @@
 import UIKit
 
-struct IOSWidgetCardEntry {
+struct IOSWidgetCardModel {
     let cardImage: UIImage
     let cardName: String
 }

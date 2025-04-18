@@ -69,7 +69,7 @@ internal class WidgetDetailsComponentImpl(
             val widgetState =
                 widgetStorage.getWidgetStateFlow(providedWidgetId).firstOrNull() ?: return@launch
 
-            widgetStorage.updateWidgetState(widgetState.copy(widgetCards = emptySet()))
+            widgetStorage.updateWidgetState(widgetState.copy(widgetCards = emptyList()))
             widgetDelegate.updateAllWidgets()
         }
     }
@@ -89,10 +89,10 @@ internal class WidgetDetailsComponentImpl(
 
     private fun createNewWidgetCards(
         isSingleSelection: Boolean,
-        widgetCards: Set<LoyaltyCard>,
+        widgetCards: List<LoyaltyCard>,
         clickedCard: LoyaltyCard
-    ): Set<LoyaltyCard> {
-        if (isSingleSelection) return setOf(clickedCard)
+    ): List<LoyaltyCard> {
+        if (isSingleSelection) return listOf(clickedCard)
 
         return if (widgetCards.contains(clickedCard)) {
             widgetCards - clickedCard
@@ -104,7 +104,7 @@ internal class WidgetDetailsComponentImpl(
     override fun onBackClicked() = rootNavigator.onBackClicked()
 
     private fun LoyaltyCard.map(
-        checkedCards: Set<LoyaltyCard>
+        checkedCards: List<LoyaltyCard>
     ): UIWidgetLoyaltyCards = UIWidgetLoyaltyCards(
         this,
         checkedCards.contains(this)

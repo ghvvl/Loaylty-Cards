@@ -1,7 +1,7 @@
 import WidgetKit
 
-struct IOSWidgetEntry: TimelineEntry {
-    let cards: [IOSWidgetCardEntry]
+struct IOSWidgetModel: TimelineEntry {
+    let card: IOSWidgetCardModel
     let date: Date
     let deeplink: URL
 }
