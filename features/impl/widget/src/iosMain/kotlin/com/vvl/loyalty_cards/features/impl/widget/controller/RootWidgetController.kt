@@ -35,8 +35,12 @@ class RootWidgetController : KoinComponent {
         widgetId: WidgetId
     ): WidgetState = widgetStorage.getWidgetStateFlow(widgetId).first()
 
-    fun setCallback(callback: () -> Unit) {
-        widgetDelegate.callback = callback
+    fun setUpdateAllWidgetsCallback(callback: () -> Unit) {
+        widgetDelegate.updateAllWidgetsCallback = callback
+    }
+
+    fun setGetAllWidgetsCallback(callback: ((List<String>) -> Unit) -> Unit) {
+        widgetDelegate.getAllWidgetsCallback = callback
     }
 
     fun mapToNSData(card: LoyaltyCard): NSData {

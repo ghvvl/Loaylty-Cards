@@ -140,7 +140,6 @@ internal class RootComponentImpl(
                     val currentWidgets = widgetDelegate.getAllWidgets()
                     val savedWidgets = widgetStorage.widgetStates.first().map { it.widgetId }
                     val widgetsToRemove = savedWidgets - currentWidgets
-                    println("$widgetsToRemove")
                     if (widgetsToRemove.isEmpty()) return@launch
                     widgetStorage.removeWidgetStates(widgetsToRemove)
                 }

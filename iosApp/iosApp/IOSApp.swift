@@ -11,7 +11,24 @@ struct iOSApp: App {
     
     init() {
         IOSDIKt.startKoin()
-        RootWidgetController().setCallback(callback: WidgetCenter.shared.reloadAllTimelines)
+        let widgetController = RootWidgetController()
+        widgetController.setUpdateAllWidgetsCallback(callback: WidgetCenter.shared.reloadAllTimelines)
+        let localSelf = self
+        widgetController.setGetAllWidgetsCallback { kotlinCallback in
+            localSelf.getAllWidgets(completion: { list in kotlinCallback(list) })
+        }
+    }
+    
+    private func getAllWidgets(completion: @escaping @Sendable ([String]) -> Void) {
+        WidgetCenter.shared.getCurrentConfigurations { result in
+            var ids = [String]()
+            
+            if case .success(let configs) = result {
+                ids = configs.compactMap { $0.widgetConfigurationIntent(of: IOSWidgetIntent.self)?.widgetId }
+            }
+            
+            completion(ids)
+        }
     }
     
     var body: some Scene {
