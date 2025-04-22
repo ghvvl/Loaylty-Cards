@@ -58,6 +58,7 @@ fun SharedTransitionScope.WidgetsListView(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
+                    modifier = Modifier.padding(horizontal = 32.dp),
                     text = stringResource(Res.string.widgets_empty_title),
                     textAlign = TextAlign.Center
                 )

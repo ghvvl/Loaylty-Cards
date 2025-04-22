@@ -137,6 +137,7 @@ internal class RootComponentImpl(
             }
             doOnResume {
                 scope.launch {
+                    // TODO: if we are now on widget details screen that was removed we must close those screen
                     val currentWidgets = widgetDelegate.getAllWidgets()
                     val savedWidgets = widgetStorage.widgetStates.first().map { it.widgetId }
                     val widgetsToRemove = savedWidgets - currentWidgets

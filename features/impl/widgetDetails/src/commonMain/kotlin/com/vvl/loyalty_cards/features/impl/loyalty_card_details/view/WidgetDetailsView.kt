@@ -95,6 +95,7 @@ fun SharedTransitionScope.WidgetDetailsView(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
+                        modifier = Modifier.padding(horizontal = 32.dp),
                         text = stringResource(Res.string.widget_details_empty_cards),
                         textAlign = TextAlign.Center
                     )

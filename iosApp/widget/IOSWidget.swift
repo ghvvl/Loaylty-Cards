@@ -15,7 +15,13 @@ struct IOSWidget: Widget {
             intent: IOSWidgetIntent.self,
             provider: IOSWidgetProvider()
         ) { entry in
-            IOSWidgetView(entry: entry).containerBackground(.white, for: .widget).widgetURL(entry.deeplink)
+            var deeplink: URL? = nil
+            if(entry.widgetIdWasSettled) {
+                deeplink = entry.widgetDeeplink
+            } else if(entry.cardWasSettled) {                
+                deeplink = entry.cardDeeplink
+            }
+            return IOSWidgetView(entry: entry).containerBackground(.white, for: .widget).widgetURL(deeplink)
         }
     }
 }

@@ -4,7 +4,7 @@ import App
 
 struct IOSWidgetIntent: WidgetConfigurationIntent {
     static let title: LocalizedStringResource = "Widget Configuration"
-    static let description = IntentDescription("Unique widget instance configuration")
+    static let description = IntentDescription("Widget configuration with custom id")
     
     @Parameter(title: "Unique widgetId")
     var widgetId: String?
