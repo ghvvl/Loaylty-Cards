@@ -5,10 +5,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -29,6 +36,7 @@ import loyaltycards.features.impl.addloyaltycard.generated.resources.camera_perm
 import loyaltycards.features.impl.addloyaltycard.generated.resources.open_settings
 import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Suppress("TooGenericExceptionCaught", "SwallowedException")
 fun AddLoyaltyCardView(component: AddLoyaltyCardComponent) {
@@ -62,12 +70,27 @@ fun AddLoyaltyCardView(component: AddLoyaltyCardComponent) {
         if (component.wasPermissionGranted.collectAsState().value) {
             PlatformCameraPreviewView(component)
         } else {
-            Scaffold(Modifier.fillMaxSize()) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Scaffold(
+                Modifier
+                    .fillMaxSize()
+                    .systemBarsPadding()
+            ) {
+                Box(Modifier.fillMaxSize()) {
+                    TopAppBar(
+                        title = {},
+                        navigationIcon = {
+                            IconButton(onClick = component::onBackClicked) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                    contentDescription = "Localized description"
+                                )
+                            }
+                        }
+                    )
+                    Column(
+                        modifier = Modifier.align(Alignment.Center),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
                         Text(
                             text = stringResource(Res.string.camera_permission_missing),
                             textAlign = TextAlign.Center

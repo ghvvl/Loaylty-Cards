@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1AB500C82DB8270500AD31E4 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1AB500C72DB8270500AD31E4 /* Localizable.xcstrings */; };
+		1AB500C92DB8270500AD31E4 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1AB500C72DB8270500AD31E4 /* Localizable.xcstrings */; };
 		1AEDC9182D7A62B7000EE6C6 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A08DB932D78FF640060456F /* WidgetKit.framework */; };
 		1AEDC9192D7A62B7000EE6C6 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A08DB952D78FF640060456F /* SwiftUI.framework */; };
 		1AEDC9242D7A62B8000EE6C6 /* widgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1AEDC9172D7A62B7000EE6C6 /* widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -41,6 +43,7 @@
 		1A08DB932D78FF640060456F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		1A08DB952D78FF640060456F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		1A1D32BE2D7E2FBD00E538FA /* widgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = widgetExtension.entitlements; sourceTree = "<group>"; };
+		1AB500C72DB8270500AD31E4 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = Localizable.xcstrings; path = widget/Localizable.xcstrings; sourceTree = "<group>"; };
 		1AEDC9172D7A62B7000EE6C6 /* widgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = widgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -51,6 +54,13 @@
 				Info.plist,
 			);
 			target = 1A08DB6F2D78FE450060456F /* iosApp */;
+		};
+		1AC8FA262DB55BCE00AE2331 /* Exceptions for "iosApp" folder in "widgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				IOSWidgetIntent.swift,
+			);
+			target = 1AEDC9162D7A62B7000EE6C6 /* widgetExtension */;
 		};
 		1AEDC9272D7A62B8000EE6C6 /* Exceptions for "widget" folder in "widgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
@@ -66,6 +76,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				1AC68BFA2D8C8B1400049D69 /* Exceptions for "iosApp" folder in "iosApp" target */,
+				1AC8FA262DB55BCE00AE2331 /* Exceptions for "iosApp" folder in "widgetExtension" target */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -103,6 +114,7 @@
 		1A08DB672D78FE450060456F = {
 			isa = PBXGroup;
 			children = (
+				1AB500C72DB8270500AD31E4 /* Localizable.xcstrings */,
 				1A1D32BE2D7E2FBD00E538FA /* widgetExtension.entitlements */,
 				1A08DB722D78FE450060456F /* iosApp */,
 				1AEDC91A2D7A62B7000EE6C6 /* widget */,
@@ -225,6 +237,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AB500C82DB8270500AD31E4 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +245,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AB500C92DB8270500AD31E4 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +375,7 @@
 				SDKROOT = auto;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;
 			};
@@ -418,6 +433,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = auto;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
@@ -520,13 +536,16 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 15.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vvl.iosApp.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
@@ -554,13 +573,16 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 15.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vvl.iosApp.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;

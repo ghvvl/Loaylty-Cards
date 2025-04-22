@@ -11,6 +11,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -147,6 +148,7 @@ fun SharedTransitionScope.LoyaltyCardsListView(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
+                    modifier = Modifier.padding(horizontal = 32.dp),
                     text = stringResource(Res.string.loyalty_cards_empty_title),
                     textAlign = TextAlign.Center
                 )

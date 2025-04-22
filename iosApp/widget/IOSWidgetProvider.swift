@@ -2,46 +2,64 @@ import WidgetKit
 import App
 import UIKit
 
-class IOSWidgetProvider: TimelineProvider, @unchecked Sendable {
+class IOSWidgetProvider: AppIntentTimelineProvider {
     
-    private let defaultEntry = IOSWidgetEntry(cards: [IOSWidgetCardEntry(cardImage: UIImage(), cardName: "cardName")], date: Date(), deeplink: URL(string: "https://www.google.com")!)
+    private let widgetController: RootWidgetController = RootWidgetController()
     
-    func placeholder(in context: Context) -> IOSWidgetEntry {
-        defaultEntry
+    private let defaultLoyaltyCard = CommonLoyaltyCard(
+        name: String(localized: LocalizedStringResource("default_widget_name", comment: "card name for default card")),
+        data: "https://www.google.com",
+        codeType: CommonLoyaltyCardCodeType.qrCode,
+        cardColor: Int32(0xFF0000))
+    
+    private func makeDefaultWidgetModel(
+        widgetIdWasSettled: Bool = true,
+        cardWasSettled: Bool = true,
+        widgetId: String = "",
+        widgetDeeplink: String = "https://www.google.com"
+    ) -> IOSWidgetModel {
+        return IOSWidgetModel(
+            widgetIdWasSettled: widgetIdWasSettled,
+            cardWasSettled: cardWasSettled,
+            widgetId: widgetId,
+            card: IOSWidgetCardModel(cardImage: UIImage(data: widgetController.mapToNSData(card: defaultLoyaltyCard))!, cardName: defaultLoyaltyCard.name),
+            date: Date(),
+            cardDeeplink: URL(string: "https://www.google.com")!,
+            widgetDeeplink: URL(string: widgetDeeplink)!
+        )
     }
     
-    func getSnapshot(in context: Context, completion: @escaping (IOSWidgetEntry) -> Void) {
-        completion(defaultEntry)
+    func placeholder(in context: Context) -> IOSWidgetModel {
+        return makeDefaultWidgetModel()
     }
     
-    private var task: Task<Void, Never>?
-    
-    private let widgetController: RootWidgetController
-    
-    init() {
-        IOSDIKt.startKoin()
-        widgetController = RootWidgetController()
+    func snapshot(for configuration: IOSWidgetIntent, in context: Context) async -> IOSWidgetModel {
+        return makeDefaultWidgetModel()
     }
     
-    func getTimeline(in context: Context, completion: @escaping @Sendable (Timeline<IOSWidgetEntry>) -> Void) {
-        task?.cancel()
-        task = Task {
-            do {
-                let cards = try await widgetController.getCurrentCards()
-                let entry  = IOSWidgetEntry(
-                    cards: cards.map{ card in IOSWidgetCardEntry(cardImage: UIImage(data: widgetController.mapToNSData(card: card))!, cardName: card.name) },
-                    date: Date(),
-                    deeplink: URL(string: widgetController.createDeeplinkForCard(card: cards[0]))!
-                )
-                completion(Timeline(entries: [entry], policy: .never))
-            } catch {
-                NSLog("Failed with error: \(error)")
-            }
+    func timeline(for configuration: IOSWidgetIntent, in context: Context) async -> Timeline<IOSWidgetModel> {
+        if context.isPreview {
+            return Timeline(entries: [makeDefaultWidgetModel()], policy: .never)
         }
+        
+        guard let widgetId = configuration.widgetId, !widgetId.isEmpty else {
+            return Timeline(entries: [makeDefaultWidgetModel(widgetIdWasSettled: false)], policy: .never)
+        }
+        
+        try! await widgetController.createWidgetState(widgetId: widgetId)
+        let currentWidgetState: CommonWidgetState = try! await widgetController.getCurrentWidgetState(widgetId: widgetId)
+        guard let card = currentWidgetState.widgetCards.first else {
+            return Timeline(entries: [makeDefaultWidgetModel(cardWasSettled: false, widgetId: widgetId,widgetDeeplink: widgetController.createDeeplinkForWidget(widgetId: widgetId))], policy: .never)
+        }
+        
+        let entry  = IOSWidgetModel(
+            widgetId: widgetId,
+            card: IOSWidgetCardModel(cardImage: UIImage(data: widgetController.mapToNSData(card: card))!, cardName: card.name),
+            date: Date(),
+            cardDeeplink: URL(string: widgetController.createDeeplinkForCard(card: currentWidgetState.widgetCards.first!))!,
+            widgetDeeplink: URL(string: widgetController.createDeeplinkForWidget(widgetId: widgetId))!,
+        )
+        return Timeline(entries: [entry], policy: .never)
     }
     
-    deinit {
-        task?.cancel()
-        task = nil
-    }
 }

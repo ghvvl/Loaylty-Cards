@@ -37,6 +37,10 @@ internal class WidgetStorageImpl(
         widgetDao.deleteById(widgetId)
     }
 
+    override suspend fun removeWidgetStates(widgetIds: List<WidgetId>) {
+        widgetDao.deleteByIds(widgetIds)
+    }
+
     override fun getWidgetStateFlow(widgetId: WidgetId): Flow<WidgetState> =
         widgetStates
             .map { it.firstOrNull { it.widgetId == widgetId } }
@@ -44,7 +48,7 @@ internal class WidgetStorageImpl(
 
     private fun DBWidgetState.map(loyaltyCards: List<LoyaltyCard>): WidgetState = WidgetState(
         widgetId = widgetId,
-        widgetCards = loyaltyCards.filter { widgetCardsIds.contains(it.data) }.toSet()
+        widgetCards = loyaltyCards.filter { widgetCardsIds.contains(it.data) }
     )
 
     private fun WidgetState.map(): DBWidgetState = DBWidgetState(

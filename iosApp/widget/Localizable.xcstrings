@@ -1,0 +1,87 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "default_widget_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom Card Name"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ваше имя карты"
+          }
+        }
+      }
+    },
+    "Unique widgetId" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Уникальный id виджета"
+          }
+        }
+      }
+    },
+    "Widget Configuration" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Конфигурация виджета"
+          }
+        }
+      }
+    },
+    "Widget configuration with custom id" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Конфигурация виджета для задания ему уникального id"
+          }
+        }
+      }
+    },
+    "widget_without_card_attached_title" : {
+      "comment" : "title for widet without attached card",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please setup cards for widget %@ inside application"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Пожалуйста, добавьте карты к виджету %@ внутри приложения"
+          }
+        }
+      }
+    },
+    "widget_without_id_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please setup for this widget unique Id"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пожалуйста, добавьте данному виджету уникальный Id"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

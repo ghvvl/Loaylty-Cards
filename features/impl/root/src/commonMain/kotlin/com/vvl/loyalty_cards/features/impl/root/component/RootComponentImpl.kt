@@ -13,9 +13,11 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnDestroy
+import com.arkivanov.essenty.lifecycle.doOnResume
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.common.model.WidgetId
 import com.vvl.loyalty_cards.data.storage.api.loyalty_cards.storage.LoyaltyCardsStorage
+import com.vvl.loyalty_cards.data.storage.api.widget.storage.WidgetStorage
 import com.vvl.loyalty_cards.features.api.add_loyalty_card.component.AddLoyaltyCardComponent
 import com.vvl.loyalty_cards.features.api.deep_links.DeepLinksHandler
 import com.vvl.loyalty_cards.features.api.home.component.HomeComponent
@@ -23,7 +25,9 @@ import com.vvl.loyalty_cards.features.api.home.model.LaunchMode
 import com.vvl.loyalty_cards.features.api.loyalty_card_details.component.LoyaltyCardDetailsComponent
 import com.vvl.loyalty_cards.features.api.root.component.RootComponent
 import com.vvl.loyalty_cards.features.api.root.navigator.RootNavigator
+import com.vvl.loyalty_cards.features.api.widget.component.WidgetDelegate
 import com.vvl.loyalty_cards.features.api.widget_details.component.WidgetDetailsComponent
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
@@ -43,7 +47,9 @@ internal class RootComponentImpl(
         WidgetId
     ) -> WidgetDetailsComponent,
     private val deepLinksHandler: DeepLinksHandler,
-    private val loyaltyCardsStorage: LoyaltyCardsStorage
+    private val loyaltyCardsStorage: LoyaltyCardsStorage,
+    private val widgetStorage: WidgetStorage,
+    private val widgetDelegate: WidgetDelegate
 ) : RootComponent, ComponentContext by componentContext {
 
     private val scope = coroutineScope()
@@ -108,27 +114,39 @@ internal class RootComponentImpl(
         }
 
     init {
-        lifecycle.doOnCreate {
-            with(deepLinksHandler) {
-                addOpenCardDetailsDeepLinkListener { cardId ->
-                    scope.launch {
-                        val loyaltyCard =
-                            loyaltyCardsStorage.getLoyaltyCard(cardId) ?: return@launch
+        with(lifecycle) {
+            doOnCreate {
+                with(deepLinksHandler) {
+                    addOpenCardDetailsDeepLinkListener { cardId ->
+                        scope.launch {
+                            val loyaltyCard =
+                                loyaltyCardsStorage.getLoyaltyCard(cardId) ?: return@launch
+                            navigation.replaceAll(
+                                RootConfig.Home(LaunchMode.LoyaltyCardsList()),
+                                RootConfig.LoyaltyCardDetails(loyaltyCard)
+                            )
+                        }
+                    }
+                    addOpenWidgetStateDetailsDeepLinkListener { widgetId ->
                         navigation.replaceAll(
-                            RootConfig.Home(LaunchMode.LoyaltyCardsList()),
-                            RootConfig.LoyaltyCardDetails(loyaltyCard)
+                            RootConfig.Home(LaunchMode.WidgetList()),
+                            RootConfig.WidgetDetails(widgetId)
                         )
                     }
                 }
-                addOpenWidgetStateDetailsDeepLinkListener { widgetId ->
-                    navigation.replaceAll(
-                        RootConfig.Home(LaunchMode.WidgetList()),
-                        RootConfig.WidgetDetails(widgetId)
-                    )
+            }
+            doOnResume {
+                scope.launch {
+                    // TODO: if we are now on widget details screen that was removed we must close those screen
+                    val currentWidgets = widgetDelegate.getAllWidgets()
+                    val savedWidgets = widgetStorage.widgetStates.first().map { it.widgetId }
+                    val widgetsToRemove = savedWidgets - currentWidgets
+                    if (widgetsToRemove.isEmpty()) return@launch
+                    widgetStorage.removeWidgetStates(widgetsToRemove)
                 }
             }
+            doOnDestroy { deepLinksHandler.clearDeepLinkListeners() }
         }
-        lifecycle.doOnDestroy { deepLinksHandler.clearDeepLinkListeners() }
     }
 
     override fun onBackClicked() {
