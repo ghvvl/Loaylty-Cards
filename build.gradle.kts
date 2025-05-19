@@ -77,7 +77,7 @@ subprojects {
     }
 
     tasks.withType<KotlinCompile> {
-        compilerOptions.languageVersion.set(KotlinVersion.KOTLIN_2_1)
+        compilerOptions.languageVersion.set(KotlinVersion.KOTLIN_2_2)
     }
 
     apply {

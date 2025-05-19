@@ -31,5 +31,5 @@ kotlin {
 }
 
 android {
-    namespace = "com.vvl.loyalty_cards.features.impl.loyalty_cards_list"
+    namespace = "com.vvl.loyalty_cards.features.impl.widgets_list"
 }
