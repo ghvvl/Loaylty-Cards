@@ -71,10 +71,10 @@ kotlin {
 }
 
 android {
-    namespace = "com.vvl.loyalty_cards"
+    namespace = "com.vvl.ylc"
 
     defaultConfig {
-        applicationId = "com.vvl.loyalty_cards"
+        applicationId = "com.vvl.ylc"
         versionCode = 1
         versionName = "1.0"
     }
@@ -98,7 +98,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.vvl.loyalty_cards"
+            packageName = "com.vvl.ylc"
             packageVersion = "1.0.0"
         }
     }

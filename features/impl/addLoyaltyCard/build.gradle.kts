@@ -32,6 +32,7 @@ kotlin {
 
             implementation(compose.components.resources)
             implementation(compose.material3)
+            implementation(compose.materialIconsExtended)
 
             implementation(libs.decompose)
             implementation(libs.decompose.compose)

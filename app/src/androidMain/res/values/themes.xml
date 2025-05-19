@@ -1,7 +1,10 @@
 <resources>
 
-    <style name="Theme.LoyaltyCards.Splash" parent="Theme.SplashScreen" >
+    <style name="Theme.LoyaltyCards.Splash" parent="Theme.SplashScreen.IconBackground" >
         <item name="postSplashScreenTheme">@style/android:Theme.Material.Light.NoActionBar</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
+        <item name="windowSplashScreenAnimationDuration">1500</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/ic_launcher_background</item>
     </style>
 
 </resources>

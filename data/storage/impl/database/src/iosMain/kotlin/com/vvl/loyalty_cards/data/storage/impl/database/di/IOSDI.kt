@@ -10,7 +10,7 @@ import platform.Foundation.NSURL
 internal actual fun createDatabase(): LoyaltyCardsDatabase {
     val documentDirectory: NSURL? = NSFileManager
         .defaultManager
-        .containerURLForSecurityApplicationGroupIdentifier("group.com.vvl.loyalty_cards")
+        .containerURLForSecurityApplicationGroupIdentifier("group.com.vvl.ylc")
     val dbFile = requireNotNull(documentDirectory).path + "/$DB_FILE_NAME"
     return Room.databaseBuilder<LoyaltyCardsDatabase>(dbFile)
         .setDriver(BundledSQLiteDriver())

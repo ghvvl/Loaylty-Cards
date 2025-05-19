@@ -24,7 +24,7 @@ struct IOSWidgetView : View {
                 Link(destination: entry.widgetDeeplink) {
                     Image(systemName: "gear")
                         .font(.system(size: 24, weight: .regular))
-                        .foregroundColor(Color(.black))
+                        .foregroundColor(.black)
                         .frame(width: 32, height: 32)
                 }
                 .frame(
