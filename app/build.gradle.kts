@@ -83,7 +83,8 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile(ProguardFile.OPTIMIZE.fileName),
                 "proguard-rules.pro"
