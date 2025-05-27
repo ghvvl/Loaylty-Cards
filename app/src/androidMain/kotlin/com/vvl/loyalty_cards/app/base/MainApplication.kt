@@ -33,7 +33,7 @@ internal class MainApplication : Application() {
 
                         single {
                             ComponentName(
-                                "com.vvl.loyalty_cards",
+                                packageName,
                                 "com.vvl.loyalty_cards.app.base.MainActivity"
                             )
                         }
