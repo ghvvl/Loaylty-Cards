@@ -26,8 +26,7 @@ internal class AndroidAddLoyaltyCardComponentImpl(
             .addOnSuccessListener {
                 onCodeReceived(it.rawValue.orEmpty(), it.format.mapToLoyaltyCardCodeType())
             }
-            .addOnFailureListener { useExternalBarcodeScanner.tryEmit(false) }
             .addOnCanceledListener { delegatedComponent.onBackClicked() }
-            .addOnFailureListener { delegatedComponent.onBackClicked() }
+            .addOnFailureListener { useExternalBarcodeScanner.tryEmit(false) }
     }
 }
