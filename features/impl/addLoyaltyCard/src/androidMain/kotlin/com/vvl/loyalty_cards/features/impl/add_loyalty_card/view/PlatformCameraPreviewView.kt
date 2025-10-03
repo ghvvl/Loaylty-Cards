@@ -3,7 +3,6 @@ package com.vvl.loyalty_cards.features.impl.add_loyalty_card.view
 import android.view.ViewGroup
 import androidx.annotation.OptIn
 import androidx.camera.core.ExperimentalGetImage
-import androidx.camera.core.ImageAnalysis
 import androidx.camera.view.LifecycleCameraController
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.layout.fillMaxSize

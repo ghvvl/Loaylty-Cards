@@ -8,6 +8,7 @@ import com.vvl.loyalty_cards.data.storage.impl.database.database.LoyaltyCardsDat
 import kotlinx.coroutines.Dispatchers
 import org.koin.mp.KoinPlatform
 
+@Suppress("InjectDispatcher")
 internal actual fun createDatabase(): LoyaltyCardsDatabase {
     val application = KoinPlatform.getKoin().get<Application>()
     val dbFile = application.getDatabasePath(DB_FILE_NAME)

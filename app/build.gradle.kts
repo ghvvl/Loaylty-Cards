@@ -27,6 +27,7 @@ kotlin {
             export(libs.essenty.stateKeeper)
             export(projects.features.impl.widget)
             export(libs.deeplinks)
+            binaryOption("bundleId", "com.vvl.ylc.app")
         }
     }
 

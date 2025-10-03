@@ -107,6 +107,7 @@ internal class BarcodeAnalyzer(
     }
 
     fun setFrame(rect: CValue<CGRect>) {
+        if (::previewLayer.isInitialized.not()) return
         previewLayer.setFrame(rect)
     }
 

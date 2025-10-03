@@ -3,6 +3,7 @@ package com.vvl.loyalty_cards.features.impl.add_loyalty_card.utils
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.vvl.loyalty_cards.common.model.LoyaltyCardCodeType
 
+@Suppress("CyclomaticComplexMethod")
 internal fun Int.mapToLoyaltyCardCodeType(): LoyaltyCardCodeType = when (this) {
     Barcode.FORMAT_CODE_128 -> LoyaltyCardCodeType.CODE_128
     Barcode.FORMAT_CODE_39 -> LoyaltyCardCodeType.CODE_39
