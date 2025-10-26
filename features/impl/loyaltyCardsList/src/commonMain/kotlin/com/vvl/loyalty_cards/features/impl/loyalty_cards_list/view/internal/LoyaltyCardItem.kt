@@ -35,35 +35,23 @@ internal fun SharedTransitionScope.LoyaltyCardItem(
     onClick: (LoyaltyCard) -> Unit,
     animatedVisibilityScope: AnimatedVisibilityScope
 ) {
-    val dismissState = rememberSwipeToDismissBoxState(
-        confirmValueChange = {
-            if (it == SwipeToDismissBoxValue.EndToStart) {
-                onSwipe(card)
-            }
-            true
-        }
-    )
+    val dismissState = rememberSwipeToDismissBoxState()
 
     val shape = CardDefaults.shape
     SwipeToDismissBox(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 16.dp)
+            .sharedBounds(
+                sharedContentState = rememberSharedContentState(card.data),
+                animatedVisibilityScope = animatedVisibilityScope
+            ),
         state = dismissState,
         backgroundContent = {
-            if (dismissState.progress == 1f) return@SwipeToDismissBox
-
-            val color by animateColorAsState(
-                when (dismissState.targetValue) {
-                    SwipeToDismissBoxValue.Settled -> Color.Red
-                    SwipeToDismissBoxValue.StartToEnd -> Color.Transparent
-                    SwipeToDismissBoxValue.EndToStart -> Color.Red
-                }
-            )
             Box(
                 Modifier
                     .fillMaxSize()
-                    .background(color = color, shape = shape)
+                    .background(color = Color.Red, shape = shape)
             ) {
                 Icon(
                     modifier = Modifier
@@ -75,15 +63,11 @@ internal fun SharedTransitionScope.LoyaltyCardItem(
                 )
             }
         },
-        enableDismissFromStartToEnd = false
+        enableDismissFromStartToEnd = false,
+        onDismiss = { onSwipe(card) }
     ) {
         LoyaltyCardView(
-            modifier = Modifier
-                .fillMaxWidth()
-                .sharedBounds(
-                    sharedContentState = rememberSharedContentState(card.data),
-                    animatedVisibilityScope = animatedVisibilityScope
-                ),
+            modifier = Modifier.fillMaxWidth(),
             loyaltyCard = card,
             onClick = onClick
         )
