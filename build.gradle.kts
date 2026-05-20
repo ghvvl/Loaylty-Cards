@@ -10,11 +10,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     alias(libs.plugins.android.application) apply false
-    alias(libs.plugins.android.library) apply false
-    alias(libs.plugins.compose) apply false
+    alias(libs.plugins.android.kotlin.multiplatform.library) apply false
+    alias(libs.plugins.compose.multiplatform) apply false
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
-    alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.versions)
     alias(libs.plugins.detekt)
@@ -48,36 +47,6 @@ subprojects {
 
             buildFeatures.buildConfig = false
         }
-    }
-
-    plugins.matching { it is LibraryPlugin }.whenPluginAdded {
-        configure<LibraryExtension> {
-            buildToolsVersion = libs.versions.buildTools.get()
-            compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-            defaultConfig.minSdk = libs.versions.android.minSdk.get().toInt()
-
-            compileOptions {
-                sourceCompatibility = JavaVersion.VERSION_21
-                targetCompatibility = JavaVersion.VERSION_21
-            }
-
-            lint {
-                checkReleaseBuilds = true
-                ignoreTestSources = true
-
-                warningsAsErrors = true
-                abortOnError = true
-
-                xmlReport = false
-            }
-
-            buildFeatures.buildConfig = false
-        }
-    }
-
-    tasks.withType<KotlinCompile> {
-        compilerOptions.languageVersion.set(KotlinVersion.KOTLIN_2_2)
     }
 
     apply {

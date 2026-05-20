@@ -1,34 +1,37 @@
 [versions]
 buildTools = "36.0.0"
-android-compileSdk = "36"
+android-compileSdk = "37"
 android-minSdk = "31"
-android-targetSdk = "36"
+android-targetSdk = "37"
 
-agp = "8.13.0"
-compose = "1.9.1"
-kotlin = "2.2.21"
-versions = "0.52.0"
+agp = "9.2.1"
+compose = "1.11.0"
+gradle = "9.2.1"
+kotlin = "2.3.21"
+kotlinGradlePlugin = "2.3.21"
+versions = "0.54.0"
 detekt = "1.23.8"
-ksp = "2.3.0"
+ksp = "2.3.8"
 
-activity = "1.11.0"
-splash = "1.0.1"
+activity = "1.13.0"
+splash = "1.2.0"
 glance = "1.1.1"
-decompose = "3.4.0"
+decompose = "3.5.0"
 essenty = "2.5.0"
 
-coroutines = "1.10.2"
-koin = "4.1.1"
-room = "2.8.3"
-sqlite = "2.6.1"
-serialization = "1.9.0"
-qrose = "1.0.1"
-camera = "1.5.1"
+coroutines = "1.11.0"
+koin = "4.2.1"
+room = "2.8.4"
+sqlite = "2.6.2"
+serialization = "1.11.0"
+qrose = "1.1.2"
+camera = "1.6.1"
 mlkit = "17.3.0"
 gms = "16.1.0"
 permissions = "0.20.1"
-deeplinks = "1.5.0"
-reorderable = "3.0.0"
+deeplinks = "1.6.0"
+reorderable = "3.1.0"
+material3 = "1.11.0-alpha07"
 
 [libraries]
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
@@ -49,11 +52,13 @@ essenty-backHandler = { module = "com.arkivanov.essenty:back-handler", version.r
 
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 
+gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
 koin = { module = "io.insert-koin:koin-core" }
 koin-android = { module = "io.insert-koin:koin-android" }
 koin-compose = { module = "io.insert-koin:koin-compose" }
 
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinGradlePlugin" }
 sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
 room-ksp-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
@@ -77,13 +82,16 @@ deeplinks = { module = "dev.theolm:rinku", version.ref = "deeplinks" }
 
 reorderable = { module = "sh.calvin.reorderable:reorderable", version.ref = "reorderable" }
 
+compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "material3" }
+compose-animation = { module = "org.jetbrains.compose.animation:animation", version.ref = "compose" }
+compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "compose" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-android-library = { id = "com.android.library", version.ref = "agp" }
-compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

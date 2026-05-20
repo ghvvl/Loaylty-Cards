@@ -9,11 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.BrightnessAuto
-import androidx.compose.material.icons.filled.BrightnessHigh
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -31,6 +26,10 @@ import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.features.api.loyalty_card_details.component.LoyaltyCardDetailsComponent
 import com.vvl.loyalty_cards.features.api.loyalty_card_details.model.BrightnessMode
+import com.vvl.loyalty_cards.features.common.icons.ArrowBack
+import com.vvl.loyalty_cards.features.common.icons.BrightnessAuto
+import com.vvl.loyalty_cards.features.common.icons.BrightnessHigh
+import com.vvl.loyalty_cards.features.common.icons.Refresh
 import com.vvl.loyalty_cards.features.common.view.LoyaltyCardView
 import loyaltycards.features.impl.loyaltycarddetails.generated.resources.Res
 import loyaltycards.features.impl.loyaltycarddetails.generated.resources.loyalty_card_name
@@ -52,7 +51,7 @@ fun SharedTransitionScope.LoyaltyCardDetailsView(
                 navigationIcon = {
                     IconButton(onClick = component::onBackClicked) {
                         Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            imageVector = ArrowBack,
                             contentDescription = "Localized description"
                         )
                     }
@@ -60,13 +59,13 @@ fun SharedTransitionScope.LoyaltyCardDetailsView(
                 actions = {
                     val brightnessMode by component.brightnessMode.subscribeAsState()
                     val icon = when (brightnessMode) {
-                        BrightnessMode.AUTO -> Icons.Filled.BrightnessHigh
-                        BrightnessMode.MAX -> Icons.Filled.BrightnessAuto
+                        BrightnessMode.AUTO -> BrightnessHigh
+                        BrightnessMode.MAX -> BrightnessAuto
                     }
                     if (component.showResetButton.subscribeAsState().value) {
                         IconButton(onClick = component::onResetClicked) {
                             Icon(
-                                imageVector = Icons.Filled.Refresh,
+                                imageVector = Refresh,
                                 contentDescription = "Localized description"
                             )
                         }

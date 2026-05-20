@@ -12,9 +12,6 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ViewList
-import androidx.compose.material.icons.filled.Widgets
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -27,6 +24,8 @@ import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.vvl.loyalty_cards.features.api.home.component.HomeComponent
 import com.vvl.loyalty_cards.features.api.loyalty_cards_list.component.LoyaltyCardsListComponent
 import com.vvl.loyalty_cards.features.api.widgets_list.component.WidgetsListComponent
+import com.vvl.loyalty_cards.features.common.icons.ViewList
+import com.vvl.loyalty_cards.features.common.icons.Widgets
 import loyaltycards.features.impl.home.generated.resources.Res
 import loyaltycards.features.impl.home.generated.resources.loyalty_cards_list_item_title
 import loyaltycards.features.impl.home.generated.resources.widgets_item_title
@@ -75,7 +74,7 @@ fun SharedTransitionScope.HomeView(
                 onClick = component::onLoyaltyCardsListClicked,
                 icon = {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ViewList,
+                        imageVector = ViewList,
                         contentDescription = "Localized description"
                     )
                 },
@@ -86,7 +85,7 @@ fun SharedTransitionScope.HomeView(
                 onClick = component::onWidgetStatesListClicked,
                 icon = {
                     Icon(
-                        imageVector = Icons.Filled.Widgets,
+                        imageVector = Widgets,
                         contentDescription = "Localized description"
                     )
                 },

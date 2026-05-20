@@ -7,6 +7,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -15,8 +16,12 @@ dependencyResolutionManagement {
     }
 }
 
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+}
+
 rootProject.name = "LoyaltyCards"
-include(":app")
+includeBuild("build-logic")
 include(":features:common")
 include(":features:api:root")
 include(":features:impl:root")
@@ -42,3 +47,6 @@ include(":data:storage:api:widget")
 include(":data:storage:impl:widget")
 include(":data:storage:impl:database")
 include(":common")
+include(":app:common")
+include(":app:androidApp")
+//include(":app:desktopApp")

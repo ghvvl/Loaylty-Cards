@@ -1,17 +1,13 @@
 plugins {
-    alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.android.library)
+    id("com.vvl.kmpPlugin")
     alias(libs.plugins.room)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
-    androidTarget()
-
     jvm()
 
-    iosX64()
     iosArm64()
     iosSimulatorArm64()
 
@@ -33,14 +29,9 @@ dependencies {
     add("kspAndroid", libs.room.ksp.compiler)
     add("kspJvm", libs.room.ksp.compiler)
     add("kspIosSimulatorArm64", libs.room.ksp.compiler)
-    add("kspIosX64", libs.room.ksp.compiler)
     add("kspIosArm64", libs.room.ksp.compiler)
 }
 
 room {
     schemaDirectory("$projectDir/schemas")
-}
-
-android {
-    namespace = "com.vvl.loyalty_cards.data.storage.impl.database"
 }

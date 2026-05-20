@@ -15,8 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FabPosition
@@ -48,6 +46,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.features.api.loyalty_cards_list.component.LoyaltyCardsListComponent
+import com.vvl.loyalty_cards.features.common.icons.Add
 import com.vvl.loyalty_cards.features.impl.loyalty_cards_list.view.internal.LoyaltyCardItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -134,7 +133,7 @@ fun SharedTransitionScope.LoyaltyCardsListView(
             ) {
                 ExtendedFloatingActionButton(
                     onClick = component::onAddLoyaltyCardClicked,
-                    icon = { Icon(Icons.Filled.Add, "add icon") },
+                    icon = { Icon(Add, "add icon") },
                     text = { Text(stringResource(Res.string.add_loyalty_card)) },
                 )
             }

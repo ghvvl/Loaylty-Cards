@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.compose)
+    alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
 }
@@ -8,7 +8,6 @@ plugins {
 kotlin {
     jvm()
 
-    iosX64()
     iosArm64()
     iosSimulatorArm64()
 
@@ -20,7 +19,7 @@ kotlin {
             implementation(projects.features.api.deepLinks)
             implementation(projects.features.api.widget)
 
-            implementation(compose.material3)
+            implementation(libs.compose.material3)
 
             implementation(libs.decompose)
             implementation(libs.decompose.compose)

@@ -1,14 +1,9 @@
 plugins {
-    alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.compose)
-    alias(libs.plugins.compose.compiler)
+    id("com.vvl.kmpPlugin")
+    id("com.vvl.cmpPlugin")
 }
 
 kotlin {
-    androidTarget()
-
-    iosX64()
     iosArm64()
     iosSimulatorArm64()
 
@@ -20,16 +15,12 @@ kotlin {
             implementation(projects.features.api.root)
             implementation(projects.features.api.widget)
 
-            implementation(compose.components.resources)
-            implementation(compose.material3)
+            implementation(libs.compose.components.resources)
+            implementation(libs.compose.material3)
 
-             implementation(libs.decompose)
+            implementation(libs.decompose)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin)
         }
     }
-}
-
-android {
-    namespace = "com.vvl.loyalty_cards.features.impl.widgets_list"
 }

@@ -13,10 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -35,6 +31,9 @@ import androidx.compose.ui.unit.dp
 import com.vvl.loyalty_cards.common.model.LoyaltyCard
 import com.vvl.loyalty_cards.features.api.widget_details.component.WidgetDetailsComponent
 import com.vvl.loyalty_cards.features.api.widget_details.model.UIWidgetLoyaltyCards
+import com.vvl.loyalty_cards.features.common.icons.ArrowBack
+import com.vvl.loyalty_cards.features.common.icons.Delete
+import com.vvl.loyalty_cards.features.common.icons.Refresh
 import com.vvl.loyalty_cards.features.common.view.LoyaltyCardView
 import loyaltycards.features.impl.widgetdetails.generated.resources.Res
 import loyaltycards.features.impl.widgetdetails.generated.resources.widget_details_empty_cards
@@ -62,7 +61,7 @@ fun SharedTransitionScope.WidgetDetailsView(
                 navigationIcon = {
                     IconButton(onClick = component::onBackClicked) {
                         Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            imageVector = ArrowBack,
                             contentDescription = "Localized description"
                         )
                     }
@@ -71,7 +70,7 @@ fun SharedTransitionScope.WidgetDetailsView(
                     if (component.showResetButton.collectAsState().value) {
                         IconButton(onClick = component::onResetClicked) {
                             Icon(
-                                imageVector = Icons.Filled.Refresh,
+                                imageVector = Refresh,
                                 contentDescription = "Localized description"
                             )
                         }
@@ -79,7 +78,7 @@ fun SharedTransitionScope.WidgetDetailsView(
                     if (component.showRemoveAllButton.collectAsState().value) {
                         IconButton(onClick = component::onRemoveAllClicked) {
                             Icon(
-                                imageVector = Icons.Filled.Delete,
+                                imageVector = Delete,
                                 contentDescription = "Localized description"
                             )
                         }
