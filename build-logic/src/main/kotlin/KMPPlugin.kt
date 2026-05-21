@@ -15,12 +15,12 @@ class KMPPlugin : Plugin<Project> {
         project.plugins.apply(libs.plugins.kotlin.multiplatform.get().pluginId)
         project.plugins.apply(libs.plugins.android.kotlin.multiplatform.library.get().pluginId)
 
-        val targets = project.extensions
-            .getByType(KotlinMultiplatformExtension::class.java).targets
-        targets.withType(KotlinMultiplatformAndroidLibraryTarget::class.java)
+        project.extensions.getByType(KotlinMultiplatformExtension::class.java)
+            .targets.withType(KotlinMultiplatformAndroidLibraryTarget::class.java)
             .configureEach {
                 compileSdk = libs.versions.android.compileSdk.get().toInt()
                 namespace = "com.vvl.loyalty_cards.${project.displayName.format()}"
+                androidResources.enable = true
             }
     }
 

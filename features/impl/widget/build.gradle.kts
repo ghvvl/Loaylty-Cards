@@ -4,8 +4,6 @@ plugins {
 }
 
 kotlin {
-    android.androidResources.enable = true
-
     iosArm64()
     iosSimulatorArm64()
 

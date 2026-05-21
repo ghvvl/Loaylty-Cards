@@ -6,8 +6,6 @@ plugins {
 kotlin {
     //jvm()
 
-    android.androidResources.enable = true
-
     listOf(
         iosArm64(),
         iosSimulatorArm64()
