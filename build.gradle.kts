@@ -15,8 +15,8 @@ plugins {
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.ksp) apply false
-    alias(libs.plugins.versions)
-    alias(libs.plugins.detekt)
+    alias(libs.plugins.versions) apply false
+    alias(libs.plugins.detekt) apply false
 }
 
 subprojects {
